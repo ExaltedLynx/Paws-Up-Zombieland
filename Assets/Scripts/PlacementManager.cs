@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlacementManager : MonoBehaviour
 {
+    public ShopManager shopManager;
+
    public GameObject basicTowerObject;
 
    private GameObject dummyPlacement;
@@ -70,10 +72,18 @@ public class PlacementManager : MonoBehaviour
         {
             if (CheckForTower() == false)
             {
+                if (shopManager.CanBuyTower(basicTowerObject) == true)
+                {
                 GameObject newTowerObject = Instantiate(basicTowerObject);
                 newTowerObject.layer = LayerMask.NameToLayer("Tower");
                 newTowerObject.transform.position = hoverTile.transform.position;
                 EndBuilding();
+                shopManager.BuyTower(basicTowerObject);
+                }
+                else
+                {
+                    Debug.Log("Not Enough Money! Can't buy the tower");
+                }
             }
         }
     }
