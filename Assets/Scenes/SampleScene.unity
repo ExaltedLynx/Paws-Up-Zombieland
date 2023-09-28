@@ -248,6 +248,8 @@ MonoBehaviour:
   mapWidth: 5
   mapHeight: 5
   pathColor: {r: 0.011764706, g: 0.83137256, b: 0.85882354, a: 1}
+  startColor: {r: 0.25222498, g: 0.49056602, b: 0.2735567, a: 1}
+  endColor: {r: 0.764151, g: 0.32620725, b: 0.13336597, a: 1}
 --- !u!4 &1625974149
 Transform:
   m_ObjectHideFlags: 0
