@@ -123,6 +123,59 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &111623706
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 111623708}
+  - component: {fileID: 111623707}
+  m_Layer: 0
+  m_Name: PlacementManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &111623707
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 111623706}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 503b43e6465f0444d9d415ad26a32334, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  basicTowerObject: {fileID: 9055328577408185979, guid: debd512b127796a4fb44aba4bf26625d, type: 3}
+  cam: {fileID: 650460624}
+  mask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  towerMask:
+    serializedVersion: 2
+    m_Bits: 64
+  isBuilding: 0
+--- !u!4 &111623708
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 111623706}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 4.815985, y: 2.6101248, z: -0.020302588}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &324349844
 GameObject:
   m_ObjectHideFlags: 0
@@ -228,7 +281,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 7.8024406
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -369,3 +422,4 @@ SceneRoots:
   - {fileID: 1625974149}
   - {fileID: 324349846}
   - {fileID: 1004274159}
+  - {fileID: 111623708}
