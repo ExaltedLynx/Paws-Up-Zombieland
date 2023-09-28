@@ -25,6 +25,9 @@ public class Tile : MonoBehaviour
 
     }
 
-
+    private void OnMouseDown()
+    {
+        Debug.Log(type);
+    }
 
 }
