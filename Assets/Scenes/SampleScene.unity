@@ -123,6 +123,50 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &324349844
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 324349846}
+  - component: {fileID: 324349845}
+  m_Layer: 0
+  m_Name: EnemiesCounter
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &324349845
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 324349844}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b458be977f3dd934c96b84b2e915e629, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &324349846
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 324349844}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 2.4847546, y: 2.5529833, z: 0.035358682}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &650460622
 GameObject:
   m_ObjectHideFlags: 0
@@ -245,8 +289,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MapTile: {fileID: 5908264503077883280, guid: 8cbab37355d3f3b4e9d055b632ec9097, type: 3}
-  mapWidth: 5
-  mapHeight: 5
+  mapWidth: 7
+  mapHeight: 7
   pathColor: {r: 0.011764706, g: 0.83137256, b: 0.85882354, a: 1}
   startColor: {r: 0.25222498, g: 0.49056602, b: 0.2735567, a: 1}
   endColor: {r: 0.764151, g: 0.32620725, b: 0.13336597, a: 1}
@@ -271,3 +315,4 @@ SceneRoots:
   m_Roots:
   - {fileID: 650460625}
   - {fileID: 1625974149}
+  - {fileID: 324349846}

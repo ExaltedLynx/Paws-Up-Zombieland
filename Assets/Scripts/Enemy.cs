@@ -15,6 +15,11 @@ public class Enemy : MonoBehaviour
 
     private GameObject targetTile;
 
+    private void Awake()
+    {
+        EnemiesCounter.enemiesCounter.Add(gameObject);
+    }
+
     private void Start()
     {
         initializeEnemy();
@@ -37,6 +42,7 @@ public class Enemy : MonoBehaviour
 
     private void die()
     {
+        EnemiesCounter.enemiesCounter.Remove(gameObject);
         Destroy(transform.gameObject);
     }
 
