@@ -8,6 +8,8 @@ public class PlacementManager : MonoBehaviour
 
    public GameObject basicTowerObject;
 
+   private GameObject currentTowerPlacing;
+
    private GameObject dummyPlacement;
 
    private GameObject hoverTile;
@@ -22,7 +24,7 @@ public class PlacementManager : MonoBehaviour
 
    public void Start()
    {
-        StartBuilding();
+        
    }
 
    public Vector2 GetMousePosition()
@@ -72,13 +74,13 @@ public class PlacementManager : MonoBehaviour
         {
             if (CheckForTower() == false)
             {
-                if (shopManager.CanBuyTower(basicTowerObject) == true)
+                if (shopManager.CanBuyTower(currentTowerPlacing) == true)
                 {
-                GameObject newTowerObject = Instantiate(basicTowerObject);
+                GameObject newTowerObject = Instantiate(currentTowerPlacing);
                 newTowerObject.layer = LayerMask.NameToLayer("Tower");
                 newTowerObject.transform.position = hoverTile.transform.position;
                 EndBuilding();
-                shopManager.BuyTower(basicTowerObject);
+                shopManager.BuyTower(currentTowerPlacing);
                 }
                 else
                 {
@@ -89,11 +91,12 @@ public class PlacementManager : MonoBehaviour
     }
 
 
-    public void StartBuilding()
+    public void StartBuilding(GameObject towerToBuild)
     {
         isBuilding = true;
 
-        dummyPlacement = Instantiate(basicTowerObject);
+        currentTowerPlacing = towerToBuild;
+        dummyPlacement = Instantiate(currentTowerPlacing);
 
         if (dummyPlacement.GetComponent<Tower>() != null)
         {
