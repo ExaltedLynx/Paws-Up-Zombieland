@@ -12,17 +12,19 @@ public class Tile : MonoBehaviour
     }
 
     [SerializeField] TileType type;
-    //add a field to store the unit on the tile once they are implemented
-    //private PlayableUnit unit;
+    private PlayableUnit placedUnit;
 
     public TileType GetTileType()
     {
         return type;
     }
 
-    public void SetUnit()
+    public void SetUnit(PlayableUnit unitToPlace)
     {
-
+        if (placedUnit == null && unitToPlace.validTile == type)
+        {
+            placedUnit = unitToPlace;
+        }
     }
 
     private void OnMouseDown()
