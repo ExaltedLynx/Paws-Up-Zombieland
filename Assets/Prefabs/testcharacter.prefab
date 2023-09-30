@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 239409691571593039}
   - component: {fileID: 5254420003152070215}
-  - component: {fileID: -7263808724504621054}
+  - component: {fileID: 3718443175638917106}
   - component: {fileID: 447972083668554433}
   m_Layer: 0
   m_Name: testcharacter
@@ -87,7 +87,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &-7263808724504621054
+--- !u!114 &3718443175638917106
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -105,7 +105,6 @@ MonoBehaviour:
   attackTimer: 0
   attackTime: 0
   validTile: 0
-  state: 0
   rangeCollider: {fileID: 4744280609780590665}
 --- !u!61 &447972083668554433
 BoxCollider2D:
@@ -352,6 +351,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: RangeMarker (5)
       objectReference: {fileID: 0}
+    - target: {fileID: 1532358725466748490, guid: b36d8e909fe0a484ea8ead04dd80b324, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5020616375233343839, guid: b36d8e909fe0a484ea8ead04dd80b324, type: 3}
       propertyPath: m_LocalPosition.x
       value: -1
@@ -418,6 +421,10 @@ PrefabInstance:
     - target: {fileID: 1532358725466748490, guid: b36d8e909fe0a484ea8ead04dd80b324, type: 3}
       propertyPath: m_Name
       value: RangeMarker (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1532358725466748490, guid: b36d8e909fe0a484ea8ead04dd80b324, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1908076785336755353, guid: b36d8e909fe0a484ea8ead04dd80b324, type: 3}
       propertyPath: m_Enabled
@@ -490,6 +497,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: RangeMarker
       objectReference: {fileID: 0}
+    - target: {fileID: 1532358725466748490, guid: b36d8e909fe0a484ea8ead04dd80b324, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5020616375233343839, guid: b36d8e909fe0a484ea8ead04dd80b324, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -556,6 +567,10 @@ PrefabInstance:
     - target: {fileID: 1532358725466748490, guid: b36d8e909fe0a484ea8ead04dd80b324, type: 3}
       propertyPath: m_Name
       value: RangeMarker (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1532358725466748490, guid: b36d8e909fe0a484ea8ead04dd80b324, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5020616375233343839, guid: b36d8e909fe0a484ea8ead04dd80b324, type: 3}
       propertyPath: m_LocalPosition.x
@@ -624,6 +639,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: RangeMarker (6)
       objectReference: {fileID: 0}
+    - target: {fileID: 1532358725466748490, guid: b36d8e909fe0a484ea8ead04dd80b324, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5020616375233343839, guid: b36d8e909fe0a484ea8ead04dd80b324, type: 3}
       propertyPath: m_LocalPosition.x
       value: 1
@@ -691,6 +710,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: RangeMarker (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 1532358725466748490, guid: b36d8e909fe0a484ea8ead04dd80b324, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5020616375233343839, guid: b36d8e909fe0a484ea8ead04dd80b324, type: 3}
       propertyPath: m_LocalPosition.x
       value: -1
@@ -757,6 +780,10 @@ PrefabInstance:
     - target: {fileID: 1532358725466748490, guid: b36d8e909fe0a484ea8ead04dd80b324, type: 3}
       propertyPath: m_Name
       value: RangeMarker (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1532358725466748490, guid: b36d8e909fe0a484ea8ead04dd80b324, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5020616375233343839, guid: b36d8e909fe0a484ea8ead04dd80b324, type: 3}
       propertyPath: m_LocalPosition.x

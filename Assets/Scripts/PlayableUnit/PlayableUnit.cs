@@ -10,8 +10,9 @@ public class PlayableUnit : MonoBehaviour
     [SerializeField] private float attackTimer;
     [SerializeField] protected float attackTime;
     [SerializeField] protected Tile.TileType validTile;
-    [SerializeField] private UnitState state = UnitState.NotPlaced;
+    [SerializeField] protected UnitState state = UnitState.NotPlaced;
     [SerializeField] private GameObject rangeCollider;
+    internal Tile tilePlacedOn;
 
     public enum UnitState {NotPlaced, Idle, Attacking}
 
@@ -25,6 +26,7 @@ public class PlayableUnit : MonoBehaviour
     void FixedUpdate()
     {
         if(state == UnitState.NotPlaced) { return; }
+
         Attack();
         state = UnitState.Idle;
     }
@@ -48,11 +50,11 @@ public class PlayableUnit : MonoBehaviour
 
     private void OnMouseEnter()
     {
-        ToggleUnitRange();
+        ToggleRangeVisibility();
     }
     private void OnMouseExit()
     {
-        ToggleUnitRange();
+        ToggleRangeVisibility();
     }
 
     //add parameter for a list of enemies once they are implemented
@@ -83,8 +85,6 @@ public class PlayableUnit : MonoBehaviour
         currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
     }
 
-
-
     //moves the gameobject of the unit to where the mouse is
     private void DragUnit()
     {
@@ -98,7 +98,7 @@ public class PlayableUnit : MonoBehaviour
         }
     }
 
-    public void ToggleUnitRange()
+    public void ToggleRangeVisibility()
     {
         if (state != UnitState.NotPlaced)
         {
@@ -107,7 +107,6 @@ public class PlayableUnit : MonoBehaviour
                 mesh.enabled = !mesh.enabled;
         }
     }
-
     public Tile.TileType GetValidTile()
     {
         return validTile;
@@ -123,8 +122,8 @@ public class PlayableUnit : MonoBehaviour
         return state;
     }
 
-    public void SetState(UnitState state)
+    public void SetState(UnitState newState)
     {
-        this.state = state;
+        state = newState;
     }
 }

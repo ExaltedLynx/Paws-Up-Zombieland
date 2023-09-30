@@ -31,6 +31,13 @@ public class Tile : MonoBehaviour
         return placed;
     }
 
+    public void removeUnit()
+    {
+        placedUnitObject.transform.parent = GameManager.Instance.transform;
+        placedUnit = null;
+        placedUnitObject = null;
+    }
+
     private void OnMouseOver()
     {
         if(GameManager.Instance.heldUnit != null && Input.GetMouseButtonDown(0))
@@ -41,8 +48,9 @@ public class Tile : MonoBehaviour
                 GameManager.Instance.heldUnit = null;
                 placedUnit.transform.position = transform.position;
                 placedUnit.transform.parent = transform;
+                placedUnit.tilePlacedOn = this;
                 placedUnit.SetState(PlayableUnit.UnitState.Idle);
-                placedUnit.ToggleUnitRange();
+                placedUnit.ToggleRangeVisibility();
             }
         }
     }
