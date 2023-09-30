@@ -13,23 +13,38 @@ public class Tile : MonoBehaviour
 
     [SerializeField] TileType type;
     private PlayableUnit placedUnit;
+    private GameObject placedUnitObject;
 
     public TileType GetTileType()
     {
         return type;
     }
 
-    public void SetUnit(PlayableUnit unitToPlace)
+    public bool SetUnit(PlayableUnit unitToPlace)
     {
-        if (placedUnit == null && unitToPlace.validTile == type)
+        bool placed = false;
+        if (placedUnit == null && unitToPlace.GetValidTile() == type && unitToPlace.GetState() == PlayableUnit.UnitState.NotPlaced)
         {
+            Debug.Log(unitToPlace);
             placedUnit = unitToPlace;
+            placed = true;
         }
+        return placed;
     }
 
-    private void OnMouseDown()
+    private void OnMouseOver()
     {
-        Debug.Log(type);
+        if(GameManager.Instance.heldUnit != null && Input.GetMouseButtonDown(0))
+        {
+            if(SetUnit(GameManager.Instance.heldUnit.GetComponent<PlayableUnit>()))
+            {
+                placedUnitObject = GameManager.Instance.heldUnit;
+                GameManager.Instance.heldUnit = null;
+                placedUnit.transform.position = transform.position;
+                placedUnit.transform.parent = transform;
+                placedUnit.SetState(PlayableUnit.UnitState.Idle);
+            }
+        }
     }
 
 }

@@ -4,14 +4,13 @@ using UnityEngine;
 
 public class PlayableUnit : MonoBehaviour
 {
-    //TODO figure out how to add multiple tile range that isn't just a square around the unit 
     [SerializeField] private int currentHealth;
-    [SerializeField] public int maxHealth { get; }
-    [SerializeField] public int attackStat { get; }
-    [SerializeField] public Tile.TileType validTile { get; }
-    [SerializeField] public float attackTime { get; }
+    [SerializeField] private int maxHealth;
+    [SerializeField] protected int attackStat;
     [SerializeField] private float attackTimer;
-    public UnitState state = UnitState.NotPlaced;
+    [SerializeField] protected float attackTime;
+    [SerializeField] protected Tile.TileType validTile;
+    [SerializeField] private UnitState state = UnitState.NotPlaced;
 
     public enum UnitState {NotPlaced, Idle, Attacking}
 
@@ -19,15 +18,26 @@ public class PlayableUnit : MonoBehaviour
     {
         currentHealth = maxHealth;
         attackTimer = attackTime;
-        state = UnitState.Idle;
+        state = UnitState.NotPlaced;
     }
-
 
     void FixedUpdate()
     {
         if(state == UnitState.NotPlaced) { return; }
         Attack();
         state = UnitState.Idle;
+    }
+
+    private void Update()
+    {
+        if(state == UnitState.NotPlaced)
+        {
+            DragUnit();
+            if(Input.GetMouseButtonDown(1))
+            {
+                gameObject.transform.Rotate(0, 0, 90);
+            }
+        }
     }
 
     //add parameter for a list of enemies once they are implemented
@@ -58,8 +68,41 @@ public class PlayableUnit : MonoBehaviour
         currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
     }
 
-    private void FindEnemiesInRange()
+    private void OnCollisionEnter2D(Collision2D collision)
     {
+        //collision.transform.gameObject.GetComponent<Enemy>();
+    }
 
+    //moves the gameobject of the unit to where the mouse is
+    private void DragUnit()
+    {
+        if (GameManager.Instance.heldUnit != null)
+        {
+            Vector3 mousePos = Input.mousePosition;
+            mousePos = Camera.main.ScreenToWorldPoint(mousePos);
+            mousePos.z = 0;
+            Debug.Log(mousePos);
+            transform.localPosition = mousePos;
+        }
+    }
+
+    public Tile.TileType GetValidTile()
+    {
+        return validTile;
+    }
+
+    public int GetMaxHealth()
+    {
+        return maxHealth;
+    }
+
+    public UnitState GetState()
+    {
+        return state;
+    }
+
+    public void SetState(UnitState state)
+    {
+        this.state = state;
     }
 }
