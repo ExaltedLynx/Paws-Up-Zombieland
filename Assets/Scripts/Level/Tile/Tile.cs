@@ -25,7 +25,6 @@ public class Tile : MonoBehaviour
         bool placed = false;
         if (placedUnit == null && unitToPlace.GetValidTile() == type && unitToPlace.GetState() == PlayableUnit.UnitState.NotPlaced)
         {
-            Debug.Log(unitToPlace);
             placedUnit = unitToPlace;
             placed = true;
         }
@@ -43,6 +42,7 @@ public class Tile : MonoBehaviour
                 placedUnit.transform.position = transform.position;
                 placedUnit.transform.parent = transform;
                 placedUnit.SetState(PlayableUnit.UnitState.Idle);
+                placedUnit.ToggleUnitRange();
             }
         }
     }

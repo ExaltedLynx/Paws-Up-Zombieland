@@ -11,6 +11,7 @@ public class PlayableUnit : MonoBehaviour
     [SerializeField] protected float attackTime;
     [SerializeField] protected Tile.TileType validTile;
     [SerializeField] private UnitState state = UnitState.NotPlaced;
+    [SerializeField] private GameObject rangeCollider;
 
     public enum UnitState {NotPlaced, Idle, Attacking}
 
@@ -38,6 +39,20 @@ public class PlayableUnit : MonoBehaviour
                 gameObject.transform.Rotate(0, 0, 90);
             }
         }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        //collision.transform.gameObject.GetComponent<Enemy>();
+    }
+
+    private void OnMouseEnter()
+    {
+        ToggleUnitRange();
+    }
+    private void OnMouseExit()
+    {
+        ToggleUnitRange();
     }
 
     //add parameter for a list of enemies once they are implemented
@@ -68,10 +83,7 @@ public class PlayableUnit : MonoBehaviour
         currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        //collision.transform.gameObject.GetComponent<Enemy>();
-    }
+
 
     //moves the gameobject of the unit to where the mouse is
     private void DragUnit()
@@ -83,6 +95,16 @@ public class PlayableUnit : MonoBehaviour
             mousePos.z = 0;
             Debug.Log(mousePos);
             transform.localPosition = mousePos;
+        }
+    }
+
+    public void ToggleUnitRange()
+    {
+        if (state != UnitState.NotPlaced)
+        {
+            MeshRenderer[] rangeRenderers = rangeCollider.GetComponentsInChildren<MeshRenderer>();
+            foreach (MeshRenderer mesh in rangeRenderers)
+                mesh.enabled = !mesh.enabled;
         }
     }
 
