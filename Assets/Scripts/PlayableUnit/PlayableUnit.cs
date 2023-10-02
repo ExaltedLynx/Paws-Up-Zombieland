@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayableUnit : MonoBehaviour
+public abstract class PlayableUnit : MonoBehaviour
 {
     [SerializeField] private int currentHealth;
     [SerializeField] private int maxHealth;
@@ -16,22 +16,24 @@ public class PlayableUnit : MonoBehaviour
 
     public enum UnitState {NotPlaced, Idle, Attacking}
 
-    void Start()
+    protected virtual void Start()
     {
         currentHealth = maxHealth;
         attackTimer = attackTime;
         state = UnitState.NotPlaced;
     }
 
-    void FixedUpdate()
+    protected virtual void FixedUpdate()
     {
         if(state == UnitState.NotPlaced) { return; }
 
-        Attack();
+        if(state == UnitState.Attacking)
+            Attack();
+
         state = UnitState.Idle;
     }
 
-    private void Update()
+    protected virtual void Update()
     {
         if(state == UnitState.NotPlaced)
         {
@@ -46,6 +48,7 @@ public class PlayableUnit : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         //collision.transform.gameObject.GetComponent<Enemy>();
+        //state = UnitState.Attacking;
     }
 
     private void OnMouseEnter()
@@ -58,17 +61,17 @@ public class PlayableUnit : MonoBehaviour
     }
 
     //add parameter for a list of enemies once they are implemented
-    protected void Attack(/*List<Enemy> enemiesInRange*/)
+    private void Attack(/*List<Enemy> enemiesInRange*/)
     {
         if(attackTimer != 0)
         {
             attackTimer -= Time.fixedDeltaTime;
             return;
         }
-        state = UnitState.Attacking;
-        //deal damage to the passed enemies
+        AttackLogic(/*enemiesInRange*/);
         attackTimer = attackTime;
-    }
+    } 
+    protected abstract void AttackLogic(/*List<Enemy> enemiesInRange*/);
 
     public void Damage(int amount)
     {
