@@ -1,9 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using Unity.VisualScripting;
 using UnityEngine;
-using static UnityEngine.UI.CanvasScaler;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -11,6 +9,7 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private GameObject[] unitPrefabs;
     private PlayableUnit[] placedUnits;
+    int sceneIndex = 0;
 
     public static GameManager Instance
     {
@@ -32,6 +31,10 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            StartCoroutine(LoadLevelScene());
+        }
 
     }
 
@@ -49,6 +52,19 @@ public class GameManager : MonoBehaviour
             unit.ToggleRangeVisibility();
             heldUnit = unit.gameObject;
             unit.SetState(PlayableUnit.UnitState.NotPlaced);
+        }
+    }
+
+    //Using the async load scene function lets us add loading screens later
+    IEnumerator LoadLevelScene()
+    {
+        sceneIndex = SceneManager.GetActiveScene().buildIndex + 1;
+        if (sceneIndex == SceneManager.sceneCountInBuildSettings)
+            sceneIndex = 0;
+        AsyncOperation asyncOp = SceneManager.LoadSceneAsync(sceneIndex);
+        while (!asyncOp.isDone)
+        {
+            yield return null;
         }
     }
 }
