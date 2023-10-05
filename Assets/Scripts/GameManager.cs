@@ -5,11 +5,13 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    public GameObject heldUnit;
-
+    [SerializeField] public int playerMaxHealth;
+    [SerializeField] public int playerHealth;
     [SerializeField] private GameObject[] unitPrefabs;
+
+    public GameObject heldUnit;
     private PlayableUnit[] placedUnits;
-    int sceneIndex = 0;
+    private int sceneIndex = 0;
 
     public static GameManager Instance
     {
@@ -20,6 +22,7 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
+        playerHealth = playerMaxHealth;
         placedUnits = new PlayableUnit[unitPrefabs.Length];
         instance = this; 
     }
@@ -36,6 +39,16 @@ public class GameManager : MonoBehaviour
             StartCoroutine(LoadLevelScene());
         }
 
+        if(playerMaxHealth == 0)
+        {
+            //load failed level scene
+        }
+
+    }
+
+    public void damagePlayer()
+    {
+        playerHealth -= 1;
     }
 
     public void SetHeldUnit(int index)
