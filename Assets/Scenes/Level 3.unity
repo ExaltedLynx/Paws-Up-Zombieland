@@ -331,9 +331,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64331dbf2f397e74bb9b97c1b6ff6bb7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  heldUnit: {fileID: 0}
+  playerMaxHealth: 0
+  playerHealth: 0
   unitPrefabs:
   - {fileID: 4641767651036714290, guid: 24c2ec1f490cbe44797c08535b292667, type: 3}
+  heldUnit: {fileID: 0}
 --- !u!4 &390945307
 Transform:
   m_ObjectHideFlags: 0

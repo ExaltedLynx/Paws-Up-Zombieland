@@ -11,7 +11,8 @@ public class Tile : MonoBehaviour
         Elevated = 1,
     }
 
-    [SerializeField] TileType type;
+    [SerializeField] private SpriteRenderer highlighter;
+    [SerializeField] private TileType type;
     private PlayableUnit placedUnit;
     private GameObject placedUnitObject;
 
@@ -20,7 +21,7 @@ public class Tile : MonoBehaviour
         return type;
     }
 
-    public bool SetUnit(PlayableUnit unitToPlace)
+    private bool SetUnit(PlayableUnit unitToPlace)
     {
         bool placed = false;
         if (placedUnit == null && unitToPlace.GetValidTile() == type && unitToPlace.GetState() == PlayableUnit.UnitState.NotPlaced)
@@ -38,9 +39,9 @@ public class Tile : MonoBehaviour
         placedUnitObject = null;
     }
 
-    private void OnMouseOver()
+    private void OnMouseDown()
     {
-        if(GameManager.Instance.heldUnit != null && Input.GetMouseButtonDown(0))
+        if(GameManager.Instance.heldUnit != null)
         {
             if(SetUnit(GameManager.Instance.heldUnit.GetComponent<PlayableUnit>()))
             {
@@ -55,4 +56,22 @@ public class Tile : MonoBehaviour
         }
     }
 
+    private void OnMouseEnter()
+    {
+        HighlightTile();
+    }
+
+    private void OnMouseExit()
+    {
+        highlighter.enabled = false;
+    }
+
+    private void HighlightTile()
+    {
+        if(GameManager.Instance.heldUnit != null)
+        {
+            if (GameManager.Instance.heldUnit.GetComponent<PlayableUnit>().GetValidTile() == type)
+                highlighter.enabled = true;
+        }
+    }
 }
