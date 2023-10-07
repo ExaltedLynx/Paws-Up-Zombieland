@@ -22,6 +22,7 @@ public class EnemyBehavior : MonoBehaviour
             if(waypointIndex < Wpoints.waypoints.Length - 1){
                 waypointIndex++; 
             } else{
+               WaveSpawner.onEnemyDestroy.Invoke();
                Destroy(gameObject); // Finish the trajectory, this is where the tower takes damage if enemy hits last waypoint
             }
         }
