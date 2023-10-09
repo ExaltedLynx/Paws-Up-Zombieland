@@ -10,21 +10,39 @@ public class EnemyBehavior : MonoBehaviour
 
     private int waypointIndex;
 
+    private Transform[] waypoints; // Reference to the waypoints array.
+
+    public void SetWaypoints(Transform[] newWaypoints)
+    {
+        waypoints = newWaypoints;
+    }
+
     void Start(){
         Wpoints = GameObject.FindGameObjectWithTag("Waypoints").GetComponent<Waypoints>();
     }
 
     void Update(){
-        transform.position = Vector2.MoveTowards(transform.position, Wpoints.waypoints[waypointIndex].position, speed * Time.deltaTime);
+       if (waypoints == null || waypointIndex >= waypoints.Length)
+        {
+            // Handle error or destroy the enemy.
+            Destroy(gameObject);
+            return;
+        }
 
-        if(Vector2.Distance(transform.position, Wpoints.waypoints[waypointIndex].position) < 0.1f){
-           
-            if(waypointIndex < Wpoints.waypoints.Length - 1){
-                waypointIndex++; 
-            } else{
-               WaveSpawner.onEnemyDestroy.Invoke();
-               Destroy(gameObject); // Finish the trajectory, this is where the tower takes damage if enemy hits last waypoint
+        transform.position = Vector2.MoveTowards(transform.position, waypoints[waypointIndex].position, speed * Time.deltaTime);
+
+        if (Vector2.Distance(transform.position, waypoints[waypointIndex].position) < 0.1f)
+        {
+            if (waypointIndex < waypoints.Length - 1)
+            {
+                waypointIndex++;
+            }
+            else
+                {
+                WaveSpawner.onEnemyDestroy.Invoke();
+                Destroy(gameObject);
+                }
             }
         }
     }
-}
+

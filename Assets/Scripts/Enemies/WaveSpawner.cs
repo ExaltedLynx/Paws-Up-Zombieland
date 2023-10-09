@@ -20,6 +20,9 @@ public class WaveSpawner : MonoBehaviour
     [Header("Events")]
     public static UnityEvent onEnemyDestroy = new UnityEvent();
 
+    [Header("Waypoints")]
+    public Transform[] waypoints; // Reference to your waypoints.
+
     private int currentWave = 1;
     private float timeSinceLastSpawn;
     private int enemiesAlive;
@@ -50,7 +53,7 @@ public class WaveSpawner : MonoBehaviour
             timeSinceLastSpawn = 0f;
         }
 
-        if (enemiesAlive == 0 && enemiesLeftToSpawn == 0){
+        if (enemiesAlive <= 0 && enemiesLeftToSpawn <= 0){
             EndWave();
         }
 
@@ -75,7 +78,8 @@ public class WaveSpawner : MonoBehaviour
 
     private void SpawnEnemy(){
         GameObject prefabToSpawn = enemyPrefabs[0];
-        Instantiate(prefabToSpawn, WaveSpawner.main.startPoint.position, Quaternion.identity);
+        GameObject enemy = Instantiate(prefabToSpawn, startPoint.position, Quaternion.identity);
+        enemy.GetComponent<EnemyBehavior>().SetWaypoints(waypoints);
     }
 
     private int EnemiesPerWave(){
