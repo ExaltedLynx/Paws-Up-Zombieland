@@ -11,10 +11,16 @@ public class Tile : MonoBehaviour
         Elevated = 1,
     }
 
-    [SerializeField] private SpriteRenderer highlighter;
     [SerializeField] private TileType type;
     private PlayableUnit placedUnit;
     private GameObject placedUnitObject;
+    private SpriteRenderer highlighter;
+
+    private void Awake()
+    {
+        highlighter = GameObject.FindGameObjectWithTag("Highlighter").GetComponent<SpriteRenderer>();
+        highlighter.enabled = false;
+    }
 
     public TileType GetTileType()
     {
@@ -71,7 +77,10 @@ public class Tile : MonoBehaviour
         if(GameManager.Instance.heldUnit != null)
         {
             if (GameManager.Instance.heldUnit.GetComponent<PlayableUnit>().GetValidTile() == type)
+            {
+                highlighter.transform.position = transform.position; //moves highlighter gameobject on top of the respective tile
                 highlighter.enabled = true;
+            }
         }
     }
 }
