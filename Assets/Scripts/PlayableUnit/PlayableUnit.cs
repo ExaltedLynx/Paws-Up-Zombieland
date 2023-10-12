@@ -11,7 +11,7 @@ public class PlayableUnit : MonoBehaviour
     [SerializeField] protected float actionTime;
     [SerializeField] protected Tile.TileType validTile;
     [SerializeField] protected UnitState state = UnitState.NotPlaced;
-    [SerializeField] private GameObject rangeCollider;
+    [SerializeField] protected GameObject rangeCollider;
     internal Tile tilePlacedOn;
 
     public enum UnitState {NotPlaced, Idle, Acting}
