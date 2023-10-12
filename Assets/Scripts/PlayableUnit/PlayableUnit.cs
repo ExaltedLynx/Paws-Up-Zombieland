@@ -2,24 +2,24 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class PlayableUnit : MonoBehaviour
+public class PlayableUnit : MonoBehaviour
 {
     [SerializeField] private int currentHealth;
     [SerializeField] private int maxHealth;
-    [SerializeField] protected int attackStat;
-    [SerializeField] private float attackTimer;
-    [SerializeField] protected float attackTime;
+    [SerializeField] private int Defense;
+    [SerializeField] private float actionTimer;
+    [SerializeField] protected float actionTime;
     [SerializeField] protected Tile.TileType validTile;
     [SerializeField] protected UnitState state = UnitState.NotPlaced;
     [SerializeField] private GameObject rangeCollider;
     internal Tile tilePlacedOn;
 
-    public enum UnitState {NotPlaced, Idle, Attacking}
+    public enum UnitState {NotPlaced, Idle, Acting}
 
     protected virtual void Start()
     {
         currentHealth = maxHealth;
-        attackTimer = attackTime;
+        actionTimer = actionTime;
         state = UnitState.NotPlaced;
     }
 
@@ -27,8 +27,8 @@ public abstract class PlayableUnit : MonoBehaviour
     {
         if(state == UnitState.NotPlaced) { return; }
 
-        if(state == UnitState.Attacking)
-            Attack();
+        if(state == UnitState.Acting)
+            Action();
 
         state = UnitState.Idle;
     }
@@ -45,12 +45,6 @@ public abstract class PlayableUnit : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        //collision.transform.gameObject.GetComponent<Enemy>();
-        //state = UnitState.Attacking;
-    }
-
     private void OnMouseEnter()
     {
         ToggleRangeVisibility();
@@ -60,32 +54,24 @@ public abstract class PlayableUnit : MonoBehaviour
         ToggleRangeVisibility();
     }
 
-    //add parameter for a list of enemies once they are implemented
-    private void Attack(/*List<Enemy> enemiesInRange*/)
+    private void Action()
     {
-        if(attackTimer != 0)
+        if(actionTimer != 0)
         {
-            attackTimer -= Time.fixedDeltaTime;
+            actionTimer -= Time.fixedDeltaTime;
             return;
         }
-        AttackLogic(/*enemiesInRange*/);
-        attackTimer = attackTime;
-    } 
-    protected abstract void AttackLogic(/*List<Enemy> enemiesInRange*/);
 
-    public void Damage(int amount)
-    {
-        currentHealth -= amount;
-        if (currentHealth <= 0)
+        switch(this)
         {
-            Destroy(gameObject);
+            case FighterUnit fighter:
+                fighter.AttackLogic();
+                break;
+            case HealerUnit healer:
+                healer.HealLogic();
+                break;
         }
-    }
-
-    public void Heal(int amount)
-    {
-        currentHealth += amount;
-        currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
+        actionTimer = actionTime; //resets the timer
     }
 
     //moves the gameobject of the unit to where the mouse is
@@ -109,6 +95,22 @@ public abstract class PlayableUnit : MonoBehaviour
                 mesh.enabled = !mesh.enabled;
         }
     }
+
+    public void Damage(int amount)
+    {
+        currentHealth -= amount;
+        if (currentHealth <= 0)
+        {
+            Destroy(gameObject);
+        }
+    }
+
+    public void Heal(int amount)
+    {
+        currentHealth += amount;
+        currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
+    }
+
     public Tile.TileType GetValidTile()
     {
         return validTile;

@@ -2,8 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TestCharacter : FighterUnit
+public abstract class HealerUnit : PlayableUnit
 {
+    [SerializeField] private int healPower;
+
     protected override void Start()
     {
         base.Start();
@@ -19,8 +21,15 @@ public class TestCharacter : FighterUnit
         base.Update();
     }
 
-    internal override void AttackLogic()
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        
+
     }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+
+    }
+
+    internal abstract void HealLogic();
 }
