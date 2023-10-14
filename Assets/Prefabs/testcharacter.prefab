@@ -10,8 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 239409691571593039}
   - component: {fileID: 5254420003152070215}
-  - component: {fileID: 447972083668554433}
   - component: {fileID: 5475507691961960423}
+  - component: {fileID: 447972083668554433}
+  - component: {fileID: 1155680285741571540}
   m_Layer: 0
   m_Name: testcharacter
   m_TagString: Untagged
@@ -87,6 +88,27 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &5475507691961960423
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4641767651036714290}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aaa92d290edc00c47b20eaf6257745bd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentHealth: 0
+  maxHealth: 100
+  Defense: 0
+  actionTimer: 0
+  actionTime: 0
+  validTile: 0
+  state: 0
+  rangeCollider: {fileID: 4744280609780590665}
+  attackStat: 0
 --- !u!61 &447972083668554433
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -132,26 +154,33 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.6328125, y: 0.6328125}
   m_EdgeRadius: 0
---- !u!114 &5475507691961960423
-MonoBehaviour:
+--- !u!50 &1155680285741571540
+Rigidbody2D:
+  serializedVersion: 4
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4641767651036714290}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aaa92d290edc00c47b20eaf6257745bd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  currentHealth: 0
-  maxHealth: 100
-  attackStat: 0
-  attackTimer: 0
-  attackTime: 0
-  validTile: 0
-  state: 0
-  rangeCollider: {fileID: 4744280609780590665}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &4744280609780590665
 GameObject:
   m_ObjectHideFlags: 0
@@ -200,7 +229,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4744280609780590665}
-  m_BodyType: 2
+  m_BodyType: 1
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -248,7 +277,7 @@ CompositeCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -256,15 +285,15 @@ CompositeCollider2D:
   m_GenerationType: 0
   m_EdgeRadius: 0
   m_ColliderPaths:
-  - m_Collider: {fileID: 861413194869504223}
+  - m_Collider: {fileID: 8101198765122274897}
     m_ColliderPaths:
-    - - X: 5000000
+    - - X: 15000000
         Y: 5000000
-      - X: -5000000
-        Y: 5000000
-      - X: -5000000
-        Y: -5000000
       - X: 5000000
+        Y: 5000000
+      - X: 5000000
+        Y: -5000000
+      - X: 15000000
         Y: -5000000
   - m_Collider: {fileID: 897865997335609609}
     m_ColliderPaths:
@@ -276,6 +305,16 @@ CompositeCollider2D:
         Y: 5000000
       - X: 5000000
         Y: 5000000
+  - m_Collider: {fileID: 1001281037766269054}
+    m_ColliderPaths:
+    - - X: -5000000
+        Y: 15000000
+      - X: -15000000
+        Y: 15000000
+      - X: -15000000
+        Y: 5000000
+      - X: -5000000
+        Y: 5000000
   - m_Collider: {fileID: 525099724311335434}
     m_ColliderPaths:
     - - X: 5000000
@@ -286,15 +325,15 @@ CompositeCollider2D:
         Y: 15000000
       - X: 5000000
         Y: 15000000
-  - m_Collider: {fileID: 8101198765122274897}
+  - m_Collider: {fileID: 861413194869504223}
     m_ColliderPaths:
-    - - X: 15000000
+    - - X: 5000000
         Y: 5000000
-      - X: 5000000
+      - X: -5000000
         Y: 5000000
-      - X: 5000000
+      - X: -5000000
         Y: -5000000
-      - X: 15000000
+      - X: 5000000
         Y: -5000000
   - m_Collider: {fileID: 7553179581278801490}
     m_ColliderPaths:
@@ -306,16 +345,6 @@ CompositeCollider2D:
         Y: -5000000
       - X: -5000000
         Y: -5000000
-  - m_Collider: {fileID: 1001281037766269054}
-    m_ColliderPaths:
-    - - X: -5000000
-        Y: 15000000
-      - X: -15000000
-        Y: 15000000
-      - X: -15000000
-        Y: 5000000
-      - X: -5000000
-        Y: 5000000
   - m_Collider: {fileID: 4712615908128479630}
     m_ColliderPaths:
     - - X: 15000000

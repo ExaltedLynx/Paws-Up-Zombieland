@@ -23,12 +23,15 @@ public abstract class HealerUnit : PlayableUnit
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-
+        PlayableUnit collidedUnit = collision.gameObject.GetComponentInParent<PlayableUnit>();
+        if (state != UnitState.NotPlaced && collidedUnit.GetState() != UnitState.NotPlaced)
+            Debug.Log(collision.gameObject + " entered heal range");
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
 
+            Debug.Log(collision.gameObject +" left heal range");
     }
 
     internal abstract void HealLogic();
