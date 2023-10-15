@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -55,11 +56,14 @@ public class GameManager : MonoBehaviour
     {
         if (placedUnits[index] == null)
         {
+            removePreviousHeldUnit();
             heldUnit = Instantiate(unitPrefabs[index], transform);
-            placedUnits[index] = heldUnit.GetComponent<PlayableUnit>();
+             placedUnits[index] = heldUnit.GetComponent<PlayableUnit>();
+            
         }
         else if (placedUnits[index].GetState() != PlayableUnit.UnitState.NotPlaced)
         {
+            removePreviousHeldUnit();
             PlayableUnit unit = placedUnits[index];
             unit.tilePlacedOn.removeUnit();
             unit.ToggleRangeVisibility();
@@ -80,4 +84,15 @@ public class GameManager : MonoBehaviour
             yield return null;
         }
     }
+
+    private void removePreviousHeldUnit()
+    {
+        if (heldUnit != null)
+        {
+            int prevUnitIndex = Array.IndexOf(placedUnits, heldUnit.GetComponent<PlayableUnit>(), 0);
+            placedUnits[prevUnitIndex] = null;
+            Destroy(heldUnit);
+            heldUnit = null;
+        }
+    }    
 }
