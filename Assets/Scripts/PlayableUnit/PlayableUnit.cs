@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayableUnit : MonoBehaviour
@@ -86,9 +87,10 @@ public class PlayableUnit : MonoBehaviour
         }
     }
 
+    [ContextMenu("Toggle Range Visibility")]
     public void ToggleRangeVisibility()
     {
-        if (state != UnitState.NotPlaced)
+        if (state != UnitState.NotPlaced && GameManager.Instance.heldUnit == null)
         {
             MeshRenderer[] rangeRenderers = rangeCollider.GetComponentsInChildren<MeshRenderer>();
             foreach (MeshRenderer mesh in rangeRenderers)

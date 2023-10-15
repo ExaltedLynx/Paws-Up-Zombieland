@@ -10,9 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 6519659316328420538}
   - component: {fileID: 643151938055507221}
-  - component: {fileID: 3983457371801290184}
   - component: {fileID: -3148325402185113879}
-  m_Layer: 0
+  - component: {fileID: 3983457371801290184}
+  m_Layer: 7
   m_Name: testhealer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -28,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 7308616227710508043}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0.1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -87,6 +87,27 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &-3148325402185113879
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7308616227710508043}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: daedc64e698f6c74995c2e4bfce31a51, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentHealth: 0
+  maxHealth: 100
+  Defense: 0
+  actionTimer: 0
+  actionTime: 4
+  validTile: 1
+  state: 0
+  rangeCollider: {fileID: 7574921670951050647}
+  healPower: 0
 --- !u!61 &3983457371801290184
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -132,27 +153,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.6328125, y: 0.6328125}
   m_EdgeRadius: 0
---- !u!114 &-3148325402185113879
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7308616227710508043}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: daedc64e698f6c74995c2e4bfce31a51, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  currentHealth: 0
-  maxHealth: 100
-  Defense: 0
-  actionTimer: 0
-  actionTime: 4
-  validTile: 1
-  state: 0
-  rangeCollider: {fileID: 7574921670951050647}
-  healPower: 0
 --- !u!1 &7574921670951050647
 GameObject:
   m_ObjectHideFlags: 0
@@ -162,9 +162,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3519393631090439639}
-  - component: {fileID: 8095599443305397748}
-  - component: {fileID: 3306492526249445705}
-  m_Layer: 0
+  - component: {fileID: 5205568145887443668}
+  - component: {fileID: 6813298979865752343}
+  m_Layer: 6
   m_Name: RangeCollider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -201,7 +201,7 @@ Transform:
   - {fileID: 6813967980699235766}
   m_Father: {fileID: 6519659316328420538}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!50 &8095599443305397748
+--- !u!50 &5205568145887443668
 Rigidbody2D:
   serializedVersion: 4
   m_ObjectHideFlags: 0
@@ -228,7 +228,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!66 &3306492526249445705
+--- !u!66 &6813298979865752343
 CompositeCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -257,7 +257,7 @@ CompositeCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -265,7 +265,7 @@ CompositeCollider2D:
   m_GenerationType: 0
   m_EdgeRadius: 0
   m_ColliderPaths:
-  - m_Collider: {fileID: 5317073638864234730}
+  - m_Collider: {fileID: 0}
     m_ColliderPaths:
     - - X: 5000000
         Y: 35000000
@@ -275,7 +275,7 @@ CompositeCollider2D:
         Y: 25000000
       - X: 5000000
         Y: 25000000
-  - m_Collider: {fileID: 2121235843075101935}
+  - m_Collider: {fileID: 0}
     m_ColliderPaths:
     - - X: 5000000
         Y: 15000000
@@ -285,7 +285,7 @@ CompositeCollider2D:
         Y: 5000000
       - X: 5000000
         Y: 5000000
-  - m_Collider: {fileID: 7304734395810622956}
+  - m_Collider: {fileID: 0}
     m_ColliderPaths:
     - - X: 5000000
         Y: 25000000
@@ -295,7 +295,7 @@ CompositeCollider2D:
         Y: 15000000
       - X: 5000000
         Y: 15000000
-  - m_Collider: {fileID: 3661473156820000293}
+  - m_Collider: {fileID: 0}
     m_ColliderPaths:
     - - X: -5000000
         Y: 25000000
@@ -305,7 +305,7 @@ CompositeCollider2D:
         Y: 15000000
       - X: -5000000
         Y: 15000000
-  - m_Collider: {fileID: 4073816862583991305}
+  - m_Collider: {fileID: 0}
     m_ColliderPaths:
     - - X: -5000000
         Y: 35000000
@@ -315,7 +315,7 @@ CompositeCollider2D:
         Y: 25000000
       - X: -5000000
         Y: 25000000
-  - m_Collider: {fileID: 9152424308878165562}
+  - m_Collider: {fileID: 0}
     m_ColliderPaths:
     - - X: -5000000
         Y: 15000000
@@ -325,7 +325,7 @@ CompositeCollider2D:
         Y: 5000000
       - X: -5000000
         Y: 5000000
-  - m_Collider: {fileID: 4482692619355074747}
+  - m_Collider: {fileID: 0}
     m_ColliderPaths:
     - - X: 15000000
         Y: 15000000
@@ -335,7 +335,7 @@ CompositeCollider2D:
         Y: 5000000
       - X: 15000000
         Y: 5000000
-  - m_Collider: {fileID: 9014821552591527569}
+  - m_Collider: {fileID: 0}
     m_ColliderPaths:
     - - X: 15000000
         Y: 25000000
@@ -345,7 +345,7 @@ CompositeCollider2D:
         Y: 15000000
       - X: 15000000
         Y: 15000000
-  - m_Collider: {fileID: 6451848523059670784}
+  - m_Collider: {fileID: 0}
     m_ColliderPaths:
     - - X: 15000000
         Y: 35000000
@@ -354,6 +354,66 @@ CompositeCollider2D:
       - X: 5000000
         Y: 25000000
       - X: 15000000
+        Y: 25000000
+  - m_Collider: {fileID: 0}
+    m_ColliderPaths:
+    - - X: 25000000
+        Y: 35000000
+      - X: 15000000
+        Y: 35000000
+      - X: 15000000
+        Y: 25000000
+      - X: 25000000
+        Y: 25000000
+  - m_Collider: {fileID: 0}
+    m_ColliderPaths:
+    - - X: 25000000
+        Y: 25000000
+      - X: 15000000
+        Y: 25000000
+      - X: 15000000
+        Y: 15000000
+      - X: 25000000
+        Y: 15000000
+  - m_Collider: {fileID: 0}
+    m_ColliderPaths:
+    - - X: 25000000
+        Y: 15000000
+      - X: 15000000
+        Y: 15000000
+      - X: 15000000
+        Y: 5000000
+      - X: 25000000
+        Y: 5000000
+  - m_Collider: {fileID: 0}
+    m_ColliderPaths:
+    - - X: -15000000
+        Y: 15000000
+      - X: -25000000
+        Y: 15000000
+      - X: -25000000
+        Y: 5000000
+      - X: -15000000
+        Y: 5000000
+  - m_Collider: {fileID: 0}
+    m_ColliderPaths:
+    - - X: -15000000
+        Y: 25000000
+      - X: -25000000
+        Y: 25000000
+      - X: -25000000
+        Y: 15000000
+      - X: -15000000
+        Y: 15000000
+  - m_Collider: {fileID: 0}
+    m_ColliderPaths:
+    - - X: -15000000
+        Y: 35000000
+      - X: -25000000
+        Y: 35000000
+      - X: -25000000
+        Y: 25000000
+      - X: -15000000
         Y: 25000000
   - m_Collider: {fileID: 9089947373452284779}
     m_ColliderPaths:
@@ -365,16 +425,16 @@ CompositeCollider2D:
         Y: 25000000
       - X: 25000000
         Y: 25000000
-  - m_Collider: {fileID: 1311631648557912688}
+  - m_Collider: {fileID: 4482692619355074747}
     m_ColliderPaths:
-    - - X: 25000000
-        Y: 25000000
-      - X: 15000000
-        Y: 25000000
-      - X: 15000000
+    - - X: 15000000
         Y: 15000000
-      - X: 25000000
+      - X: 5000000
         Y: 15000000
+      - X: 5000000
+        Y: 5000000
+      - X: 15000000
+        Y: 5000000
   - m_Collider: {fileID: 1402581679015866372}
     m_ColliderPaths:
     - - X: 25000000
@@ -385,25 +445,25 @@ CompositeCollider2D:
         Y: 5000000
       - X: 25000000
         Y: 5000000
-  - m_Collider: {fileID: 3240410292857850706}
+  - m_Collider: {fileID: 9152424308878165562}
     m_ColliderPaths:
-    - - X: -15000000
-        Y: 15000000
-      - X: -25000000
-        Y: 15000000
-      - X: -25000000
-        Y: 5000000
-      - X: -15000000
-        Y: 5000000
-  - m_Collider: {fileID: 3384502187507797396}
-    m_ColliderPaths:
-    - - X: -15000000
-        Y: 25000000
-      - X: -25000000
-        Y: 25000000
-      - X: -25000000
+    - - X: -5000000
         Y: 15000000
       - X: -15000000
+        Y: 15000000
+      - X: -15000000
+        Y: 5000000
+      - X: -5000000
+        Y: 5000000
+  - m_Collider: {fileID: 7304734395810622956}
+    m_ColliderPaths:
+    - - X: 5000000
+        Y: 25000000
+      - X: -5000000
+        Y: 25000000
+      - X: -5000000
+        Y: 15000000
+      - X: 5000000
         Y: 15000000
   - m_Collider: {fileID: 1487569922832036090}
     m_ColliderPaths:
@@ -415,6 +475,96 @@ CompositeCollider2D:
         Y: 25000000
       - X: -15000000
         Y: 25000000
+  - m_Collider: {fileID: 6451848523059670784}
+    m_ColliderPaths:
+    - - X: 15000000
+        Y: 35000000
+      - X: 5000000
+        Y: 35000000
+      - X: 5000000
+        Y: 25000000
+      - X: 15000000
+        Y: 25000000
+  - m_Collider: {fileID: 2121235843075101935}
+    m_ColliderPaths:
+    - - X: 5000000
+        Y: 15000000
+      - X: -5000000
+        Y: 15000000
+      - X: -5000000
+        Y: 5000000
+      - X: 5000000
+        Y: 5000000
+  - m_Collider: {fileID: 5317073638864234730}
+    m_ColliderPaths:
+    - - X: 5000000
+        Y: 35000000
+      - X: -5000000
+        Y: 35000000
+      - X: -5000000
+        Y: 25000000
+      - X: 5000000
+        Y: 25000000
+  - m_Collider: {fileID: 3240410292857850706}
+    m_ColliderPaths:
+    - - X: -15000000
+        Y: 15000000
+      - X: -25000000
+        Y: 15000000
+      - X: -25000000
+        Y: 5000000
+      - X: -15000000
+        Y: 5000000
+  - m_Collider: {fileID: 3661473156820000293}
+    m_ColliderPaths:
+    - - X: -5000000
+        Y: 25000000
+      - X: -15000000
+        Y: 25000000
+      - X: -15000000
+        Y: 15000000
+      - X: -5000000
+        Y: 15000000
+  - m_Collider: {fileID: 3384502187507797396}
+    m_ColliderPaths:
+    - - X: -15000000
+        Y: 25000000
+      - X: -25000000
+        Y: 25000000
+      - X: -25000000
+        Y: 15000000
+      - X: -15000000
+        Y: 15000000
+  - m_Collider: {fileID: 9014821552591527569}
+    m_ColliderPaths:
+    - - X: 15000000
+        Y: 25000000
+      - X: 5000000
+        Y: 25000000
+      - X: 5000000
+        Y: 15000000
+      - X: 15000000
+        Y: 15000000
+  - m_Collider: {fileID: 4073816862583991305}
+    m_ColliderPaths:
+    - - X: -5000000
+        Y: 35000000
+      - X: -15000000
+        Y: 35000000
+      - X: -15000000
+        Y: 25000000
+      - X: -5000000
+        Y: 25000000
+  - m_Collider: {fileID: 1311631648557912688}
+    m_ColliderPaths:
+    - - X: 25000000
+        Y: 25000000
+      - X: 15000000
+        Y: 25000000
+      - X: 15000000
+        Y: 15000000
+      - X: 25000000
+        Y: 15000000
   m_CompositePaths:
     m_Paths:
     - - {x: 2.499971, y: 0.5}
@@ -436,14 +586,6 @@ PrefabInstance:
     - target: {fileID: 1532358725466748490, guid: b36d8e909fe0a484ea8ead04dd80b324, type: 3}
       propertyPath: m_Name
       value: RangeMarker (1)
-      objectReference: {fileID: 0}
-    - target: {fileID: 1532358725466748490, guid: b36d8e909fe0a484ea8ead04dd80b324, type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1908076785336755353, guid: b36d8e909fe0a484ea8ead04dd80b324, type: 3}
-      propertyPath: m_Enabled
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5020616375233343839, guid: b36d8e909fe0a484ea8ead04dd80b324, type: 3}
       propertyPath: m_LocalPosition.x
@@ -847,10 +989,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: RangeMarker (6)
       objectReference: {fileID: 0}
-    - target: {fileID: 1532358725466748490, guid: b36d8e909fe0a484ea8ead04dd80b324, type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 5020616375233343839, guid: b36d8e909fe0a484ea8ead04dd80b324, type: 3}
       propertyPath: m_LocalPosition.x
       value: 1
@@ -917,10 +1055,6 @@ PrefabInstance:
     - target: {fileID: 1532358725466748490, guid: b36d8e909fe0a484ea8ead04dd80b324, type: 3}
       propertyPath: m_Name
       value: RangeMarker (4)
-      objectReference: {fileID: 0}
-    - target: {fileID: 1532358725466748490, guid: b36d8e909fe0a484ea8ead04dd80b324, type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5020616375233343839, guid: b36d8e909fe0a484ea8ead04dd80b324, type: 3}
       propertyPath: m_LocalPosition.x
@@ -989,10 +1123,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: RangeMarker (3)
       objectReference: {fileID: 0}
-    - target: {fileID: 1532358725466748490, guid: b36d8e909fe0a484ea8ead04dd80b324, type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 5020616375233343839, guid: b36d8e909fe0a484ea8ead04dd80b324, type: 3}
       propertyPath: m_LocalPosition.x
       value: -1
@@ -1059,10 +1189,6 @@ PrefabInstance:
     - target: {fileID: 1532358725466748490, guid: b36d8e909fe0a484ea8ead04dd80b324, type: 3}
       propertyPath: m_Name
       value: RangeMarker
-      objectReference: {fileID: 0}
-    - target: {fileID: 1532358725466748490, guid: b36d8e909fe0a484ea8ead04dd80b324, type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5020616375233343839, guid: b36d8e909fe0a484ea8ead04dd80b324, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1198,10 +1324,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: RangeMarker (2)
       objectReference: {fileID: 0}
-    - target: {fileID: 1532358725466748490, guid: b36d8e909fe0a484ea8ead04dd80b324, type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 5020616375233343839, guid: b36d8e909fe0a484ea8ead04dd80b324, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -1268,10 +1390,6 @@ PrefabInstance:
     - target: {fileID: 1532358725466748490, guid: b36d8e909fe0a484ea8ead04dd80b324, type: 3}
       propertyPath: m_Name
       value: RangeMarker (5)
-      objectReference: {fileID: 0}
-    - target: {fileID: 1532358725466748490, guid: b36d8e909fe0a484ea8ead04dd80b324, type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5020616375233343839, guid: b36d8e909fe0a484ea8ead04dd80b324, type: 3}
       propertyPath: m_LocalPosition.x

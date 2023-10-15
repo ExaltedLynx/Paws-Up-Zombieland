@@ -5,6 +5,7 @@ using UnityEngine;
 public abstract class HealerUnit : PlayableUnit
 {
     [SerializeField] private int healPower;
+    private ContactFilter2D filter = new ContactFilter2D();
 
     protected override void Start()
     {
@@ -21,18 +22,22 @@ public abstract class HealerUnit : PlayableUnit
         base.Update();
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        PlayableUnit collidedUnit = collision.gameObject.GetComponentInParent<PlayableUnit>();
-        if (state != UnitState.NotPlaced && collidedUnit.GetState() != UnitState.NotPlaced)
-            Debug.Log(collision.gameObject + " entered heal range");
-    }
-
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-
-            Debug.Log(collision.gameObject +" left heal range");
-    }
-
     internal abstract void HealLogic();
+
+    //checks for colliders at the center of each range marker filtered through the Player Collision layer.
+    protected List<PlayableUnit> GetUnitsInRange()
+    {
+        List<Collider2D> results = new List<Collider2D>();
+        List<PlayableUnit> unitsInRange = new List<PlayableUnit>();
+        Transform[] rangeMarkers = rangeCollider.GetComponentsInChildren<Transform>();
+        filter.SetLayerMask(LayerMask.GetMask("Player Collision"));
+
+        for (int i = 1; i < rangeMarkers.Length; i++) // i is set to one to skip the transform attached to this unit
+        {
+            int output = Physics2D.OverlapPoint(rangeMarkers[i].position, filter, results); 
+            if (output == 1)
+                unitsInRange.Add(results[0].GetComponent<PlayableUnit>());
+        }
+        return unitsInRange;
+    }
 }

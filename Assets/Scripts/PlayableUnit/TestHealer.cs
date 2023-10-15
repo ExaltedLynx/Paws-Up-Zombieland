@@ -19,8 +19,13 @@ public class TestHealer : HealerUnit
         base.Update();
     }
 
+    [ContextMenu("Force Heal")]
     internal override void HealLogic()
     {
-
+        foreach(PlayableUnit unit in GetUnitsInRange()) 
+        {
+            //do healing stuff here
+            Debug.Log(unit);
+        }
     }
 }
