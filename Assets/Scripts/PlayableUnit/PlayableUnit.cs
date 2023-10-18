@@ -123,6 +123,11 @@ public class PlayableUnit : MonoBehaviour
         return maxHealth;
     }
 
+    public int GetCurrentHealth()
+    {
+        return currentHealth;
+    }
+
     public UnitState GetState()
     {
         return state;

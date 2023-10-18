@@ -4,7 +4,7 @@ using UnityEngine;
 
 public abstract class HealerUnit : PlayableUnit
 {
-    [SerializeField] private int healPower;
+    [SerializeField] protected int healPower;
     private ContactFilter2D filter = new ContactFilter2D();
 
     protected override void Start()
