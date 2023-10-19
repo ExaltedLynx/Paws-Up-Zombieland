@@ -38,7 +38,7 @@ public class EnemyBehavior : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
         {
-            if (collision.gameObject.tag == "Unit")
+            if (collision.gameObject.tag == "Unit" && playableUnit.GetState() != PlayableUnit.UnitState.NotPlaced)
             {
                 isMoving = false;
                 isColliding = true;
@@ -46,7 +46,7 @@ public class EnemyBehavior : MonoBehaviour
         }
            private void OnCollisionExit2D(Collision2D collision)
         {
-            if (collision.gameObject.tag == "Unit")
+            if (collision.gameObject.tag == "Unit" && playableUnit.GetState() != PlayableUnit.UnitState.NotPlaced)
             {
                 isColliding = false;
                 isMoving = true;
@@ -89,7 +89,7 @@ public class EnemyBehavior : MonoBehaviour
 
             if (isColliding)
     {
-     if (damageTimer <= 0f)
+     if (damageTimer <= 0f && playableUnit.GetState() != PlayableUnit.UnitState.NotPlaced)
         {
             if (playableUnit != null)
             {
