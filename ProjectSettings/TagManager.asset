@@ -9,6 +9,7 @@ TagManager:
   - Spawnpoints
   - Spawnpoint
   - Highlighter
+  - Unit
   layers:
   - Default
   - TransparentFX

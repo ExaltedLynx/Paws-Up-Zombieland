@@ -520,7 +520,7 @@ MonoBehaviour:
   startPoint: {fileID: 1444224934}
   enemyPrefabs:
   - {fileID: 2897549260560756373, guid: 25cc497356f14ac4cac4e67eabaec73c, type: 3}
-  baseEnemies: 5
+  baseEnemies: 0
   enemiesPerSecond: 0.5
   timeBetweenWaves: 5
   difficultyScalingFactor: 0.75
@@ -2358,7 +2358,7 @@ MonoBehaviour:
   startPoint: {fileID: 481848429}
   enemyPrefabs:
   - {fileID: 2897549260560756373, guid: 25cc497356f14ac4cac4e67eabaec73c, type: 3}
-  baseEnemies: 5
+  baseEnemies: 1
   enemiesPerSecond: 0.5
   timeBetweenWaves: 5
   difficultyScalingFactor: 0.75
