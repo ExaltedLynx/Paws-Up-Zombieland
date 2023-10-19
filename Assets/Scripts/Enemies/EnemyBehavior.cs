@@ -12,6 +12,8 @@ public class EnemyBehavior : MonoBehaviour
 
     private Transform[] waypoints; // Reference to the waypoints array.
 
+    SpriteRenderer rend;
+
     public void SetWaypoints(Transform[] newWaypoints)
     {
         waypoints = newWaypoints;
@@ -19,6 +21,10 @@ public class EnemyBehavior : MonoBehaviour
 
     void Start(){
         Wpoints = GameObject.FindGameObjectWithTag("Waypoints").GetComponent<Waypoints>();
+        rend = GetComponent<SpriteRenderer>();
+        Color c = rend.material.color;
+        c.a = 0f;
+        rend.material.color = c;
     }
 
     void Update(){
@@ -29,10 +35,58 @@ public class EnemyBehavior : MonoBehaviour
             return;
         }
 
+        IEnumerator FadeOut()
+        {
+            for (float f = 1f; f>= -0.05f; f -= 0.05f)
+            {
+                Color c = rend.material.color;
+                c.a = f;
+                rend.material.color = c;
+                yield return new WaitForSeconds (0.05f);
+            }
+        }
+
+        IEnumerator FadeIn()
+        {
+            for (float f = 0.05f; f <= 1; f += 0.05f)
+            {
+                Color c = rend.material.color;
+                c.a = f;
+                rend.material.color = c;
+                yield return new WaitForSeconds (0.05f);
+            }
+        }
+
+        IEnumerator DelayDestroy()
+        {
+            yield return new WaitForSeconds(0.2f);
+            Destroy(gameObject);
+        }
+
+        void startFadingOut()
+        {
+            StartCoroutine(FadeOut());
+        }
+
+        void startFadingIn()
+        {
+            StartCoroutine(FadeIn());
+        }
+
+        void startDelay()
+        {
+            StartCoroutine(DelayDestroy());
+        }
+
         transform.position = Vector2.MoveTowards(transform.position, waypoints[waypointIndex].position, speed * Time.deltaTime);
 
         if (Vector2.Distance(transform.position, waypoints[waypointIndex].position) < 0.1f)
         {
+            if (waypointIndex == 0)
+            {
+                startFadingIn();
+            }
+
             if (waypointIndex < waypoints.Length - 1)
             {
                 waypointIndex++;
@@ -40,7 +94,9 @@ public class EnemyBehavior : MonoBehaviour
             else
                 {
                 WaveSpawner.onEnemyDestroy.Invoke();
-                Destroy(gameObject);
+                startFadingOut();
+                startDelay();
+                 // Change this later so that it takes away player's health
                 }
             }
         }
