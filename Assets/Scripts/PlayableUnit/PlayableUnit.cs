@@ -13,12 +13,33 @@ public class PlayableUnit : MonoBehaviour
     [SerializeField] protected Tile.TileType validTile;
     [SerializeField] protected UnitState state = UnitState.NotPlaced;
     [SerializeField] protected GameObject rangeCollider;
+    [SerializeField] private Material flashMaterial;
+    [SerializeField] private SpriteRenderer spriteRenderer;
+    [SerializeField] private Material originalMaterial;
+
+
     internal Tile tilePlacedOn;
 
     public enum UnitState {NotPlaced, Idle, Acting}
 
+    private IEnumerator FlashEffect()
+{
+    // Apply the flash material to the Sprite Renderer.
+    spriteRenderer.material = flashMaterial;
+    
+    // Wait for a short duration (e.g., 0.2 seconds).
+    yield return new WaitForSeconds(0.2f);
+    
+    // Revert to the original material.
+    spriteRenderer.material = originalMaterial;
+}
+
+
     protected virtual void Start()
     {
+        spriteRenderer = GetComponent<SpriteRenderer>(); 
+        originalMaterial = GetComponent<SpriteRenderer>().material;
+        originalMaterial = spriteRenderer.material;
         currentHealth = maxHealth;
         actionTimer = actionTime;
         state = UnitState.NotPlaced;
@@ -104,6 +125,10 @@ public class PlayableUnit : MonoBehaviour
         if (currentHealth <= 0)
         {
             Destroy(gameObject);
+        }
+        else
+        {
+        StartCoroutine(FlashEffect()); // Trigger the flash effect.
         }
     }
 
