@@ -94,6 +94,7 @@ public class EnemyBehavior : MonoBehaviour
             if (playableUnit != null)
             {
                 playableUnit.Damage(10);
+                Debug.Log("Damage taken");
             }
             damageTimer = damageDelay; // Reset the timer after applying damage.
         }
