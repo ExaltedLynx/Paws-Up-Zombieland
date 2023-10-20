@@ -131,7 +131,7 @@ public abstract class PlayableUnit : MonoBehaviour
     [ContextMenu("Force Kill")]
     private void ForceKill()
     {
-        Damage(GetCurrentHealth());
+        Damage(currentHealth);
     }
 
     public void Heal(int amount)

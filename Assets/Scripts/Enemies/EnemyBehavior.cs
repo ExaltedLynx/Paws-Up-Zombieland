@@ -6,6 +6,8 @@ public class EnemyBehavior : MonoBehaviour
 {
    // How fast enemy moves
     [SerializeField] public float speed;
+    [SerializeField] private int currentHealth;
+    [SerializeField] private int maxHealth;
     private Waypoints Wpoints;
     private PlayableUnit targetedUnit;
 
@@ -27,17 +29,19 @@ public class EnemyBehavior : MonoBehaviour
     }
 
 
-    void Start(){
+    void Start()
+    {
         Wpoints = GameObject.FindGameObjectWithTag("Waypoints").GetComponent<Waypoints>();
         rend = GetComponent<SpriteRenderer>();
         Color c = rend.material.color;
         c.a = 0f;
         rend.material.color = c;
+        currentHealth = maxHealth;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Unit") )
+        if (collision.gameObject.CompareTag("Unit"))
         {
             PlayableUnit temp = collision.GetComponent<PlayableUnit>();
             if (temp.GetState() != PlayableUnit.UnitState.NotPlaced && !temp.IsAtMaxBlock())
@@ -108,6 +112,19 @@ public class EnemyBehavior : MonoBehaviour
             }
         }
 
+    }
+
+    public void Damage(int amount)
+    {
+        currentHealth -= amount;
+        if(currentHealth <= 0)
+        {
+            if(targetedUnit != null) 
+                targetedUnit.DecreaseBlockedCount();
+
+            WaveSpawner.onEnemyDestroy.Invoke();
+            Destroy(gameObject);
+        }
     }
 
     IEnumerator FadeOut()
