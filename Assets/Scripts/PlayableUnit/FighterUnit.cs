@@ -31,6 +31,4 @@ public abstract class FighterUnit : PlayableUnit
         //if no enemies
             //state = UnitState.Idle;
     }
-
-    internal abstract void AttackLogic();
 }

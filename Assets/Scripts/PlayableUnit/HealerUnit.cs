@@ -22,8 +22,6 @@ public abstract class HealerUnit : PlayableUnit
         base.Update();
     }
 
-    internal abstract void HealLogic();
-
     //checks for colliders at the center of each range marker filtered through the Player Collision layer.
     protected List<PlayableUnit> GetUnitsInRange()
     {

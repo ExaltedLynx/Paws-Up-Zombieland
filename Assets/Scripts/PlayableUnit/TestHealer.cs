@@ -20,7 +20,7 @@ public class TestHealer : HealerUnit
     }
 
     [ContextMenu("Force Heal")]
-    internal override void HealLogic()
+    protected override void ActionLogic()
     {
         //finds the unit with the lowest health then heals them
         List<PlayableUnit> units = GetUnitsInRange();

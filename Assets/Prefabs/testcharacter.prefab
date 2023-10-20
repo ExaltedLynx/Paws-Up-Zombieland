@@ -102,12 +102,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentHealth: 0
   maxHealth: 200
-  Defense: 0
+  defense: 0
+  enemiesBlocked: 0
+  maxBlock: 1
   actionTimer: 0
-  actionTime: 0
+  actionTime: 3
   validTile: 0
   state: 0
   rangeCollider: {fileID: 6761960978643246412}
+  flashMaterial: {fileID: 0}
+  spriteRenderer: {fileID: 0}
+  originalMaterial: {fileID: 0}
   attackStat: 0
 --- !u!61 &6908851524017177832
 BoxCollider2D:
@@ -138,7 +143,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -164,7 +169,7 @@ Rigidbody2D:
   m_GameObject: {fileID: 4641767651036714290}
   m_BodyType: 1
   m_Simulated: 1
-  m_UseFullKinematicContacts: 1
+  m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
   m_LinearDrag: 0
@@ -277,7 +282,7 @@ CompositeCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}

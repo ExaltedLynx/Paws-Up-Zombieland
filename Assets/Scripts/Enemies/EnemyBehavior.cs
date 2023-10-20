@@ -7,7 +7,7 @@ public class EnemyBehavior : MonoBehaviour
    // How fast enemy moves
     [SerializeField] public float speed;
     private Waypoints Wpoints;
-    private PlayableUnit playableUnit;
+    private PlayableUnit targetedUnit;
 
     private int waypointIndex;
 
@@ -29,80 +29,84 @@ public class EnemyBehavior : MonoBehaviour
 
     void Start(){
         Wpoints = GameObject.FindGameObjectWithTag("Waypoints").GetComponent<Waypoints>();
-        playableUnit = FindObjectOfType<PlayableUnit>();
         rend = GetComponent<SpriteRenderer>();
         Color c = rend.material.color;
         c.a = 0f;
         rend.material.color = c;
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Unit") )
         {
-            if (collision.gameObject.tag == "Unit" && playableUnit.GetState() != PlayableUnit.UnitState.NotPlaced)
+            PlayableUnit temp = collision.GetComponent<PlayableUnit>();
+            if (temp.GetState() != PlayableUnit.UnitState.NotPlaced && !temp.IsAtMaxBlock())
             {
+                targetedUnit = temp;
+                targetedUnit.IncreaseBlockedCount();
                 isMoving = false;
                 isColliding = true;
-            } 
-        }
-           private void OnCollisionExit2D(Collision2D collision)
-        {
-            if (collision.gameObject.tag == "Unit" && playableUnit.GetState() != PlayableUnit.UnitState.NotPlaced)
-            {
-                isColliding = false;
-                isMoving = true;
-            } 
-        }
-        
-    void Update(){
+            }
+        } 
+    }
 
-       if (waypoints == null || waypointIndex >= waypoints.Length)
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        //this only happens when the unit the enemy is attacking is destroyed
+        if (collision.gameObject.CompareTag("Unit"))
+        {
+            targetedUnit = null;
+            isColliding = false;
+            isMoving = true;
+        }
+    }
+        
+    void Update()
+    {
+        if (waypoints == null || waypointIndex >= waypoints.Length)
         {
             // Handle error or destroy the enemy.
             Destroy(gameObject);
             return;
         }
 
-           if (isMoving)
+        if (isMoving)
         {
             transform.position = Vector2.MoveTowards(transform.position, waypoints[waypointIndex].position, speed * Time.deltaTime);
 
             if (Vector2.Distance(transform.position, waypoints[waypointIndex].position) < 0.1f)
-        {
-            if (waypointIndex == 0)
             {
-                startFadingIn();
-            }
+                if (waypointIndex == 0)
+                { 
+                    startFadingIn();
+                }
 
-            if (waypointIndex < waypoints.Length - 1)
-            {
-                waypointIndex++;
-            }
-            else
-                    {
-                WaveSpawner.onEnemyDestroy.Invoke();
-                startFadingOut();
-                startDelay();
-                 // Change this later so that it takes away player's health
-                    }
+                if (waypointIndex < waypoints.Length - 1)
+                {
+                    waypointIndex++;
+                }
+                else
+                {
+                    WaveSpawner.onEnemyDestroy.Invoke();
+                    startFadingOut();
+                    startDelay();
+                    // Change this later so that it takes away player's health
                 }
             }
+        }
 
-            if (isColliding)
-    {
-     if (damageTimer <= 0f && playableUnit.GetState() != PlayableUnit.UnitState.NotPlaced)
+        if (isColliding && targetedUnit != null)
         {
-            if (playableUnit != null)
+            if (damageTimer <= 0f && targetedUnit.GetState() != PlayableUnit.UnitState.NotPlaced)
             {
-                playableUnit.Damage(10);
-                Debug.Log("Damage taken");
+                targetedUnit.Damage(10);
+                damageTimer = damageDelay; // Reset the timer after applying damage.
             }
-            damageTimer = damageDelay; // Reset the timer after applying damage.
+            else
+            {
+                damageTimer -= Time.deltaTime; // Decrease the timer.
+            }
         }
-        else
-        {
-            damageTimer -= Time.deltaTime; // Decrease the timer.
-        }
-    }
 
     }
 

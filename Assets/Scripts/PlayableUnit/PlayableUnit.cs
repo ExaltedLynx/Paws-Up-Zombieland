@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class PlayableUnit : MonoBehaviour
+public abstract class PlayableUnit : MonoBehaviour
 {
     [SerializeField] private int currentHealth;
     [SerializeField] private int maxHealth;
-    [SerializeField] private int Defense;
+    [SerializeField] private int defense;
+    [SerializeField] private int enemiesBlocked = 0;
+    [SerializeField] private int maxBlock;
     [SerializeField] private float actionTimer;
     [SerializeField] protected float actionTime;
     [SerializeField] protected Tile.TileType validTile;
@@ -20,19 +22,19 @@ public class PlayableUnit : MonoBehaviour
 
     internal Tile tilePlacedOn;
 
-    public enum UnitState {NotPlaced, Idle, Acting}
+    public enum UnitState { NotPlaced, Idle, Acting }
 
     private IEnumerator FlashEffect()
-{
-    // Apply the flash material to the Sprite Renderer.
-    spriteRenderer.material = flashMaterial;
+    {
+        // Apply the flash material to the Sprite Renderer.
+        spriteRenderer.material = flashMaterial;
     
-    // Wait for a short duration (e.g., 0.2 seconds).
-    yield return new WaitForSeconds(0.2f);
+        // Wait for a short duration (e.g., 0.2 seconds).
+        yield return new WaitForSeconds(0.2f);
     
-    // Revert to the original material.
-    spriteRenderer.material = originalMaterial;
-}
+        // Revert to the original material.
+        spriteRenderer.material = originalMaterial;
+    }
 
 
     protected virtual void Start()
@@ -47,9 +49,9 @@ public class PlayableUnit : MonoBehaviour
 
     protected virtual void FixedUpdate()
     {
-        if(state == UnitState.NotPlaced) { return; }
+        if (state == UnitState.NotPlaced) { return; }
 
-        if(state == UnitState.Acting)
+        if (state == UnitState.Acting)
             Action();
 
         state = UnitState.Idle;
@@ -57,10 +59,10 @@ public class PlayableUnit : MonoBehaviour
 
     protected virtual void Update()
     {
-        if(state == UnitState.NotPlaced)
+        if (state == UnitState.NotPlaced)
         {
             DragUnit();
-            if(Input.GetMouseButtonDown(1))
+            if (Input.GetMouseButtonDown(1))
             {
                 gameObject.transform.Rotate(0, 0, 90);
             }
@@ -78,23 +80,17 @@ public class PlayableUnit : MonoBehaviour
 
     private void Action()
     {
-        if(actionTimer != 0)
+        if (actionTimer != 0)
         {
             actionTimer -= Time.fixedDeltaTime;
             return;
         }
-
-        switch(this)
-        {
-            case FighterUnit fighter:
-                fighter.AttackLogic();
-                break;
-            case HealerUnit healer:
-                healer.HealLogic();
-                break;
-        }
+        ActionLogic();
         actionTimer = actionTime; //resets the timer
     }
+
+    protected abstract void ActionLogic();
+
 
     //moves the gameobject of the unit to where the mouse is
     private void DragUnit()
@@ -121,7 +117,7 @@ public class PlayableUnit : MonoBehaviour
 
     public void Damage(int amount)
     {
-        currentHealth -= amount;
+        currentHealth -= amount - (int)(defense * 0.2); //lowers damage recieved by 20% of the unit's defense
         if (currentHealth <= 0)
         {
             Destroy(gameObject);
@@ -132,12 +128,23 @@ public class PlayableUnit : MonoBehaviour
         }
     }
 
+    [ContextMenu("Force Kill")]
+    private void ForceKill()
+    {
+        Damage(GetCurrentHealth());
+    }
+
     public void Heal(int amount)
     {
         currentHealth += amount;
         currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
     }
 
+    //returns true if the number of units attacking this unit is equal to max amount of units this unit can hold aggro
+    public bool IsAtMaxBlock()
+    {
+        return enemiesBlocked == maxBlock;
+    }
     public Tile.TileType GetValidTile()
     {
         return validTile;
@@ -161,5 +168,14 @@ public class PlayableUnit : MonoBehaviour
     public void SetState(UnitState newState)
     {
         state = newState;
+    }
+
+    public void IncreaseBlockedCount()
+    {
+        enemiesBlocked++;
+    }
+    public void DecreaseBlockedCount()
+    {
+        enemiesBlocked--;
     }
 }
