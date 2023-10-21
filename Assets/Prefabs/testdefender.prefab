@@ -225,6 +225,7 @@ MonoBehaviour:
   maxBlock: 3
   actionTimer: 0
   actionTime: 4
+  cost: 8
   validTile: 0
   state: 0
   rangeCollider: {fileID: 1771664877497340223}

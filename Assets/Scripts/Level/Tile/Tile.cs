@@ -53,6 +53,7 @@ public class Tile : MonoBehaviour
             {
                 placedUnitObject = GameManager.Instance.heldUnit;
                 GameManager.Instance.heldUnit = null;
+                GameManager.Instance.UsePlacementPoints(placedUnit);
                 placedUnit.transform.position = transform.position;
                 placedUnit.transform.parent = transform;
                 placedUnit.tilePlacedOn = this;

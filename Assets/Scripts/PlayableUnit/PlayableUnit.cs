@@ -12,6 +12,7 @@ public abstract class PlayableUnit : MonoBehaviour
     [SerializeField] private int maxBlock;
     [SerializeField] private float actionTimer;
     [SerializeField] protected float actionTime;
+    [SerializeField] private int cost;
     [SerializeField] protected Tile.TileType validTile;
     [SerializeField] protected UnitState state = UnitState.NotPlaced;
     [SerializeField] protected GameObject rangeCollider;
@@ -28,10 +29,10 @@ public abstract class PlayableUnit : MonoBehaviour
     {
         // Apply the flash material to the Sprite Renderer.
         spriteRenderer.material = flashMaterial;
-    
+
         // Wait for a short duration (e.g., 0.2 seconds).
         yield return new WaitForSeconds(0.2f);
-    
+
         // Revert to the original material.
         spriteRenderer.material = originalMaterial;
     }
@@ -39,7 +40,7 @@ public abstract class PlayableUnit : MonoBehaviour
 
     protected virtual void Start()
     {
-        spriteRenderer = GetComponent<SpriteRenderer>(); 
+        spriteRenderer = GetComponent<SpriteRenderer>();
         originalMaterial = GetComponent<SpriteRenderer>().material;
         originalMaterial = spriteRenderer.material;
         currentHealth = maxHealth;
@@ -124,7 +125,7 @@ public abstract class PlayableUnit : MonoBehaviour
         }
         else
         {
-        StartCoroutine(FlashEffect()); // Trigger the flash effect.
+            StartCoroutine(FlashEffect()); // Trigger the flash effect.
         }
     }
 
@@ -145,6 +146,17 @@ public abstract class PlayableUnit : MonoBehaviour
     {
         return enemiesBlocked == maxBlock;
     }
+
+    public void IncreaseBlockedCount()
+    {
+        enemiesBlocked++;
+    }
+
+    public void DecreaseBlockedCount()
+    {
+        enemiesBlocked--;
+    }
+
     public Tile.TileType GetValidTile()
     {
         return validTile;
@@ -160,6 +172,11 @@ public abstract class PlayableUnit : MonoBehaviour
         return currentHealth;
     }
 
+    public int GetUnitCost()
+    {
+        return cost;
+    }
+
     public UnitState GetState()
     {
         return state;
@@ -168,14 +185,5 @@ public abstract class PlayableUnit : MonoBehaviour
     public void SetState(UnitState newState)
     {
         state = newState;
-    }
-
-    public void IncreaseBlockedCount()
-    {
-        enemiesBlocked++;
-    }
-    public void DecreaseBlockedCount()
-    {
-        enemiesBlocked--;
     }
 }

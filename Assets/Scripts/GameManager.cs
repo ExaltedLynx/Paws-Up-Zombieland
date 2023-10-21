@@ -1,14 +1,20 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    [SerializeField] public int playerMaxHealth;
-    [SerializeField] public int playerHealth;
+    [SerializeField] private int playerMaxHealth;
+    [SerializeField] private int playerHealth;
     [SerializeField] private GameObject[] unitPrefabs;
+
+    [SerializeField] private TextMeshProUGUI placementPointsText;
+    public int placementPoints = 0;
+    private float timePerPoint = 1;
+    private float timer;
 
     public GameObject heldUnit;
     private PlayableUnit[] placedUnits;
@@ -23,8 +29,10 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
+        placementPointsText.SetText(placementPoints.ToString());
         playerHealth = playerMaxHealth;
         placedUnits = new PlayableUnit[unitPrefabs.Length];
+        timer = timePerPoint;
         instance = this; 
     }
 
@@ -45,6 +53,14 @@ public class GameManager : MonoBehaviour
             //load failed level scene
         }
 
+        if(timer < 0 && placementPoints < 99)
+        {
+            placementPoints++;
+            placementPointsText.SetText(placementPoints.ToString());
+            timer = timePerPoint;
+        }
+        timer -= Time.deltaTime;
+
     }
 
     public void damagePlayer()
@@ -54,21 +70,26 @@ public class GameManager : MonoBehaviour
 
     public void SetHeldUnit(int index)
     {
-        if (placedUnits[index] == null)
+        PlayableUnit unit;
+        if(placedUnits[index] == null)
         {
-            removePreviousHeldUnit();
-            heldUnit = Instantiate(unitPrefabs[index], transform);
-             placedUnits[index] = heldUnit.GetComponent<PlayableUnit>();
-            
+            unit = unitPrefabs[index].GetComponent<PlayableUnit>();
+            if(CanAffordUnit(unit))
+            {
+                removeCurrentlyHeldUnit();
+                heldUnit = Instantiate(unitPrefabs[index], transform);
+                placedUnits[index] = heldUnit.GetComponent<PlayableUnit>();
+
+            }
         }
-        else if (placedUnits[index].GetState() != PlayableUnit.UnitState.NotPlaced)
+        else if(placedUnits[index].GetState() != PlayableUnit.UnitState.NotPlaced)
         {
-            removePreviousHeldUnit();
-            PlayableUnit unit = placedUnits[index];
+            removeCurrentlyHeldUnit();
+            unit = placedUnits[index];
             unit.tilePlacedOn.removeUnit();
             unit.ToggleRangeVisibility();
-            heldUnit = unit.gameObject;
             unit.SetState(PlayableUnit.UnitState.NotPlaced);
+            heldUnit = unit.gameObject;
         }
     }
 
@@ -85,7 +106,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private void removePreviousHeldUnit()
+    private void removeCurrentlyHeldUnit()
     {
         if (heldUnit != null)
         {
@@ -94,5 +115,19 @@ public class GameManager : MonoBehaviour
             Destroy(heldUnit);
             heldUnit = null;
         }
-    }    
+    }
+
+    //returns true if player has enough points to place the unit, false otherwise
+    private bool CanAffordUnit(PlayableUnit unit)
+    {
+        if (unit.GetUnitCost() <= placementPoints)
+            return true;
+
+        return false;
+    }
+
+    public void UsePlacementPoints(PlayableUnit unit)
+    {
+        placementPoints -= unit.GetUnitCost();
+    }
 }

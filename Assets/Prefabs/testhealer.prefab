@@ -102,11 +102,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentHealth: 0
   maxHealth: 100
-  Defense: 0
+  defense: 0
   enemiesBlocked: 0
   maxBlock: 0
   actionTimer: 0
   actionTime: 4
+  cost: 6
   validTile: 1
   state: 0
   rangeCollider: {fileID: 7574921670951050647}
