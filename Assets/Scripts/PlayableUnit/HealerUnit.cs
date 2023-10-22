@@ -36,6 +36,10 @@ public abstract class HealerUnit : PlayableUnit
             if (output == 1)
                 unitsInRange.Add(results[0].GetComponent<PlayableUnit>());
         }
+
+        if (unitsInRange.Count > 0)
+            SetState(UnitState.Acting);
+
         return unitsInRange;
     }
 }

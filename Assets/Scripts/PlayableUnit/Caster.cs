@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TestCharacter : FighterUnit
+public class Caster : FighterUnit
 {
     protected override void Start()
     {
@@ -21,6 +21,6 @@ public class TestCharacter : FighterUnit
 
     protected override void ActionLogic()
     {
-        
+
     }
 }
