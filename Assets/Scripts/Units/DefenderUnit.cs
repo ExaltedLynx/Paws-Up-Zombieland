@@ -22,6 +22,6 @@ public class DefenderUnit : FighterUnit
 
     protected override void ActionLogic()
     {
-        enemiesInRange[0].Damage(attackStat);
+        //enemiesInRange[0].Damage(attackStat);
     }
 }

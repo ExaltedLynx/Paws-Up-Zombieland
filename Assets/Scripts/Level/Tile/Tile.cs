@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
-public class Tile : MonoBehaviour
+public class Tile : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler
 {
     public enum TileType
     {
@@ -45,11 +46,11 @@ public class Tile : MonoBehaviour
         placedUnitObject = null;
     }
 
-    private void OnMouseDown()
+    public void OnPointerDown(PointerEventData eventData)
     {
-        if(GameManager.Instance.heldUnit != null)
+        if (GameManager.Instance.heldUnit != null && eventData.button == PointerEventData.InputButton.Left)
         {
-            if(SetUnit(GameManager.Instance.heldUnit.GetComponent<PlayableUnit>()))
+            if (SetUnit(GameManager.Instance.heldUnit.GetComponent<PlayableUnit>()))
             {
                 placedUnitObject = GameManager.Instance.heldUnit;
                 GameManager.Instance.heldUnit = null;
@@ -57,20 +58,25 @@ public class Tile : MonoBehaviour
                 placedUnit.transform.position = transform.position;
                 placedUnit.transform.parent = transform;
                 placedUnit.tilePlacedOn = this;
-                placedUnit.SetState(PlayableUnit.UnitState.Idle);
+                if (placedUnit is HealerUnit) //easy way to avoid rewriting UnitsInRange() to also work when a healer unit is placed
+                    placedUnit.SetState(PlayableUnit.UnitState.Acting);
+                else
+                    placedUnit.SetState(PlayableUnit.UnitState.Idle);
+
                 placedUnit.ToggleRangeVisibility();
             }
         }
     }
 
-    private void OnMouseEnter()
+    public void OnPointerEnter(PointerEventData eventData)
     {
         HighlightTile();
     }
 
-    private void OnMouseExit()
+    public void OnPointerExit(PointerEventData eventData)
     {
         highlighter.enabled = false;
+
     }
 
     private void HighlightTile()

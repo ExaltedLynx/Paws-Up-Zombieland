@@ -96,7 +96,7 @@ public class EnemyBehavior : MonoBehaviour
                 }
                 else
                 {
-                    WaveSpawner.onEnemyDestroy.Invoke(this);
+                    WaveSpawner.onEnemyDestroy.Invoke();
                     startFadingOut();
                     startDelay();
                     GameManager.Instance.DamagePlayer();
@@ -128,7 +128,7 @@ public class EnemyBehavior : MonoBehaviour
             if(targetedUnit != null) 
                 targetedUnit.DecreaseEnemiesBlocked();
 
-            WaveSpawner.onEnemyDestroy.Invoke(this);
+            WaveSpawner.onEnemyDestroy.Invoke();
             Destroy(gameObject);
         }
     }

@@ -2,8 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
-public abstract class PlayableUnit : MonoBehaviour
+public abstract class PlayableUnit : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     [SerializeField] private int currentHealth;
     [SerializeField] private int maxHealth;
@@ -70,11 +71,12 @@ public abstract class PlayableUnit : MonoBehaviour
         }
     }
 
-    private void OnMouseEnter()
+    public void OnPointerEnter(PointerEventData eventData)
     {
         ToggleRangeVisibility();
     }
-    private void OnMouseExit()
+
+    public void OnPointerExit(PointerEventData eventData)
     {
         ToggleRangeVisibility();
     }
