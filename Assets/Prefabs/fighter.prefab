@@ -102,11 +102,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentHealth: 0
   maxHealth: 200
-  defense: 15
+  defense: 20
   enemiesBlocked: 0
   maxBlock: 2
   actionTimer: 0
-  actionTime: 3
+  actionTime: 1.2
   cost: 5
   validTile: 0
   state: 0

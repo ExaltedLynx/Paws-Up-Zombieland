@@ -55,8 +55,6 @@ public abstract class PlayableUnit : MonoBehaviour, IPointerEnterHandler, IPoint
 
         if (state == UnitState.Acting)
             Action();
-
-        state = UnitState.Idle;
     }
 
     protected virtual void Update()
@@ -83,7 +81,7 @@ public abstract class PlayableUnit : MonoBehaviour, IPointerEnterHandler, IPoint
 
     private void Action()
     {
-        if (actionTimer != 0)
+        if (actionTimer > 0)
         {
             actionTimer -= Time.fixedDeltaTime;
             return;

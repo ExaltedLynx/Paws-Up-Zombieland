@@ -10,6 +10,8 @@ public abstract class HealerUnit : PlayableUnit
     protected override void Start()
     {
         base.Start();
+        filter.SetLayerMask(LayerMask.GetMask("Player Collision"));
+        filter.useTriggers = true;
     }
 
     protected override void FixedUpdate()
@@ -28,7 +30,6 @@ public abstract class HealerUnit : PlayableUnit
         List<Collider2D> results = new List<Collider2D>();
         List<PlayableUnit> unitsInRange = new List<PlayableUnit>();
         Transform[] rangeMarkers = rangeCollider.GetComponentsInChildren<Transform>();
-        filter.SetLayerMask(LayerMask.GetMask("Player Collision"));
 
         for (int i = 1; i < rangeMarkers.Length; i++) // i is set to one to skip the transform attached to this unit
         {
@@ -36,10 +37,6 @@ public abstract class HealerUnit : PlayableUnit
             if (output == 1)
                 unitsInRange.Add(results[0].GetComponent<PlayableUnit>());
         }
-
-        if (unitsInRange.Count > 0)
-            SetState(UnitState.Acting);
-
         return unitsInRange;
     }
 }

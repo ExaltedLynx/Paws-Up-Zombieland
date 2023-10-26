@@ -219,12 +219,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentHealth: 0
-  maxHealth: 200
-  defense: 35
+  maxHealth: 300
+  defense: 40
   enemiesBlocked: 0
   maxBlock: 3
   actionTimer: 0
-  actionTime: 4
+  actionTime: 1.5
   cost: 9
   validTile: 0
   state: 0
@@ -232,7 +232,7 @@ MonoBehaviour:
   flashMaterial: {fileID: 0}
   spriteRenderer: {fileID: 0}
   originalMaterial: {fileID: 0}
-  attackStat: 20
+  attackStat: 35
 --- !u!61 &5096732678358101801
 BoxCollider2D:
   m_ObjectHideFlags: 0
