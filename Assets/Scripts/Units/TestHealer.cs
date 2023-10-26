@@ -22,13 +22,20 @@ public class TestHealer : HealerUnit
     [ContextMenu("Force Heal")]
     protected override void ActionLogic()
     {
-        //finds the unit with the lowest health then heals them
         List<PlayableUnit> units = GetUnitsInRange();
+        if(units.Count == 0) { return; }
+
+        //finds the unit with the lowest relative health then heals them
         PlayableUnit minHealthUnit = units[0];
+        float lowestHealthPercent = (float)minHealthUnit.GetCurrentHealth() / minHealthUnit.GetMaxHealth();
         for (int i = 1; i < units.Count; i++) 
         {
-            if (minHealthUnit.GetCurrentHealth() > units[i].GetCurrentHealth())
+            float healthPercent = (float)units[i].GetCurrentHealth() / units[i].GetMaxHealth();
+            if (lowestHealthPercent > healthPercent)
+            {
+                lowestHealthPercent = healthPercent;
                 minHealthUnit = units[i];
+            }
         }
         minHealthUnit.Heal(healPower);
     }

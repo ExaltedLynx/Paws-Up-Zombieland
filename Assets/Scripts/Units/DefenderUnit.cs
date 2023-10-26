@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class DefenderUnit : FighterUnit
@@ -21,6 +22,6 @@ public class DefenderUnit : FighterUnit
 
     protected override void ActionLogic()
     {
-        
+        enemiesInRange[0].Damage(attackStat);
     }
 }
