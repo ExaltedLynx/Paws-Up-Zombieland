@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class EnemyBehavior : MonoBehaviour
 {
@@ -21,7 +23,9 @@ public class EnemyBehavior : MonoBehaviour
     private bool isColliding = false; // A flag to control collision
 
     private float damageTimer = 0f;
-    private float damageDelay = 0.5f; // Adjust this value to set the desired delay between damage. 
+    private float damageDelay = 1.7f; // Adjust this value to set the desired delay between damage. 
+
+    private static int count = 0;
 
     public void SetWaypoints(Transform[] newWaypoints)
     {
@@ -37,6 +41,7 @@ public class EnemyBehavior : MonoBehaviour
         c.a = 0f;
         rend.material.color = c;
         currentHealth = maxHealth;
+        name = "enemy " + count++;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -47,7 +52,7 @@ public class EnemyBehavior : MonoBehaviour
             if (temp.GetState() != PlayableUnit.UnitState.NotPlaced && !temp.IsAtMaxBlock())
             {
                 targetedUnit = temp;
-                targetedUnit.IncreaseBlockedCount();
+                targetedUnit.IncreaseEnemiesBlocked();
                 isMoving = false;
                 isColliding = true;
             }
@@ -91,10 +96,11 @@ public class EnemyBehavior : MonoBehaviour
                 }
                 else
                 {
-                    WaveSpawner.onEnemyDestroy.Invoke();
+                    WaveSpawner.onEnemyDestroy.Invoke(this);
                     startFadingOut();
                     startDelay();
-                    // Change this later so that it takes away player's health
+                    GameManager.Instance.DamagePlayer();
+                    isMoving = false;
                 }
             }
         }
@@ -103,7 +109,7 @@ public class EnemyBehavior : MonoBehaviour
         {
             if (damageTimer <= 0f && targetedUnit.GetState() != PlayableUnit.UnitState.NotPlaced)
             {
-                targetedUnit.Damage(10);
+                targetedUnit.Damage(15);
                 damageTimer = damageDelay; // Reset the timer after applying damage.
             }
             else
@@ -120,56 +126,55 @@ public class EnemyBehavior : MonoBehaviour
         if(currentHealth <= 0)
         {
             if(targetedUnit != null) 
-                targetedUnit.DecreaseBlockedCount();
+                targetedUnit.DecreaseEnemiesBlocked();
 
-            WaveSpawner.onEnemyDestroy.Invoke();
+            WaveSpawner.onEnemyDestroy.Invoke(this);
             Destroy(gameObject);
         }
     }
 
+
     IEnumerator FadeOut()
+    {
+        for (float f = 1f; f>= -0.05f; f -= 0.05f)
         {
-            for (float f = 1f; f>= -0.05f; f -= 0.05f)
-            {
-                Color c = rend.material.color;
-                c.a = f;
-                rend.material.color = c;
-                yield return new WaitForSeconds (0.05f);
-            }
+            Color c = rend.material.color;
+            c.a = f;
+            rend.material.color = c;
+            yield return new WaitForSeconds (0.05f);
         }
+    }
 
-        IEnumerator FadeIn()
+    IEnumerator FadeIn()
+    {
+        for (float f = 0.05f; f <= 1; f += 0.05f)
         {
-            for (float f = 0.05f; f <= 1; f += 0.05f)
-            {
-                Color c = rend.material.color;
-                c.a = f;
-                rend.material.color = c;
-                yield return new WaitForSeconds (0.05f);
-            }
+            Color c = rend.material.color;
+            c.a = f;
+            rend.material.color = c;
+            yield return new WaitForSeconds (0.05f);
         }
+    }
 
-        IEnumerator DelayDestroy()
-        {
-            yield return new WaitForSeconds(0.2f);
-            Destroy(gameObject);
-        }
+    IEnumerator DelayDestroy()
+    {
+        yield return new WaitForSeconds(0.2f);
+        Destroy(gameObject);
+    }
 
-        void startFadingOut()
-        {
-            StartCoroutine(FadeOut());
-        }
+    void startFadingOut()
+    {
+        StartCoroutine(FadeOut());
+    }
 
-        void startFadingIn()
-        {
-            StartCoroutine(FadeIn());
-        }
+    void startFadingIn()
+    {
+        StartCoroutine(FadeIn());
+    }
 
-        void startDelay()
-        {
-            StartCoroutine(DelayDestroy());
-        }
-
-       
+    void startDelay()
+    {
+        StartCoroutine(DelayDestroy());
+    }
 }
 

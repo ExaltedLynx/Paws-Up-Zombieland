@@ -147,14 +147,19 @@ public abstract class PlayableUnit : MonoBehaviour
         return enemiesBlocked == maxBlock;
     }
 
-    public void IncreaseBlockedCount()
+    public void IncreaseEnemiesBlocked()
     {
         enemiesBlocked++;
     }
 
-    public void DecreaseBlockedCount()
+    public void DecreaseEnemiesBlocked()
     {
         enemiesBlocked--;
+    }
+
+    public void ResetEnemiesBlocked()
+    {
+        enemiesBlocked = 0;
     }
 
     public Tile.TileType GetValidTile()

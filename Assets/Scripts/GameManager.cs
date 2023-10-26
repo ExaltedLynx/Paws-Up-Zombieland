@@ -7,12 +7,13 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+    [SerializeField] private TextMeshProUGUI playerHealthText;
     [SerializeField] private int playerMaxHealth;
     [SerializeField] private int playerHealth;
     [SerializeField] private GameObject[] unitPrefabs;
 
     [SerializeField] private TextMeshProUGUI placementPointsText;
-    public int placementPoints = 0;
+    [SerializeField] public int placementPoints;
     private float timePerPoint = 1;
     private float timer;
 
@@ -30,6 +31,7 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         placementPointsText.SetText(placementPoints.ToString());
+        playerHealthText.SetText(playerHealth.ToString());
         playerHealth = playerMaxHealth;
         placedUnits = new PlayableUnit[unitPrefabs.Length];
         timer = timePerPoint;
@@ -63,9 +65,12 @@ public class GameManager : MonoBehaviour
 
     }
 
-    public void damagePlayer()
+    public void DamagePlayer()
     {
-        playerHealth -= 1;
+        playerHealth--;
+        playerHealthText.SetText(playerHealth.ToString());
+        //if(playerHealth == 0)
+            //game over scene
     }
 
     public void SetHeldUnit(int index)
@@ -89,8 +94,15 @@ public class GameManager : MonoBehaviour
             unit.tilePlacedOn.removeUnit();
             unit.ToggleRangeVisibility();
             unit.SetState(PlayableUnit.UnitState.NotPlaced);
+            unit.ResetEnemiesBlocked();
             heldUnit = unit.gameObject;
         }
+    }
+
+    public void UsePlacementPoints(PlayableUnit unit)
+    {
+        placementPoints -= unit.GetUnitCost();
+        placementPointsText.SetText(placementPoints.ToString());
     }
 
     //Using the async load scene function lets us add loading screens later
@@ -110,8 +122,8 @@ public class GameManager : MonoBehaviour
     {
         if (heldUnit != null)
         {
-            int prevUnitIndex = Array.IndexOf(placedUnits, heldUnit.GetComponent<PlayableUnit>(), 0);
-            placedUnits[prevUnitIndex] = null;
+            int currentUnitIndex = Array.IndexOf(placedUnits, heldUnit.GetComponent<PlayableUnit>(), 0);
+            placedUnits[currentUnitIndex] = null;
             Destroy(heldUnit);
             heldUnit = null;
         }
@@ -124,10 +136,5 @@ public class GameManager : MonoBehaviour
             return true;
 
         return false;
-    }
-
-    public void UsePlacementPoints(PlayableUnit unit)
-    {
-        placementPoints -= unit.GetUnitCost();
     }
 }
