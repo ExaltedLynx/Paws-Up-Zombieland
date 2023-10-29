@@ -19,6 +19,8 @@ public class GameManager : MonoBehaviour
 
     public GameObject heldUnit;
     private PlayableUnit[] placedUnits;
+
+    public int unlockedLevels;
     private int sceneIndex = 0;
 
     public static GameManager Instance
