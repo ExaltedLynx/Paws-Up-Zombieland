@@ -12,7 +12,7 @@ public class EnemyBehavior : MonoBehaviour
     [SerializeField] private int maxHealth;
     private Waypoints Wpoints;
     private PlayableUnit targetedUnit;
-
+    private WaveSpawner waveSpawner;
     private int waypointIndex;
 
     private Transform[] waypoints; // Reference to the waypoints array.
@@ -26,6 +26,7 @@ public class EnemyBehavior : MonoBehaviour
     private float damageDelay = 1.7f; // Adjust this value to set the desired delay between damage. 
 
     private static int count = 0;
+
 
     public void SetWaypoints(Transform[] newWaypoints)
     {
@@ -42,6 +43,7 @@ public class EnemyBehavior : MonoBehaviour
         rend.material.color = c;
         currentHealth = maxHealth;
         name = "enemy " + count++;
+        waveSpawner = FindObjectOfType<WaveSpawner>();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -70,6 +72,7 @@ public class EnemyBehavior : MonoBehaviour
         }
     }
         
+
     void Update()
     {
         if (waypoints == null || waypointIndex >= waypoints.Length)

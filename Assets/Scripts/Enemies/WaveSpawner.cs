@@ -5,10 +5,12 @@ using UnityEngine.Events;
 
 public class WaveSpawner : MonoBehaviour
 {
-    public static WaveSpawner main;
     public Transform startPoint;
+    public GameObject InactiveWaypoint;
+    public GameObject WaypointToDeactivate;
 
-    [Header ("References")]
+
+    [Header("References")]
     [SerializeField] private GameObject[] enemyPrefabs;
 
     [Header("Attributes")]
@@ -18,66 +20,83 @@ public class WaveSpawner : MonoBehaviour
     [SerializeField] private float difficultyScalingFactor = 0.75f;
 
     [Header("Events")]
-    public static UnityEvent onEnemyDestroy = new UnityEvent();
+    public static UnityEvent onEnemyDestroy = new UnityEvent(); 
 
     [Header("Waypoints")]
     public Transform[] waypoints; // Reference to your waypoints.
 
     [Header("Wave Settings")]
     [SerializeField] private int maxWaves = 10; // Maximum number of waves.
+    [SerializeField] private int waveToActivateObject = 3; // Adjust the wave number as needed
 
 
     private int currentWave = 1;
     private float timeSinceLastSpawn;
     private int enemiesLeftToSpawn;
     private bool isSpawning = false;
-    private List<GameObject> spawnedEnemies = new List<GameObject>();
+    private List<GameObject> spawnedEnemies = new List<GameObject>(); // Not static
     private WaveSpawnerManager waveSpawnerManager;
 
 
-    private void Awake(){
-    waveSpawnerManager = FindObjectOfType<WaveSpawnerManager>();
-    onEnemyDestroy.AddListener(EnemyDestroyed);
-    }    
-
-    private void Start(){
-        StartCoroutine(StartWave());
+    private void Awake()
+    {
+        waveSpawnerManager = FindObjectOfType<WaveSpawnerManager>();
+        onEnemyDestroy.AddListener(EnemyDestroyed);
     }
 
+    private void Start()
+    {
+        StartCoroutine(StartWave());
+        
+    }
 
-    private void Update(){
-        if(!isSpawning) return;
-        
-        
+    private void Update()
+    {
+        if (!isSpawning) return;
+
         timeSinceLastSpawn += Time.deltaTime;
 
-        if (timeSinceLastSpawn >= 1f / enemiesPerSecond && enemiesLeftToSpawn > 0){
+        if (timeSinceLastSpawn >= 1f / enemiesPerSecond && enemiesLeftToSpawn > 0)
+        {
             SpawnEnemy();
             enemiesLeftToSpawn--;
             timeSinceLastSpawn = 0f;
         }
 
-        if (spawnedEnemies.Count == 0 && enemiesLeftToSpawn == 0){
+        if (spawnedEnemies.Count == 0 && enemiesLeftToSpawn == 0)
+        {
             EndWave();
         }
 
-    }
-    
-  private void EnemyDestroyed()
-    {
-       if (spawnedEnemies.Count > 0)
-    {
-        // Remove the enemy from the associated WaveSpawner's list.
-        waveSpawnerManager.RemoveEnemyFromSpawner(this, spawnedEnemies[0]);
-        spawnedEnemies.RemoveAt(0);
-    }
+        // Check if the current wave matches the wave number to activate the object
+         if (currentWave == waveToActivateObject)
+        {
+        // Activate the object
+        InactiveWaypoint.SetActive(true);
+        }
+
+        if (currentWave == maxWaves)
+        {
+        // Deactivate the object
+        WaypointToDeactivate.SetActive(false);
+        }
     }
 
-    private IEnumerator StartWave(){
-         // Check if the current wave exceeds the maximum number of waves.
+    private void EnemyDestroyed()
+    {
+            if (spawnedEnemies.Count > 0)
+            {
+                GameObject destroyedEnemy = spawnedEnemies[0];
+                spawnedEnemies.RemoveAt(0);
+                waveSpawnerManager.RemoveEnemyFromSpawner(this, destroyedEnemy);
+            }
+        }
+    
+
+    private IEnumerator StartWave()
+    {
         if (currentWave > maxWaves)
         {
-            // You've reached the maximum number of waves, so no more waves will start.
             isSpawning = false;
             yield break;
         }
@@ -85,37 +104,37 @@ public class WaveSpawner : MonoBehaviour
         yield return new WaitForSeconds(timeBetweenWaves);
         isSpawning = true;
         enemiesLeftToSpawn = EnemiesPerWave();
-
-         // Reset the enemy count in the WaveSpawnerManager.
-        spawnedEnemies.Clear();
+        
     }
 
-     private void EndWave(){
+    private void EndWave()
+    {
         isSpawning = false;
         timeSinceLastSpawn = 0f;
         currentWave++;
 
-        // Check if the current wave exceeds the maximum number of waves.
         if (currentWave > maxWaves)
         {
-            // You've reached the maximum number of waves, so no more waves will start.
             return;
         }
 
         StartCoroutine(StartWave());
     }
 
-    private void SpawnEnemy(){
-        GameObject prefabToSpawn = enemyPrefabs[0];
+    private void SpawnEnemy()
+    {
+        // Randomly select an enemy prefab from the available types
+        int randomIndex = Random.Range(0, enemyPrefabs.Length);
+        GameObject prefabToSpawn = enemyPrefabs[randomIndex];
+
         GameObject enemy = Instantiate(prefabToSpawn, startPoint.position, Quaternion.identity);
         enemy.GetComponent<EnemyBehavior>().SetWaypoints(waypoints);
         spawnedEnemies.Add(enemy);
         waveSpawnerManager.AddEnemyToSpawner(this, enemy);
     }
 
-    private int EnemiesPerWave(){
+    private int EnemiesPerWave()
+    {
         return Mathf.RoundToInt(baseEnemies * Mathf.Pow(currentWave, difficultyScalingFactor));
     }
-
-
 }

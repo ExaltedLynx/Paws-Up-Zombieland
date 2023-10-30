@@ -29,8 +29,13 @@ public class WaveSpawnerManager : MonoBehaviour
     public void RemoveEnemyFromSpawner(WaveSpawner spawner, GameObject enemy)
     {
         if (spawnedEnemiesBySpawner.ContainsKey(spawner))
+    {
+        List<GameObject> enemyList = spawnedEnemiesBySpawner[spawner];
+        if (enemyList.Contains(enemy))
         {
-            spawnedEnemiesBySpawner[spawner].Remove(enemy);
+            enemyList.Remove(enemy);
         }
     }
+    }
+    
 }

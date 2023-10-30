@@ -426,7 +426,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &517822684
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -440,6 +440,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startPoint: {fileID: 1444224934}
+  InactiveWaypoint: {fileID: 517822683}
+  WaypointToDeactivate: {fileID: 517822683}
   enemyPrefabs:
   - {fileID: 2897549260560756373, guid: 25cc497356f14ac4cac4e67eabaec73c, type: 3}
   baseEnemies: 5
@@ -452,6 +454,7 @@ MonoBehaviour:
   - {fileID: 1554347625}
   - {fileID: 2023271010}
   maxWaves: 3
+  waveToActivateObject: 99
 --- !u!114 &517822685
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2723,6 +2726,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startPoint: {fileID: 481848429}
+  InactiveWaypoint: {fileID: 517822683}
+  WaypointToDeactivate: {fileID: 1097664510}
   enemyPrefabs:
   - {fileID: 2897549260560756373, guid: 25cc497356f14ac4cac4e67eabaec73c, type: 3}
   baseEnemies: 5
@@ -2734,7 +2739,8 @@ MonoBehaviour:
   - {fileID: 1736128299}
   - {fileID: 1547812565}
   - {fileID: 1122590748}
-  maxWaves: 3
+  maxWaves: 4
+  waveToActivateObject: 2
 --- !u!1 &1122590747
 GameObject:
   m_ObjectHideFlags: 0
@@ -3274,9 +3280,9 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1348732688}
   - {fileID: 390945307}
   - {fileID: 467588231}
+  - {fileID: 1348732688}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1722390023
