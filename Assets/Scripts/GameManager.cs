@@ -14,6 +14,8 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private TextMeshProUGUI placementPointsText;
     [SerializeField] public int placementPoints;
+    [SerializeField] private int winPointsRequirement;
+
     private float timePerPoint = 1;
     private float timer;
 
@@ -22,12 +24,19 @@ public class GameManager : MonoBehaviour
 
     public int unlockedLevels;
     private int sceneIndex = 0;
+    private int winPoints;
 
     public static GameManager Instance
     {
         get => instance;
     }
 
+      public int WinPoints
+    {
+        get => winPoints;
+        set => winPoints = value;
+    }
+    
     private static GameManager instance;
 
     private void Awake()
@@ -65,6 +74,11 @@ public class GameManager : MonoBehaviour
         }
         timer -= Time.deltaTime;
 
+        if(winPoints == winPointsRequirement)
+        {
+            Debug.Log("You Win!");
+            winPoints++;
+        }
     }
 
     public void DamagePlayer()

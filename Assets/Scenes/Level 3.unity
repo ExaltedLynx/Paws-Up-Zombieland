@@ -209,6 +209,7 @@ MonoBehaviour:
   - {fileID: 5526622125176625296, guid: c2525e1bae4eb6d4987eab7a7cfe53bf, type: 3}
   placementPointsText: {fileID: 1482458761}
   placementPoints: 20
+  winPointsRequirement: 2
   heldUnit: {fileID: 0}
   unlockedLevels: 0
 --- !u!4 &390945307
@@ -444,7 +445,7 @@ MonoBehaviour:
   WaypointToDeactivate: {fileID: 517822683}
   enemyPrefabs:
   - {fileID: 2897549260560756373, guid: 25cc497356f14ac4cac4e67eabaec73c, type: 3}
-  baseEnemies: 5
+  baseEnemies: 2
   enemiesPerSecond: 0.5
   timeBetweenWaves: 5
   difficultyScalingFactor: 0.75
@@ -2730,7 +2731,7 @@ MonoBehaviour:
   WaypointToDeactivate: {fileID: 1097664510}
   enemyPrefabs:
   - {fileID: 2897549260560756373, guid: 25cc497356f14ac4cac4e67eabaec73c, type: 3}
-  baseEnemies: 5
+  baseEnemies: 2
   enemiesPerSecond: 0.5
   timeBetweenWaves: 5
   difficultyScalingFactor: 0.75

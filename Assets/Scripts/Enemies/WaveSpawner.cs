@@ -69,11 +69,6 @@ public class WaveSpawner : MonoBehaviour
         InactiveWaypoint.SetActive(true);
         }
 
-        if (currentWave == maxWaves)
-        {
-        // Deactivate the object
-        WaypointToDeactivate.SetActive(false);
-        }
 
          // Remove empty elements from spawnedEnemies
         RemoveEmptyElements();
@@ -133,7 +128,18 @@ public class WaveSpawner : MonoBehaviour
 
         if (currentWave > maxWaves)
         {
-            return;
+              // Check if there are no more enemies left to spawn
+        if (enemiesLeftToSpawn == 0 && spawnedEnemies.Count == 0)
+        {
+            // All waves have been completed, and no more enemies are left
+            Debug.Log("All waves completed, and no more enemies left.");
+            // Deactivate the object
+            WaypointToDeactivate.SetActive(false);
+            GameManager.Instance.WinPoints += 1;
+
+        }
+
+        return;
         }
 
         StartCoroutine(StartWave());
