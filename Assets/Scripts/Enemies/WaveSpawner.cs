@@ -35,12 +35,10 @@ public class WaveSpawner : MonoBehaviour
     private int enemiesLeftToSpawn;
     private bool isSpawning = false;
     private List<GameObject> spawnedEnemies = new List<GameObject>(); // Not static
-    private WaveSpawnerManager waveSpawnerManager;
 
 
     private void Awake()
     {
-        waveSpawnerManager = FindObjectOfType<WaveSpawnerManager>();
         onEnemyDestroy.AddListener(EnemyDestroyed);
     }
 
@@ -63,10 +61,6 @@ public class WaveSpawner : MonoBehaviour
             timeSinceLastSpawn = 0f;
         }
 
-        if (spawnedEnemies.Count == 0 && enemiesLeftToSpawn == 0)
-        {
-            EndWave();
-        }
 
         // Check if the current wave matches the wave number to activate the object
          if (currentWave == waveToActivateObject)
@@ -80,6 +74,14 @@ public class WaveSpawner : MonoBehaviour
         // Deactivate the object
         WaypointToDeactivate.SetActive(false);
         }
+
+         // Remove empty elements from spawnedEnemies
+        RemoveEmptyElements();
+
+         if (spawnedEnemies.Count == 0 && enemiesLeftToSpawn == 0)
+        {
+            EndWave();
+        }
     }
 
     private void EnemyDestroyed()
@@ -88,9 +90,25 @@ public class WaveSpawner : MonoBehaviour
             {
                 GameObject destroyedEnemy = spawnedEnemies[0];
                 spawnedEnemies.RemoveAt(0);
-                waveSpawnerManager.RemoveEnemyFromSpawner(this, destroyedEnemy);
             }
         }
+
+         private void RemoveEmptyElements()
+    {
+        // Create a new list without empty elements
+        List<GameObject> newSpawnedEnemies = new List<GameObject>();
+
+        foreach (var enemy in spawnedEnemies)
+        {
+            if (enemy != null)
+            {
+                newSpawnedEnemies.Add(enemy);
+            }
+        }
+
+        // Replace the old list with the new one
+        spawnedEnemies = newSpawnedEnemies;
+    }
     
 
     private IEnumerator StartWave()
@@ -130,7 +148,6 @@ public class WaveSpawner : MonoBehaviour
         GameObject enemy = Instantiate(prefabToSpawn, startPoint.position, Quaternion.identity);
         enemy.GetComponent<EnemyBehavior>().SetWaypoints(waypoints);
         spawnedEnemies.Add(enemy);
-        waveSpawnerManager.AddEnemyToSpawner(this, enemy);
     }
 
     private int EnemiesPerWave()

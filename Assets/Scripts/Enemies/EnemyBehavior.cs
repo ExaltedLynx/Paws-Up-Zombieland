@@ -99,7 +99,7 @@ public class EnemyBehavior : MonoBehaviour
                 }
                 else
                 {
-                    WaveSpawner.onEnemyDestroy.Invoke();
+                    // WaveSpawner.onEnemyDestroy.Invoke();
                     startFadingOut();
                     startDelay();
                     GameManager.Instance.DamagePlayer(); // Reduce Player Health
