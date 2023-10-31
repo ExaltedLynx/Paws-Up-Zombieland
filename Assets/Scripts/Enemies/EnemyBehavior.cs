@@ -15,8 +15,8 @@ public class EnemyBehavior : MonoBehaviour
     private WaveSpawner waveSpawner;
     private int waypointIndex;
 
-    [SerializeField] private GameObject healthBarPrefab;
-    private HealthBarHandler healthBar;
+    //[SerializeField] private GameObject healthBarPrefab;
+    //private HealthBarHandler healthBar;
 
     private Transform[] waypoints; // Reference to the waypoints array.
 
@@ -47,7 +47,7 @@ public class EnemyBehavior : MonoBehaviour
         currentHealth = maxHealth;
         name = "enemy " + count++;
         waveSpawner = FindObjectOfType<WaveSpawner>();
-        InitHealthbar();
+        //InitHealthbar();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -130,7 +130,7 @@ public class EnemyBehavior : MonoBehaviour
     public void Damage(int amount)
     {
         currentHealth -= amount;
-        healthBar.UpdateHealth();
+        //healthBar.UpdateHealth();
         if(currentHealth <= 0)
         {
             if(targetedUnit != null) 
@@ -141,6 +141,7 @@ public class EnemyBehavior : MonoBehaviour
         }
     }
 
+    /*
     private void InitHealthbar()
     {
         HealthBarHandler healthBar =  Instantiate(healthBarPrefab, transform).GetComponent<HealthBarHandler>();
@@ -148,6 +149,7 @@ public class EnemyBehavior : MonoBehaviour
         healthBar.enemy = this;
         this.healthBar = healthBar;
     }
+    */
 
 
     IEnumerator FadeOut()

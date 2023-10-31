@@ -4,13 +4,13 @@ using UnityEngine;
 
 public abstract class FighterUnit : PlayableUnit
 {
-    protected List<EnemyBehavior> enemies = new List<EnemyBehavior>();
     [SerializeField] protected int attackStat;
+    public List<EnemyBehavior> enemiesInRange = new List<EnemyBehavior>();
 
     protected override void Start()
     {
         base.Start();
-        WaveSpawner.onEnemyDestroy.AddListener(RemoveEnemyInRange);
+        WaveSpawner.onEnemyDestroy.AddListener(RemoveKilledEnemy);
     }
 
     protected override void FixedUpdate()
@@ -22,16 +22,9 @@ public abstract class FighterUnit : PlayableUnit
     {
         base.Update();
     }
-
-    public void SetEnemyArray(EnemyBehavior enemy)
+    private void RemoveKilledEnemy(EnemyBehavior enemy)
     {
-        enemies.Add(enemy);
-    }
-
-    public void RemoveEnemyInRange(EnemyBehavior enemy)
-    {
-        Debug.Log("enemy removed");
-        enemies.Remove(enemy);
+        enemiesInRange.Remove(enemy);
     }
 
 }

@@ -111,7 +111,9 @@ public class GameManager : MonoBehaviour
             unit.ToggleRangeVisibility();
             unit.SetState(PlayableUnit.UnitState.NotPlaced);
             unit.ResetEnemiesBlocked();
-            heldUnit = unit.gameObject;
+            heldUnit = unit.gameObject; 
+            if (unit is FighterUnit fighter) //clears the array for storing enemies in the unit's range when being re-placed;
+                fighter.enemiesInRange.Clear();
         }
     }
 

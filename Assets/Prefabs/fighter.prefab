@@ -114,7 +114,8 @@ MonoBehaviour:
   flashMaterial: {fileID: 0}
   spriteRenderer: {fileID: 0}
   originalMaterial: {fileID: 0}
-  attackStat: 70
+  attackStat: 30
+  enemiesInRange: []
 --- !u!61 &6908851524017177832
 BoxCollider2D:
   m_ObjectHideFlags: 0

@@ -8,7 +8,6 @@ public class Fighter : FighterUnit
     protected override void Start()
     {
         base.Start();
-
     }
 
     protected override void FixedUpdate()
@@ -23,7 +22,7 @@ public class Fighter : FighterUnit
 
     protected override void ActionLogic()
     {
-        enemies[0].Damage(attackStat);
+        enemiesInRange[0].Damage(attackStat);
     }
 
 }
