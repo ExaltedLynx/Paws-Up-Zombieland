@@ -20,7 +20,7 @@ public class WaveSpawner : MonoBehaviour
     [SerializeField] private float difficultyScalingFactor = 0.75f;
 
     [Header("Events")]
-    public static UnityEvent onEnemyDestroy = new UnityEvent(); 
+    public static UnityEvent<EnemyBehavior> onEnemyDestroy = new UnityEvent<EnemyBehavior>(); 
 
     [Header("Waypoints")]
     public Transform[] waypoints; // Reference to your waypoints.
@@ -35,7 +35,6 @@ public class WaveSpawner : MonoBehaviour
     private int enemiesLeftToSpawn;
     private bool isSpawning = false;
     private List<GameObject> spawnedEnemies = new List<GameObject>(); // Not static
-
 
     private void Awake()
     {
@@ -79,7 +78,7 @@ public class WaveSpawner : MonoBehaviour
         }
     }
 
-    private void EnemyDestroyed()
+    private void EnemyDestroyed(EnemyBehavior enemy)
     {
             if (spawnedEnemies.Count > 0)
             {

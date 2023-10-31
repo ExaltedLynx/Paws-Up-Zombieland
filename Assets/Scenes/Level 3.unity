@@ -2581,11 +2581,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 707434236852694224, guid: b32ff8638ac950d49906acdb47f98f2e, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 276
+      value: 801
       objectReference: {fileID: 0}
     - target: {fileID: 707434236852694224, guid: b32ff8638ac950d49906acdb47f98f2e, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 38
+      value: -31
       objectReference: {fileID: 0}
     - target: {fileID: 707434236852694224, guid: b32ff8638ac950d49906acdb47f98f2e, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -2731,7 +2731,7 @@ MonoBehaviour:
   WaypointToDeactivate: {fileID: 1097664510}
   enemyPrefabs:
   - {fileID: 2897549260560756373, guid: 25cc497356f14ac4cac4e67eabaec73c, type: 3}
-  baseEnemies: 2
+  baseEnemies: 5
   enemiesPerSecond: 0.5
   timeBetweenWaves: 5
   difficultyScalingFactor: 0.75

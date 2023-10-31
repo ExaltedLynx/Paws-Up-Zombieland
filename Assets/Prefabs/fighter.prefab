@@ -114,7 +114,7 @@ MonoBehaviour:
   flashMaterial: {fileID: 0}
   spriteRenderer: {fileID: 0}
   originalMaterial: {fileID: 0}
-  attackStat: 30
+  attackStat: 70
 --- !u!61 &6908851524017177832
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -198,6 +198,7 @@ GameObject:
   - component: {fileID: 7459518211756019965}
   - component: {fileID: 4573593043575395667}
   - component: {fileID: 8282000737165754890}
+  - component: {fileID: 6997472572374126868}
   m_Layer: 6
   m_Name: RangeCollider
   m_TagString: Untagged
@@ -316,6 +317,19 @@ CompositeCollider2D:
   m_OffsetDistance: 0.00005
   m_UseDelaunayMesh: 0
   m_CompositeGameObject: {fileID: 6761960978643246412}
+--- !u!114 &6997472572374126868
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6761960978643246412}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 791081416d2bd6040bee3a87ddb11526, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fighter: {fileID: 5475507691961960423}
 --- !u!1001 &7450061910928970212
 PrefabInstance:
   m_ObjectHideFlags: 0

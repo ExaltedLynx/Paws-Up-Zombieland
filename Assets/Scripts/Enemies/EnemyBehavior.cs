@@ -8,12 +8,15 @@ public class EnemyBehavior : MonoBehaviour
 {
    // How fast enemy moves
     [SerializeField] public float speed;
-    [SerializeField] private int currentHealth;
-    [SerializeField] private int maxHealth;
+    [SerializeField] public int currentHealth { get; private set; }
+    [SerializeField] public int maxHealth { get; private set; }
     private Waypoints Wpoints;
     private PlayableUnit targetedUnit;
     private WaveSpawner waveSpawner;
     private int waypointIndex;
+
+    [SerializeField] private GameObject healthBarPrefab;
+    private HealthBarHandler healthBar;
 
     private Transform[] waypoints; // Reference to the waypoints array.
 
@@ -44,6 +47,7 @@ public class EnemyBehavior : MonoBehaviour
         currentHealth = maxHealth;
         name = "enemy " + count++;
         waveSpawner = FindObjectOfType<WaveSpawner>();
+        InitHealthbar();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -126,14 +130,23 @@ public class EnemyBehavior : MonoBehaviour
     public void Damage(int amount)
     {
         currentHealth -= amount;
+        healthBar.UpdateHealth();
         if(currentHealth <= 0)
         {
             if(targetedUnit != null) 
                 targetedUnit.DecreaseEnemiesBlocked();
 
-            WaveSpawner.onEnemyDestroy.Invoke();
+            WaveSpawner.onEnemyDestroy.Invoke(this);
             Destroy(gameObject);
         }
+    }
+
+    private void InitHealthbar()
+    {
+        HealthBarHandler healthBar =  Instantiate(healthBarPrefab, transform).GetComponent<HealthBarHandler>();
+        healthBar.transform.position = transform.position;
+        healthBar.enemy = this;
+        this.healthBar = healthBar;
     }
 
 

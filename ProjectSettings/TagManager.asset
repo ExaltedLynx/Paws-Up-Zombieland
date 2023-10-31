@@ -10,6 +10,7 @@ TagManager:
   - Spawnpoint
   - Highlighter
   - Unit
+  - enemy
   layers:
   - Default
   - TransparentFX
