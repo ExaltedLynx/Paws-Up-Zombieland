@@ -5,12 +5,11 @@ using UnityEngine;
 
 public class GameData
 {
+    public DateTime saveDate = DateTime.Today; //TODO serializer for DateTime;
     public int unlockedLevels;
-    DateTime saveDate;
-
-    public GameData() 
+    
+    public GameData()
     {
-        saveDate = DateTime.Now;
         unlockedLevels = 1;
     }
     

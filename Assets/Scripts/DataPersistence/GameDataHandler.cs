@@ -8,6 +8,7 @@ public class GameDataHandler
 {
     private string dataDirectoryPath = "";
     private string dataFileName = "";
+    private string currentSaveFileName = "";
 
 
     public GameDataHandler(string dataDirectoryPath, string dataFileName) 
@@ -18,9 +19,9 @@ public class GameDataHandler
 
     public void Save(GameData gameData, int saveSlot)
     {
-        dataFileName = dataFileName + saveSlot;
+        currentSaveFileName = dataFileName + saveSlot;
         //save file is at "Application.persistentDataPath(changes based on OS, for windows its AppData/LocalLow) + dataFileName + saveSlot" 
-        string fullPath = Path.Combine(dataDirectoryPath, dataFileName);
+        string fullPath = Path.Combine(dataDirectoryPath, currentSaveFileName);
         try
         {
             if (File.Exists(fullPath))
@@ -38,12 +39,12 @@ public class GameDataHandler
 
     public GameData Load(int saveSlot)
     {
-        dataFileName = dataFileName + saveSlot;
-        string fullPath = Path.Combine(dataDirectoryPath, dataFileName);
+        currentSaveFileName = dataFileName + saveSlot;
+        string fullPath = Path.Combine(dataDirectoryPath, currentSaveFileName);
         if (!File.Exists(fullPath))
         {
-            Debug.LogError($"File at {fullPath} does not exist, cannot load game data.");
-            throw new FileNotFoundException();
+            Debug.Log($"File at {fullPath} does not exist, cannot load game data.");
+            return null;
         }
 
         try

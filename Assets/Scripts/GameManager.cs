@@ -22,7 +22,7 @@ public class GameManager : MonoBehaviour
     public GameObject heldUnit;
     private PlayableUnit[] placedUnits;
 
-    public int unlockedLevels;
+    public static int unlockedLevels = 1;
     private int sceneIndex = 0;
     private int winPoints;
 

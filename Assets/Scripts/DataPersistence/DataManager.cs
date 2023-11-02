@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -24,47 +25,47 @@ public class DataManager : MonoBehaviour
     public void SaveGame()
     {
         HandleSaveData();
-        dataHandler.Save(currentSave, currentSaveSlot);
+        dataHandler.Save(currentSave, currentSaveSlot + 1);
     }
 
     //TODO use select save file scene to set save slot once its added
     public void LoadGame(int saveSlot)
     {
         currentSaveSlot = saveSlot;
-        currentSave = dataHandler.Load(currentSaveSlot);
+        currentSave = dataHandler.Load(currentSaveSlot + 1);
         if (currentSave == null)
         {
             Debug.Log("No save data found, initializing new save.");
-            //NewGame(saveSlot);
+            NewGame(currentSaveSlot);
         }
         else
-        {
             HandleLoadData(currentSave);
-        }
     }
 
     private void NewGame(int saveSlot)
     {
-        //gameData[saveSlot] = new GameData();
-        //currentSaveSlot = saveSlot;
-        //currentSave = gameData[currentSaveSlot]
+        currentSaveSlot = saveSlot;
+        gameData[currentSaveSlot] = new GameData();
+        currentSave = gameData[currentSaveSlot];
     }
 
     //will need a more versatile implementation if saving/loading data that is not in a singleton
     private void HandleSaveData()
     {
-        currentSave.unlockedLevels = GameManager.Instance.unlockedLevels;
+        currentSave.unlockedLevels = GameManager.unlockedLevels;
+        currentSave.saveDate = DateTime.Today;
+        Debug.Log(currentSave.saveDate);
     }
 
     private void HandleLoadData(GameData data)
     {
-        GameManager.Instance.unlockedLevels = data.unlockedLevels;
+        GameManager.unlockedLevels = data.unlockedLevels;
     }
 
 
     private void OnApplicationQuit()
     {
-        //SaveGame();
+        SaveGame();
     }
 
 
