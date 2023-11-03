@@ -199,8 +199,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerHealthText: {fileID: 568141615}
-  playerMaxHealth: 10
-  playerHealth: 10
+  playerMaxHealth: 5
+  playerHealth: 5
   unitPrefabs:
   - {fileID: 4641767651036714290, guid: 24c2ec1f490cbe44797c08535b292667, type: 3}
   - {fileID: 7308616227710508043, guid: 57bb1f57963de244cba852f4fc793675, type: 3}
@@ -526,7 +526,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -719, y: 410}
+  m_AnchoredPosition: {x: -275, y: 166}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &568141615
