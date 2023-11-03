@@ -1,20 +1,23 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
+using static MainMenuRefs;
 
 public class DataManager : MonoBehaviour
 {
-    private string fileName = "save";
-    private GameDataHandler dataHandler;
-    private GameData[] gameData = new GameData[5];
-    private GameData currentSave;
-    private int currentSaveSlot;
-    public static DataManager instance { get; private set; }
+    private static string fileName = "save";
+    private static GameDataHandler dataHandler;
+    private static GameData currentSave;
+    private static int currentSaveSlot;
+    private bool isDeleting = false;
+
+    public static DataManager Instance { get; private set; }
 
     private void Awake()
     {
-        instance = this;
+        Instance = this;
     }
 
     private void Start()
@@ -28,10 +31,11 @@ public class DataManager : MonoBehaviour
         dataHandler.Save(currentSave, currentSaveSlot + 1);
     }
 
-    //TODO use select save file scene to set save slot once its added
     public void LoadGame(int saveSlot)
     {
         currentSaveSlot = saveSlot;
+        if(HandleDelete()) { return; }
+
         currentSave = dataHandler.Load(currentSaveSlot + 1);
         if (currentSave == null)
         {
@@ -39,34 +43,78 @@ public class DataManager : MonoBehaviour
             NewGame(currentSaveSlot);
         }
         else
+        {
             HandleLoadData(currentSave);
+            //go to level select or load latest unlocked level?
+        }
+
+    }
+
+    //will immediately go to level 1's scene as long as there is an available save slot, will enable the load game menu if there isn't
+    public void HandleNewGame()
+    {
+        int emptySlot = FindEmptySaveSlot();
+        if(emptySlot == -1)
+        {
+            SwitchMenus(LoadGameMenu, MainMenu);
+            return;
+        }
+        Debug.Log(emptySlot);
+        NewGame(emptySlot);
     }
 
     private void NewGame(int saveSlot)
     {
         currentSaveSlot = saveSlot;
-        gameData[currentSaveSlot] = new GameData();
-        currentSave = gameData[currentSaveSlot];
+        currentSave = new GameData();
+        GameManager.ChangeLevel(1);
     }
 
     //will need a more versatile implementation if saving/loading data that is not in a singleton
     private void HandleSaveData()
     {
         currentSave.unlockedLevels = GameManager.unlockedLevels;
-        currentSave.saveDate = DateTime.Today;
-        Debug.Log(currentSave.saveDate);
     }
 
     private void HandleLoadData(GameData data)
     {
         GameManager.unlockedLevels = data.unlockedLevels;
     }
+    
+    private bool HandleDelete()
+    {
+        bool deleted = false;
+        if(isDeleting)
+            deleted = dataHandler.Delete(currentSaveSlot + 1);
 
+        isDeleting = false;
+        return deleted;
+    }
+
+    private int FindEmptySaveSlot()
+    {
+        string savesPath = Path.Combine(Application.persistentDataPath, fileName);
+        for (int i = 0; i < 5; i++)
+        {
+            string savePath  = savesPath + (i + 1);
+            //Debug.Log(savePath);
+            if(!File.Exists(savePath))
+            {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    public void SetDeleting()
+    {
+        isDeleting = true;
+    }
 
     private void OnApplicationQuit()
     {
-        SaveGame();
+        Debug.Log(currentSave);
+        if (currentSave != null)
+            SaveGame();
     }
-
-
 }

@@ -23,7 +23,7 @@ public class GameManager : MonoBehaviour
     private PlayableUnit[] placedUnits;
 
     public static int unlockedLevels = 1;
-    private int sceneIndex = 0;
+    private static int currentLevel = 0;
     private int winPoints;
 
     public static GameManager Instance
@@ -41,12 +41,12 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        placementPointsText.SetText(placementPoints.ToString());
-        playerHealthText.SetText(playerHealth.ToString());
         playerHealth = playerMaxHealth;
         placedUnits = new PlayableUnit[unitPrefabs.Length];
         timer = timePerPoint;
-        instance = this; 
+        placementPointsText.SetText(placementPoints.ToString());
+        playerHealthText.SetText(playerHealth.ToString());
+        instance = this;
     }
 
     void Start()
@@ -56,11 +56,6 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            StartCoroutine(LoadLevelScene());
-        }
-
         if(playerMaxHealth == 0)
         {
             //load failed level scene
@@ -123,17 +118,10 @@ public class GameManager : MonoBehaviour
         placementPointsText.SetText(placementPoints.ToString());
     }
 
-    //Using the async load scene function lets us add loading screens later
-    IEnumerator LoadLevelScene()
+    public static void ChangeLevel(int sceneIndex)
     {
-        sceneIndex = SceneManager.GetActiveScene().buildIndex + 1;
-        if (sceneIndex == SceneManager.sceneCountInBuildSettings)
-            sceneIndex = 0;
-        AsyncOperation asyncOp = SceneManager.LoadSceneAsync(sceneIndex);
-        while (!asyncOp.isDone)
-        {
-            yield return null;
-        }
+        currentLevel = sceneIndex;
+        DataManager.Instance.StartCoroutine(LoadLevelScene());
     }
 
     private void removeCurrentlyHeldUnit()
@@ -154,5 +142,15 @@ public class GameManager : MonoBehaviour
             return true;
 
         return false;
+    }
+
+    //Using the async load scene function lets us add loading screens later
+    private static IEnumerator LoadLevelScene()
+    {
+        AsyncOperation asyncOp = SceneManager.LoadSceneAsync(currentLevel);
+        while (!asyncOp.isDone)
+        {
+            yield return null;
+        }
     }
 }

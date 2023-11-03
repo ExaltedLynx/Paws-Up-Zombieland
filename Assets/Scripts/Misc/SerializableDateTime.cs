@@ -1,10 +1,8 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 [Serializable]
-public class SerializabeDateTime : ISerializationCallbackReceiver
+public class SerializableDateTime : ISerializationCallbackReceiver
 {
     [SerializeField] private int month;
     [SerializeField] private int day;
@@ -13,9 +11,7 @@ public class SerializabeDateTime : ISerializationCallbackReceiver
 
     public void OnAfterDeserialize()
     {
-        month = dateTime.Month;
-        day = dateTime.Day;
-        year = dateTime.Year;
+        dateTime = new DateTime(year, month, day);
     }
 
     public void OnBeforeSerialize()

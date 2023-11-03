@@ -43,13 +43,13 @@ public class GameDataHandler
         string fullPath = Path.Combine(dataDirectoryPath, currentSaveFileName);
         if (!File.Exists(fullPath))
         {
-            Debug.Log($"File at {fullPath} does not exist, cannot load game data.");
-            return null;
+            return null; //returns null when no save file for that slot
         }
 
         try
         {
             GameData loadedData = JsonUtility.FromJson<GameData>(File.ReadAllText(fullPath));
+            //Debug.Log(loadedData.saveDate.dateTime + ", " +loadedData.unlockedLevels);
             return loadedData;
         }
         catch(Exception e)
@@ -57,5 +57,18 @@ public class GameDataHandler
             Debug.LogError($"Error while trying to load game data from file: {fullPath} \n {e.Message} {e.StackTrace}");
             throw e;
         }
+    }
+
+    public bool Delete(int saveSlot)
+    {
+        currentSaveFileName = dataFileName + saveSlot;
+        string fullPath = Path.Combine(dataDirectoryPath, currentSaveFileName);
+        if(File.Exists(fullPath))
+        {
+            File.Delete(fullPath);
+            Debug.Log("deleted save " + saveSlot);
+            return true;
+        }
+        return false;
     }
 }
