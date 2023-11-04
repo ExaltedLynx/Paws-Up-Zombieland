@@ -47,7 +47,7 @@ public class DataManager : MonoBehaviour
         else
         {
             HandleLoadData(currentSave);
-            //go to level select or load latest unlocked level?
+            SwitchMenus(LevelSelectMenu, LoadGameMenu);
         }
 
     }
@@ -73,7 +73,7 @@ public class DataManager : MonoBehaviour
         currentSave = dataHandler.Load(saveSlot);
 
         HandleLoadData(currentSave);
-        GameManager.ChangeLevel(currentSave.currentLevel);
+        SceneController.ChangeLevel(currentSave.currentLevel);
 
     }
 
@@ -81,7 +81,7 @@ public class DataManager : MonoBehaviour
     {
         currentSaveSlot = saveSlot;
         currentSave = new GameData();
-        GameManager.ChangeLevel(1);
+        SceneController.ChangeLevel(1);
     }
 
     //will need a more versatile implementation if saving/loading data that is not in a singleton

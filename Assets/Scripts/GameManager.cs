@@ -49,11 +49,6 @@ public class GameManager : MonoBehaviour
         instance = this;
     }
 
-    void Start()
-    {
-        
-    }
-
     void Update()
     {
         if(playerMaxHealth == 0)
@@ -118,12 +113,6 @@ public class GameManager : MonoBehaviour
         placementPointsText.SetText(placementPoints.ToString());
     }
 
-    public static void ChangeLevel(int sceneIndex)
-    {
-        currentLevel = sceneIndex;
-        DataManager.Instance.StartCoroutine(LoadLevelScene());
-    }
-
     private void removeCurrentlyHeldUnit()
     {
         if (heldUnit != null)
@@ -142,15 +131,5 @@ public class GameManager : MonoBehaviour
             return true;
 
         return false;
-    }
-
-    //Using the async load scene function lets us add loading screens later
-    private static IEnumerator LoadLevelScene()
-    {
-        AsyncOperation asyncOp = SceneManager.LoadSceneAsync(currentLevel);
-        while (!asyncOp.isDone)
-        {
-            yield return null;
-        }
     }
 }
