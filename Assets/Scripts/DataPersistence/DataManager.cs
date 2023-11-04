@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using UnityEngine;
 using static MainMenuRefs;
 
@@ -28,6 +29,7 @@ public class DataManager : MonoBehaviour
     public void SaveGame()
     {
         HandleSaveData();
+        //Debug.Log(currentSaveSlot + 1);
         dataHandler.Save(currentSave, currentSaveSlot + 1);
     }
 
@@ -59,8 +61,20 @@ public class DataManager : MonoBehaviour
             SwitchMenus(LoadGameMenu, MainMenu);
             return;
         }
-        Debug.Log(emptySlot);
+        //Debug.Log(emptySlot);
         NewGame(emptySlot);
+    }
+    
+    public void ContinueGame()
+    {
+        int saveSlot = GetMostRecentSave();
+        //Debug.Log(saveSlot);
+        currentSaveSlot = saveSlot - 1;
+        currentSave = dataHandler.Load(saveSlot);
+
+        HandleLoadData(currentSave);
+        GameManager.ChangeLevel(currentSave.currentLevel);
+
     }
 
     private void NewGame(int saveSlot)
@@ -74,6 +88,7 @@ public class DataManager : MonoBehaviour
     private void HandleSaveData()
     {
         currentSave.unlockedLevels = GameManager.unlockedLevels;
+        currentSave.currentLevel = GameManager.currentLevel;
     }
 
     private void HandleLoadData(GameData data)
@@ -106,6 +121,13 @@ public class DataManager : MonoBehaviour
         return -1;
     }
 
+    private int GetMostRecentSave()
+    {
+        DirectoryInfo savesDir = new DirectoryInfo(Application.persistentDataPath);
+        FileInfo mostRecent = savesDir.GetFiles().OrderByDescending(f => f.LastWriteTime).First();
+        return (int) char.GetNumericValue(mostRecent.Name.Last());
+    }
+
     public void SetDeleting()
     {
         isDeleting = true;
@@ -113,7 +135,7 @@ public class DataManager : MonoBehaviour
 
     private void OnApplicationQuit()
     {
-        Debug.Log(currentSave);
+        //Debug.Log(currentSave);
         if (currentSave != null)
             SaveGame();
     }

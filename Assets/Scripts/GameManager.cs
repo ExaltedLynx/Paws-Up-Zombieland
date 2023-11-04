@@ -23,7 +23,7 @@ public class GameManager : MonoBehaviour
     private PlayableUnit[] placedUnits;
 
     public static int unlockedLevels = 1;
-    private static int currentLevel = 0;
+    public static int currentLevel = 1;
     private int winPoints;
 
     public static GameManager Instance
