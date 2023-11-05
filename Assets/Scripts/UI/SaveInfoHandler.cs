@@ -33,7 +33,7 @@ public class SaveInfoHandler : MonoBehaviour
         {
             if (DataManager.SaveExists(i))
             {
-                currentLevelText[i].SetText(currentLevelText[i].text + DataManager.Instance.GetSaves()[i].currentLevel);
+                currentLevelText[i].SetText("Level " + DataManager.Instance.GetSaves()[i].currentLevel);
             }
         }
             
