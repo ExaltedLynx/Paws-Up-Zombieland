@@ -10,6 +10,7 @@ public class DataManager : MonoBehaviour
 {
     private static string fileName = "save";
     private static GameDataHandler dataHandler;
+    private static GameData[] allSaves = new GameData[5];
     private static GameData currentSave;
     private static int currentSaveSlot;
     private bool isDeleting = false;
@@ -18,12 +19,13 @@ public class DataManager : MonoBehaviour
 
     private void Awake()
     {
+        dataHandler = new GameDataHandler(Application.persistentDataPath, fileName);
         Instance = this;
     }
 
     private void Start()
     {
-        dataHandler = new GameDataHandler(Application.persistentDataPath, fileName);
+        
     }
 
     public void SaveGame()
@@ -38,14 +40,14 @@ public class DataManager : MonoBehaviour
         currentSaveSlot = saveSlot;
         if(HandleDelete()) { return; }
 
-        currentSave = dataHandler.Load(currentSaveSlot + 1);
-        if (currentSave == null)
+        if (allSaves[currentSaveSlot] == null)
         {
             Debug.Log("No save data found, initializing new save.");
             NewGame(currentSaveSlot);
         }
         else
         {
+            currentSave = allSaves[currentSaveSlot];
             HandleLoadData(currentSave);
             SwitchMenus(LevelSelectMenu, LoadGameMenu);
         }
@@ -70,7 +72,7 @@ public class DataManager : MonoBehaviour
         int saveSlot = GetMostRecentSave();
         //Debug.Log(saveSlot);
         currentSaveSlot = saveSlot - 1;
-        currentSave = dataHandler.Load(saveSlot);
+        currentSave = allSaves[currentSaveSlot];
 
         HandleLoadData(currentSave);
         SceneController.ChangeLevel(currentSave.currentLevel);
@@ -81,6 +83,7 @@ public class DataManager : MonoBehaviour
     {
         currentSaveSlot = saveSlot;
         currentSave = new GameData();
+        allSaves[currentSaveSlot] = currentSave;
         SceneController.ChangeLevel(1);
     }
 
@@ -124,8 +127,35 @@ public class DataManager : MonoBehaviour
     private int GetMostRecentSave()
     {
         DirectoryInfo savesDir = new DirectoryInfo(Application.persistentDataPath);
-        FileInfo mostRecent = savesDir.GetFiles().OrderByDescending(f => f.LastWriteTime).First();
+        FileInfo mostRecent = savesDir.GetFiles().OrderByDescending(f => f.LastWriteTime).First(); //finds the save file that was written to the most recently
         return (int) char.GetNumericValue(mostRecent.Name.Last());
+    }
+
+    //runs when menu scene loads to be able to display game data on load game menu
+    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
+    private static void LoadAllSaves()
+    {
+        for(int i = 0; i < allSaves.Length; i++)
+            allSaves[i] = dataHandler.Load(i + 1);
+    }
+
+    public DateTime GetSaveSlotDate(int saveSlot)
+    {
+        return allSaves[saveSlot].saveDate.dateTime;
+    }
+
+    public static bool SaveExists(int saveSlot)
+    {
+        if(allSaves[saveSlot] != null)
+        {
+            return true;
+        }
+        return false;     
+    }
+
+    public GameData[] GetSaves()
+    {
+        return allSaves;
     }
 
     public void SetDeleting()
