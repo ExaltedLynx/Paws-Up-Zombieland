@@ -43,6 +43,8 @@ public class WaveSpawner : MonoBehaviour
     private void Start()
     {
         StartCoroutine(StartWave());
+        // Add to the enemy counter
+        GameManager.Instance.enemyCounter += maxEnemiesCounter();
         
     }
 
@@ -112,8 +114,6 @@ public class WaveSpawner : MonoBehaviour
             yield break;
         }
 
-        GameManager.Instance.enemyCounter += EnemiesPerWave();
-
         yield return new WaitForSeconds(timeBetweenWaves);
         isSpawning = true;
         enemiesLeftToSpawn = EnemiesPerWave();
@@ -159,5 +159,15 @@ public class WaveSpawner : MonoBehaviour
     private int EnemiesPerWave()
     {
         return Mathf.RoundToInt(baseEnemies * Mathf.Pow(currentWave, difficultyScalingFactor));
+    }
+
+    private int maxEnemiesCounter()
+    {
+        int totalMaxEnemies = 0;
+        for (int i = 1; i <= maxWaves; i++)
+        {
+            totalMaxEnemies += Mathf.RoundToInt(baseEnemies * Mathf.Pow(i, difficultyScalingFactor));
+        }
+        return totalMaxEnemies;
     }
 }
