@@ -25,6 +25,7 @@ public class GameManager : MonoBehaviour
     public int unlockedLevels;
     private int sceneIndex = 0;
     private int winPoints;
+    public int enemyCounter;
 
     public static GameManager Instance
     {
