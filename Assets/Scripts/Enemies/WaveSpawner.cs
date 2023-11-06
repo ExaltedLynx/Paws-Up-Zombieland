@@ -9,7 +9,6 @@ public class WaveSpawner : MonoBehaviour
     public GameObject InactiveWaypoint;
     public GameObject WaypointToDeactivate;
 
-
     [Header("References")]
     [SerializeField] private GameObject[] enemyPrefabs;
 
@@ -113,6 +112,8 @@ public class WaveSpawner : MonoBehaviour
             yield break;
         }
 
+        GameManager.Instance.enemyCounter += EnemiesPerWave();
+
         yield return new WaitForSeconds(timeBetweenWaves);
         isSpawning = true;
         enemiesLeftToSpawn = EnemiesPerWave();
@@ -152,7 +153,7 @@ public class WaveSpawner : MonoBehaviour
 
         GameObject enemy = Instantiate(prefabToSpawn, startPoint.position, Quaternion.identity);
         enemy.GetComponent<EnemyBehavior>().SetWaypoints(waypoints);
-        spawnedEnemies.Add(enemy);
+        spawnedEnemies.Add(enemy); 
     }
 
     private int EnemiesPerWave()

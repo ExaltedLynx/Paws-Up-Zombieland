@@ -25,6 +25,7 @@ public class GameManager : MonoBehaviour
     public static int unlockedLevels = 1;
     public static int currentLevel = 1;
     private int winPoints;
+    public int enemyCounter;
 
     public static GameManager Instance
     {
@@ -51,9 +52,10 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        if(playerMaxHealth == 0)
+        if(playerHealth == 0)
         {
-            //load failed level scene
+            Debug.Log("Game Over");
+            Restart();
         }
 
         if(timer < 0 && placementPoints < 99)
@@ -64,11 +66,20 @@ public class GameManager : MonoBehaviour
         }
         timer -= Time.deltaTime;
 
-        if(winPoints == winPointsRequirement)
+        if(winPoints == winPointsRequirement && playerHealth  > 0)
         {
             Debug.Log("You Win!");
             winPoints++;
         }
+    }
+
+    public void Restart()
+    {
+        // Get the current scene's name
+        string currentSceneName = SceneManager.GetActiveScene().name;
+
+        // Reload the current scene
+        SceneManager.LoadScene(currentSceneName);
     }
 
     public void DamagePlayer()
