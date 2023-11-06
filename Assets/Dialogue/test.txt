@@ -1,1 +1,5 @@
-Location: Unknown. 		Time: Unknown. 
+Dialogue Box Testing
+The game won't start until the dialogue is over
+This system reads lines from a .txt file
+...
+Test was a success :)

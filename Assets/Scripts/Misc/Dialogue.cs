@@ -12,8 +12,8 @@ public class Dialogue : MonoBehaviour
     public int maxCharactersPerLine = 50;
 
     private int index;
+    private int currentLineIndex;
     private List<string> textChunks = new List<string>();
-    private int currentChunkIndex;
 
     public GameObject startObject;
 
@@ -36,16 +36,16 @@ public class Dialogue : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            if (currentChunkIndex < textChunks.Count)
+            if (currentLineIndex < lines.Length)
             {
-                if (textComponent.text == textChunks[currentChunkIndex])
+                if (textComponent.text == textChunks[currentLineIndex])
                 {
-                    NextChunk();
+                    NextLine();
                 }
                 else
                 {
                     StopAllCoroutines();
-                    textComponent.text = textChunks[currentChunkIndex];
+                    textComponent.text = textChunks[currentLineIndex];
                 }
             }
             else
@@ -73,40 +73,25 @@ public class Dialogue : MonoBehaviour
     void StartDialogue()
     {
         index = 0;
-        currentChunkIndex = 0;
+        currentLineIndex = 0;
         textComponent.text = string.Empty;
         StartCoroutine(TypeLine());
     }
 
     IEnumerator TypeLine()
     {
-        foreach (char c in textChunks[currentChunkIndex].ToCharArray())
+        foreach (char c in textChunks[currentLineIndex].ToCharArray())
         {
             textComponent.text += c;
             yield return new WaitForSeconds(textSpeed);
         }
     }
 
-    void NextChunk()
-    {
-        if (currentChunkIndex < textChunks.Count - 1)
-        {
-            currentChunkIndex++;
-            textComponent.text = string.Empty;
-            StartCoroutine(TypeLine());
-        }
-        else
-        {
-            NextLine();
-        }
-    }
-
     void NextLine()
     {
-        if (index < lines.Length - 1)
+        if (currentLineIndex < lines.Length - 1)
         {
-            index++;
-            currentChunkIndex = 0;
+            currentLineIndex++;
             textComponent.text = string.Empty;
             StartCoroutine(TypeLine());
         }
@@ -122,6 +107,19 @@ public class Dialogue : MonoBehaviour
 
     void LoadTextFromAsset()
     {
-        lines = dialogueTextAsset.text.Split('\n');
+        if (dialogueTextAsset != null)
+        {
+            Debug.Log("Text Asset Content: " + dialogueTextAsset.text);
+
+            lines = dialogueTextAsset.text.Split('\n');
+            foreach (string line in lines)
+            {
+                Debug.Log("Line: " + line);
+            }
+        }
+        else
+        {
+            Debug.LogError("No dialogue text asset assigned.");
+        }
     }
 }
