@@ -7,32 +7,65 @@ public class Dialogue : MonoBehaviour
 {
     public TextMeshProUGUI textComponent;
     public string[] lines;
+    public TextAsset dialogueTextAsset;
     public float textSpeed;
+    public int maxCharactersPerLine = 50;
 
     private int index;
+    private List<string> textChunks = new List<string>();
+    private int currentChunkIndex;
 
     public GameObject startObject;
 
-    // Start is called before the first frame update
     void Start()
     {
         textComponent.text = string.Empty;
-        StartDialogue();
+        if (dialogueTextAsset != null)
+        {
+            LoadTextFromAsset();
+            SplitLinesIntoChunks();
+            StartDialogue();
+        }
+        else
+        {
+            Debug.LogError("No dialogue text asset assigned.");
+        }
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (Input.GetMouseButtonDown(0))
         {
-            if(textComponent.text == lines[index])
+            if (currentChunkIndex < textChunks.Count)
             {
-                NextLine();
+                if (textComponent.text == textChunks[currentChunkIndex])
+                {
+                    NextChunk();
+                }
+                else
+                {
+                    StopAllCoroutines();
+                    textComponent.text = textChunks[currentChunkIndex];
+                }
             }
             else
             {
-                StopAllCoroutines();
-                textComponent.text = lines[index];
+                NextLine();
+            }
+        }
+    }
+
+    void SplitLinesIntoChunks()
+    {
+        textChunks.Clear();
+        foreach (string line in lines)
+        {
+            int startIndex = 0;
+            while (startIndex < line.Length)
+            {
+                int endIndex = Mathf.Min(startIndex + maxCharactersPerLine, line.Length);
+                textChunks.Add(line.Substring(startIndex, endIndex - startIndex));
+                startIndex = endIndex;
             }
         }
     }
@@ -40,15 +73,31 @@ public class Dialogue : MonoBehaviour
     void StartDialogue()
     {
         index = 0;
+        currentChunkIndex = 0;
+        textComponent.text = string.Empty;
         StartCoroutine(TypeLine());
     }
 
     IEnumerator TypeLine()
     {
-        foreach(char c in  lines[index].ToCharArray())
+        foreach (char c in textChunks[currentChunkIndex].ToCharArray())
         {
             textComponent.text += c;
             yield return new WaitForSeconds(textSpeed);
+        }
+    }
+
+    void NextChunk()
+    {
+        if (currentChunkIndex < textChunks.Count - 1)
+        {
+            currentChunkIndex++;
+            textComponent.text = string.Empty;
+            StartCoroutine(TypeLine());
+        }
+        else
+        {
+            NextLine();
         }
     }
 
@@ -57,6 +106,7 @@ public class Dialogue : MonoBehaviour
         if (index < lines.Length - 1)
         {
             index++;
+            currentChunkIndex = 0;
             textComponent.text = string.Empty;
             StartCoroutine(TypeLine());
         }
@@ -65,8 +115,13 @@ public class Dialogue : MonoBehaviour
             gameObject.SetActive(false);
             if (startObject != null)
             {
-                startObject.SetActive(true); // Activate the specified object
+                startObject.SetActive(true);
             }
         }
+    }
+
+    void LoadTextFromAsset()
+    {
+        lines = dialogueTextAsset.text.Split('\n');
     }
 }

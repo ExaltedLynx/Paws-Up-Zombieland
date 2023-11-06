@@ -355,10 +355,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   textComponent: {fileID: 225849370}
-  lines:
-  - Testing Dialogue
-  - While the dialogue is active, enemies will not spawn
+  lines: []
+  dialogueTextAsset: {fileID: 4900000, guid: 74f2a6c3b662a81449555da2d184d3b5, type: 3}
   textSpeed: 0.3
+  maxCharactersPerLine: 50
   startObject: {fileID: 1097664510}
 --- !u!114 &289855810
 MonoBehaviour:
@@ -441,6 +441,7 @@ MonoBehaviour:
   winPointsRequirement: 2
   heldUnit: {fileID: 0}
   unlockedLevels: 0
+  enemyCounter: 0
 --- !u!4 &390945307
 Transform:
   m_ObjectHideFlags: 0
