@@ -357,7 +357,9 @@ MonoBehaviour:
   textComponent: {fileID: 225849370}
   lines:
   - Testing Dialogue
+  - While the dialogue is active, enemies will not spawn
   textSpeed: 0.3
+  startObject: {fileID: 1097664510}
 --- !u!114 &289855810
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2905,7 +2907,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1097664511
 MonoBehaviour:
   m_ObjectHideFlags: 0

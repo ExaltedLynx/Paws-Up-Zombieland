@@ -11,6 +11,8 @@ public class Dialogue : MonoBehaviour
 
     private int index;
 
+    public GameObject startObject;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -61,6 +63,10 @@ public class Dialogue : MonoBehaviour
         else
         {
             gameObject.SetActive(false);
+            if (startObject != null)
+            {
+                startObject.SetActive(true); // Activate the specified object
+            }
         }
     }
 }
