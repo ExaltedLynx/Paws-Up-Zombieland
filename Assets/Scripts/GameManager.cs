@@ -12,9 +12,17 @@ public class GameManager : MonoBehaviour
     [SerializeField] private int playerHealth;
     [SerializeField] private GameObject[] unitPrefabs;
 
-    [SerializeField] private TextMeshProUGUI placementPointsText;
-    [SerializeField] public int placementPoints;
-    [SerializeField] private int winPointsRequirement;
+    [SerializeField] private CreditsTextHandler placementPointsText;
+    public int PlacementPoints
+    {
+        get => placementPoints;
+        set
+        {
+            placementPoints = value;
+            placementPointsText.UpdateText();
+        }
+    }
+    [SerializeField] private int placementPoints = 0;
 
     private float timePerPoint = 1;
     private float timer;
@@ -24,8 +32,21 @@ public class GameManager : MonoBehaviour
 
     public static int unlockedLevels = 1;
     public static int currentLevel = 1;
+    [SerializeField] private int winPointsRequirement;
     private int winPoints;
-    public int enemyCounter;
+
+    [SerializeField] private WaveInfoHandler waveInfoText;
+    public int totalEnemies = 0;
+    public int EnemiesSpawned
+    {
+        get => enemiesSpawned;
+        set
+        {
+            enemiesSpawned = value;
+            waveInfoText.UpdateText();
+        }
+    }
+    private int enemiesSpawned = 0;
 
     public static GameManager Instance
     {
@@ -45,7 +66,6 @@ public class GameManager : MonoBehaviour
         playerHealth = playerMaxHealth;
         placedUnits = new PlayableUnit[unitPrefabs.Length];
         timer = timePerPoint;
-        placementPointsText.SetText(placementPoints.ToString());
         playerHealthText.SetText(playerHealth.ToString());
         instance = this;
     }
@@ -60,8 +80,7 @@ public class GameManager : MonoBehaviour
 
         if(timer < 0 && placementPoints < 99)
         {
-            placementPoints++;
-            placementPointsText.SetText(placementPoints.ToString());
+            PlacementPoints++;
             timer = timePerPoint;
         }
         timer -= Time.deltaTime;
@@ -121,7 +140,6 @@ public class GameManager : MonoBehaviour
     public void UsePlacementPoints(PlayableUnit unit)
     {
         placementPoints -= unit.GetUnitCost();
-        placementPointsText.SetText(placementPoints.ToString());
     }
 
     private void removeCurrentlyHeldUnit()
