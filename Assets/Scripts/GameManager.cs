@@ -37,6 +37,11 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private WaveInfoHandler waveInfoText;
     public int totalEnemies = 0;
+
+    [SerializeField] private GameObject PauseScreen;
+    private bool gameIsPaused = false;
+    private bool isDoubleSpeed = false;
+
     public int EnemiesSpawned
     {
         get => enemiesSpawned;
@@ -72,33 +77,31 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        if(playerHealth == 0)
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
-            Debug.Log("Game Over");
-            Restart();
+            TogglePauseGame();
         }
 
-        if(timer < 0 && placementPoints < 99)
+        if (gameIsPaused) return;
+
+        if (playerHealth == 0)
+        {
+            Debug.Log("Game Over");
+            SceneController.RestartLevel();
+        }
+
+        if (timer < 0 && placementPoints < 99)
         {
             PlacementPoints++;
             timer = timePerPoint;
         }
         timer -= Time.deltaTime;
 
-        if(winPoints == winPointsRequirement && playerHealth  > 0)
+        if (winPoints == winPointsRequirement && playerHealth > 0)
         {
             Debug.Log("You Win!");
             winPoints++;
         }
-    }
-
-    public void Restart()
-    {
-        // Get the current scene's name
-        string currentSceneName = SceneManager.GetActiveScene().name;
-
-        // Reload the current scene
-        SceneManager.LoadScene(currentSceneName);
     }
 
     public void DamagePlayer()
@@ -140,6 +143,29 @@ public class GameManager : MonoBehaviour
     public void UsePlacementPoints(PlayableUnit unit)
     {
         placementPoints -= unit.GetUnitCost();
+    }
+
+    public void TogglePauseGame()
+    {
+        if(gameIsPaused)
+            Time.timeScale = isDoubleSpeed ? 2 : 1;
+        else
+            Time.timeScale = 0;
+        
+        gameIsPaused = !gameIsPaused;
+        PauseScreen.SetActive(gameIsPaused);
+    }
+
+    public void ToggleDoubleSpeed()
+    {
+        Time.timeScale = isDoubleSpeed ? 2 : 1;
+        isDoubleSpeed = !isDoubleSpeed;
+    }
+    internal void ResetTimeScale()
+    {
+        Time.timeScale = 1;
+        gameIsPaused = false;
+        isDoubleSpeed = false;
     }
 
     private void removeCurrentlyHeldUnit()
