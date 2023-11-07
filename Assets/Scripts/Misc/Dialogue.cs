@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI; 
 
 public class Dialogue : MonoBehaviour
 {
@@ -10,12 +11,17 @@ public class Dialogue : MonoBehaviour
     public TextAsset dialogueTextAsset;
     public float textSpeed;
     public int maxCharactersPerLine = 50;
+    
 
     private int index;
     private int currentLineIndex;
     private List<string> textChunks = new List<string>();
 
     public GameObject startObject;
+    
+    // Portraits
+    [SerializeField] public CharacterPortraitManager portraitManager;
+
 
     void Start()
     {
@@ -70,13 +76,14 @@ public class Dialogue : MonoBehaviour
         }
     }
 
-    void StartDialogue()
-    {
-        index = 0;
-        currentLineIndex = 0;
-        textComponent.text = string.Empty;
-        StartCoroutine(TypeLine());
-    }
+   void StartDialogue()
+{
+    index = 0;
+    currentLineIndex = 0;
+    textComponent.text = string.Empty;
+    portraitManager.SetCharacterPortrait(currentLineIndex); // Set portrait for the current line
+    StartCoroutine(TypeLine());
+}
 
     IEnumerator TypeLine()
     {
@@ -87,23 +94,24 @@ public class Dialogue : MonoBehaviour
         }
     }
 
-    void NextLine()
+  void NextLine()
+{
+    if (currentLineIndex < lines.Length - 1)
     {
-        if (currentLineIndex < lines.Length - 1)
+        currentLineIndex++;
+        textComponent.text = string.Empty;
+        portraitManager.SetCharacterPortrait(currentLineIndex); // Set portrait for the current line
+        StartCoroutine(TypeLine());
+    }
+    else
+    {
+        gameObject.SetActive(false);
+        if (startObject != null)
         {
-            currentLineIndex++;
-            textComponent.text = string.Empty;
-            StartCoroutine(TypeLine());
-        }
-        else
-        {
-            gameObject.SetActive(false);
-            if (startObject != null)
-            {
-                startObject.SetActive(true);
-            }
+            startObject.SetActive(true);
         }
     }
+}
 
     void LoadTextFromAsset()
     {
