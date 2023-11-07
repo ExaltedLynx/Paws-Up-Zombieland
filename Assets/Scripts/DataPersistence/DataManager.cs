@@ -23,15 +23,9 @@ public class DataManager : MonoBehaviour
         Instance = this;
     }
 
-    private void Start()
-    {
-        
-    }
-
     public void SaveGame()
     {
         HandleSaveData();
-        //Debug.Log(currentSaveSlot + 1);
         dataHandler.Save(currentSave, currentSaveSlot + 1);
     }
 

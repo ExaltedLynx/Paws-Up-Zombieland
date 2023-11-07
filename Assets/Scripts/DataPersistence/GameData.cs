@@ -1,6 +1,6 @@
 public class GameData
 {
-    public SerializableDateTime saveDate;
+    public SerializableDateTime saveDate = new();
     public int unlockedLevels;
     public int currentLevel;
     
