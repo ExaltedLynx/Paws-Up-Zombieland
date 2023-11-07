@@ -689,7 +689,7 @@ MonoBehaviour:
   - {fileID: 578453682}
   - {fileID: 1554347625}
   - {fileID: 2023271010}
-  maxWaves: 3
+  maxWaves: 2
   waveToActivateObject: 99
 --- !u!114 &517822685
 MonoBehaviour:
@@ -3041,7 +3041,7 @@ MonoBehaviour:
   WaypointToDeactivate: {fileID: 1097664510}
   enemyPrefabs:
   - {fileID: 2897549260560756373, guid: 25cc497356f14ac4cac4e67eabaec73c, type: 3}
-  baseEnemies: 5
+  baseEnemies: 2
   enemiesPerSecond: 0.5
   timeBetweenWaves: 5
   difficultyScalingFactor: 0.75
@@ -3050,7 +3050,7 @@ MonoBehaviour:
   - {fileID: 1736128299}
   - {fileID: 1547812565}
   - {fileID: 1122590748}
-  maxWaves: 4
+  maxWaves: 2
   waveToActivateObject: 2
 --- !u!1 &1122590747
 GameObject:

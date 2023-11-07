@@ -117,13 +117,13 @@ public class Dialogue : MonoBehaviour
     {
         if (dialogueTextAsset != null)
         {
-            Debug.Log("Text Asset Content: " + dialogueTextAsset.text);
+            // Debug.Log("Text Asset Content: " + dialogueTextAsset.text);
 
             lines = dialogueTextAsset.text.Split('\n');
-            foreach (string line in lines)
-            {
-                Debug.Log("Line: " + line);
-            }
+            // foreach (string line in lines)
+            //{
+                // Debug.Log("Line: " + line);
+           // }
         }
         else
         {
