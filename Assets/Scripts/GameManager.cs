@@ -12,9 +12,17 @@ public class GameManager : MonoBehaviour
     [SerializeField] private int playerHealth;
     [SerializeField] private GameObject[] unitPrefabs;
 
-    [SerializeField] private TextMeshProUGUI placementPointsText;
-    [SerializeField] public int placementPoints;
-    [SerializeField] private int winPointsRequirement;
+    [SerializeField] private CreditsTextHandler placementPointsText;
+    public int PlacementPoints
+    {
+        get => placementPoints;
+        set
+        {
+            placementPoints = value;
+            placementPointsText.UpdateText();
+        }
+    }
+    [SerializeField] private int placementPoints = 0;
 
     private float timePerPoint = 1;
     private float timer;
@@ -22,10 +30,28 @@ public class GameManager : MonoBehaviour
     public GameObject heldUnit;
     private PlayableUnit[] placedUnits;
 
-    public int unlockedLevels;
-    private int sceneIndex = 0;
+    public static int unlockedLevels = 1;
+    public static int currentLevel = 1;
+    [SerializeField] private int winPointsRequirement;
     private int winPoints;
-    public int enemyCounter;
+
+    [SerializeField] private WaveInfoHandler waveInfoText;
+    public int totalEnemies = 0;
+
+    [SerializeField] private GameObject PauseScreen;
+    private bool gameIsPaused = false;
+    private bool isDoubleSpeed = false;
+
+    public int EnemiesSpawned
+    {
+        get => enemiesSpawned;
+        set
+        {
+            enemiesSpawned = value;
+            waveInfoText.UpdateText();
+        }
+    }
+    private int enemiesSpawned = 0;
 
     public static GameManager Instance
     {
@@ -42,54 +68,40 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        placementPointsText.SetText(placementPoints.ToString());
-        playerHealthText.SetText(playerHealth.ToString());
         playerHealth = playerMaxHealth;
         placedUnits = new PlayableUnit[unitPrefabs.Length];
         timer = timePerPoint;
-        instance = this; 
-    }
-
-    void Start()
-    {
-        
+        playerHealthText.SetText(playerHealth.ToString());
+        instance = this;
     }
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
-            StartCoroutine(LoadLevelScene());
+            TogglePauseGame();
         }
 
-        if(playerHealth == 0)
+        if (gameIsPaused) return;
+
+        if (playerHealth == 0)
         {
             Debug.Log("Game Over");
-            Restart();
+            SceneController.RestartLevel();
         }
 
-        if(timer < 0 && placementPoints < 99)
+        if (timer < 0 && placementPoints < 99)
         {
-            placementPoints++;
-            placementPointsText.SetText(placementPoints.ToString());
+            PlacementPoints++;
             timer = timePerPoint;
         }
         timer -= Time.deltaTime;
 
-        if(winPoints == winPointsRequirement && playerHealth  > 0)
+        if (winPoints == winPointsRequirement && playerHealth > 0)
         {
             Debug.Log("You Win!");
             winPoints++;
         }
-    }
-
-    public void Restart()
-    {
-        // Get the current scene's name
-        string currentSceneName = SceneManager.GetActiveScene().name;
-
-        // Reload the current scene
-        SceneManager.LoadScene(currentSceneName);
     }
 
     public void DamagePlayer()
@@ -131,20 +143,29 @@ public class GameManager : MonoBehaviour
     public void UsePlacementPoints(PlayableUnit unit)
     {
         placementPoints -= unit.GetUnitCost();
-        placementPointsText.SetText(placementPoints.ToString());
     }
 
-    //Using the async load scene function lets us add loading screens later
-    IEnumerator LoadLevelScene()
+    public void TogglePauseGame()
     {
-        sceneIndex = SceneManager.GetActiveScene().buildIndex + 1;
-        if (sceneIndex == SceneManager.sceneCountInBuildSettings)
-            sceneIndex = 0;
-        AsyncOperation asyncOp = SceneManager.LoadSceneAsync(sceneIndex);
-        while (!asyncOp.isDone)
-        {
-            yield return null;
-        }
+        if(gameIsPaused)
+            Time.timeScale = isDoubleSpeed ? 2 : 1;
+        else
+            Time.timeScale = 0;
+        
+        gameIsPaused = !gameIsPaused;
+        PauseScreen.SetActive(gameIsPaused);
+    }
+
+    public void ToggleDoubleSpeed()
+    {
+        Time.timeScale = isDoubleSpeed ? 2 : 1;
+        isDoubleSpeed = !isDoubleSpeed;
+    }
+    internal void ResetTimeScale()
+    {
+        Time.timeScale = 1;
+        gameIsPaused = false;
+        isDoubleSpeed = false;
     }
 
     private void removeCurrentlyHeldUnit()

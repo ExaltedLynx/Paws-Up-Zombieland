@@ -10,10 +10,9 @@ public class CameraController : MonoBehaviour
 
     void Start()
     {
-        //correctly fits the tilemap bounding box if the tiles that were changed should have made it smaller instead of bigger
-        levelTilemap.CompressBounds(); 
+        levelTilemap.CompressBounds(); //correctly fits the tilemap bounding box if the tiles that were changed should have made it smaller instead of bigger
         levelCamera.transform.position = new Vector3(levelTilemap.cellBounds.center.x, levelTilemap.cellBounds.center.y, -10);
-        if(levelCamera.orthographicSize < levelTilemap.size.y / 2f)
-            levelCamera.orthographicSize = (levelTilemap.size.y / 2f) + 1; // the +1 adds space for UI elements above or below the level itself
+        if(levelCamera.orthographicSize <= levelTilemap.size.y / 2f)
+            levelCamera.orthographicSize = (levelTilemap.size.y / 2f) - 0.5f; //adjust camera size to fit level
     }
 }

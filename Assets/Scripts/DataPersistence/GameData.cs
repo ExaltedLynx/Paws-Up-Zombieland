@@ -1,17 +1,13 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
 public class GameData
 {
+    public SerializableDateTime saveDate = new();
     public int unlockedLevels;
-    DateTime saveDate;
-
-    public GameData() 
+    public int currentLevel;
+    
+    public GameData()
     {
-        saveDate = DateTime.Now;
         unlockedLevels = 1;
+        currentLevel = 1;
     }
     
 }
