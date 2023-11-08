@@ -13,6 +13,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject[] unitPrefabs;
 
     [SerializeField] private CreditsTextHandler placementPointsText;
+
+    public Dialogue dialogue;
     public int PlacementPoints
     {
         get => placementPoints;
@@ -90,7 +92,7 @@ public class GameManager : MonoBehaviour
             SceneController.RestartLevel();
         }
 
-        if (timer < 0 && placementPoints < 99)
+        if (timer < 0 && placementPoints < 99 && !dialogue.gameObject.activeSelf)
         {
             PlacementPoints++;
             timer = timePerPoint;
