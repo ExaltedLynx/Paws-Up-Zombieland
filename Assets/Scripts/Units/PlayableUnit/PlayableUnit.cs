@@ -4,7 +4,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public abstract class PlayableUnit : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+public abstract class PlayableUnit : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IEntity
 {
     [SerializeField] private int currentHealth;
     [SerializeField] private int maxHealth;
