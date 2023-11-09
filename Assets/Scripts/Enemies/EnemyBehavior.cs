@@ -9,7 +9,7 @@ public class EnemyBehavior : MonoBehaviour
    // How fast enemy moves
     [SerializeField] public float speed;
     [SerializeField] public int currentHealth { get; private set; }
-    [SerializeField] public int maxHealth { get; private set; }
+    [SerializeField] public int maxHealth;
     private Waypoints Wpoints;
     private PlayableUnit targetedUnit;
     private WaveSpawner waveSpawner;

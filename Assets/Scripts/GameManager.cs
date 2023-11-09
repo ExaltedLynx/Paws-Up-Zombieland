@@ -11,7 +11,6 @@ public class GameManager : MonoBehaviour
     [SerializeField] private int playerMaxHealth;
     [SerializeField] private int playerHealth;
     [SerializeField] private GameObject[] unitPrefabs;
-
     [SerializeField] private CreditsTextHandler placementPointsText;
 
     public Dialogue dialogue;
@@ -103,6 +102,8 @@ public class GameManager : MonoBehaviour
         {
             Debug.Log("You Win!");
             winPoints++;
+
+            SceneManager.LoadScene("menu"); 
         }
     }
 

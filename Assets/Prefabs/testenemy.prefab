@@ -100,7 +100,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 2
-  healthBarPrefab: {fileID: 1637194450354901163, guid: 7343553b5d5f9b6489ed7019d60cb8de, type: 3}
+  maxHealth: 100
 --- !u!50 &724921111833813580
 Rigidbody2D:
   serializedVersion: 4

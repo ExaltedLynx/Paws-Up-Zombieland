@@ -17,7 +17,7 @@ public class Dialogue : MonoBehaviour
     private int currentLineIndex;
     private List<string> textChunks = new List<string>();
 
-    public GameObject startObject;
+     public List<GameObject> activateObjects; // List of objects to activate
     
     // Portraits
     [SerializeField] public CharacterPortraitManager portraitManager;
@@ -36,6 +36,11 @@ public class Dialogue : MonoBehaviour
         else
         {
             Debug.LogError("No dialogue text asset assigned.");
+        }
+
+        if (activateObjects == null)
+        {
+            activateObjects = new List<GameObject>();
         }
     }
 
@@ -107,10 +112,13 @@ public class Dialogue : MonoBehaviour
     else
     {
         gameObject.SetActive(false);
-        if (startObject != null)
-        {
-            startObject.SetActive(true);
-        }
+        foreach (GameObject obj in activateObjects)
+            {
+                if (obj != null)
+                {
+                    obj.SetActive(true);
+                }
+            }
     }
 }
 

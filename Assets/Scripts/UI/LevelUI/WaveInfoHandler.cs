@@ -9,10 +9,13 @@ public class WaveInfoHandler : MonoBehaviour
     private int totalEnemies = 0;
     void Start()
     {
-        totalEnemies = GameManager.Instance.totalEnemies;
         waveInfoText.SetText("0/" + totalEnemies);
     }
 
+    void Update()
+    {
+        totalEnemies = GameManager.Instance.totalEnemies;
+    }
     public void UpdateText()
     {
         waveInfoText.SetText(GameManager.Instance.EnemiesSpawned + "/" + totalEnemies);
