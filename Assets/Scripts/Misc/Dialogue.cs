@@ -26,6 +26,7 @@ public class Dialogue : MonoBehaviour
     void Start()
     {
         textComponent.text = string.Empty;
+        Debug.Log("Initial Font Size: " + GlobalSettings.dialogueFontSize);
         if (dialogueTextAsset != null)
         {
             LoadTextFromAsset();
@@ -130,4 +131,5 @@ public class Dialogue : MonoBehaviour
             Debug.LogError("No dialogue text asset assigned.");
         }
     }
+
 }
