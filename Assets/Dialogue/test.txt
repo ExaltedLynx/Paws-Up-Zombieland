@@ -1,7 +1,5 @@
-Dialogue Box Testing
-The game won't start until the dialogue is over
-This system reads lines from a .txt file
-There is also a custom portrait for the dialogue
-It can show multiple portraits
-...
-Test was a success :)
+Level 1 Test
+Use mouse to control game
+Left Click To Place Unit
+Right Click To Change Direction
+Start
