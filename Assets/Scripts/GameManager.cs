@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -40,6 +41,7 @@ public class GameManager : MonoBehaviour
     public int totalEnemies = 0;
 
     [SerializeField] private GameObject PauseScreen;
+    [SerializeField] private Button ChangeSpeedButton;
     private bool gameIsPaused = false;
     private bool isDoubleSpeed = false;
 
@@ -59,7 +61,7 @@ public class GameManager : MonoBehaviour
         get => instance;
     }
 
-      public int WinPoints
+    public int WinPoints
     {
         get => winPoints;
         set => winPoints = value;
@@ -81,9 +83,10 @@ public class GameManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             TogglePauseGame();
+            ChangeSpeedButton.interactable = !ChangeSpeedButton.interactable;
         }
 
-        if (gameIsPaused) return;
+        //if (gameIsPaused) return;
 
         if (playerHealth == 0)
         {
@@ -161,7 +164,7 @@ public class GameManager : MonoBehaviour
 
     public void ToggleDoubleSpeed()
     {
-        Time.timeScale = isDoubleSpeed ? 2 : 1;
+        Time.timeScale = isDoubleSpeed ? 1 : 2;
         isDoubleSpeed = !isDoubleSpeed;
     }
     internal void ResetTimeScale()

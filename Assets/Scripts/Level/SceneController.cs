@@ -22,6 +22,12 @@ public class SceneController: MonoBehaviour
         GameManager.Instance.ResetTimeScale();
     }
 
+    public void QuitGame()
+    {
+        Debug.Log("quitting game");
+        Application.Quit();
+    }
+
     //Using the async load scene function lets us add loading screens later
     private static IEnumerator LoadLevelScene(int sceneIndex)
     {
@@ -40,6 +46,5 @@ public class SceneController: MonoBehaviour
             yield return null;
         }
     }
-
 
 }
