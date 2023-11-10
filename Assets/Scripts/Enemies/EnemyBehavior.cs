@@ -9,14 +9,12 @@ public class EnemyBehavior : MonoBehaviour, IEntity
    // How fast enemy moves
     [SerializeField] public float speed;
     [SerializeField] public int currentHealth { get; private set; }
+
     [SerializeField] public int maxHealth;
     private Waypoints Wpoints;
     private PlayableUnit targetedUnit;
     private WaveSpawner waveSpawner;
     private int waypointIndex;
-
-    //[SerializeField] private GameObject healthBarPrefab;
-    //private HealthBarHandler healthBar;
 
     private Transform[] waypoints; // Reference to the waypoints array.
 
@@ -30,12 +28,13 @@ public class EnemyBehavior : MonoBehaviour, IEntity
 
     private static int count = 0;
 
+    Vector3 IEntity.position => transform.position;
+    internal HealthBar healthBar;
 
     public void SetWaypoints(Transform[] newWaypoints)
     {
         waypoints = newWaypoints;
     }
-
 
     void Start()
     {
@@ -47,7 +46,7 @@ public class EnemyBehavior : MonoBehaviour, IEntity
         currentHealth = maxHealth;
         name = "enemy " + count++;
         waveSpawner = FindObjectOfType<WaveSpawner>();
-        //InitHealthbar();
+        healthBar = HealthBarsManager.Instance.InitHealthBar(this);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -75,7 +74,6 @@ public class EnemyBehavior : MonoBehaviour, IEntity
             isMoving = true;
         }
     }
-        
 
     void Update()
     {
@@ -104,6 +102,7 @@ public class EnemyBehavior : MonoBehaviour, IEntity
                 else
                 {
                     // WaveSpawner.onEnemyDestroy.Invoke();
+                    Destroy(healthBar.gameObject);
                     startFadingOut();
                     startDelay();
                     GameManager.Instance.DamagePlayer(); // Reduce Player Health
@@ -130,27 +129,17 @@ public class EnemyBehavior : MonoBehaviour, IEntity
     public void Damage(int amount)
     {
         currentHealth -= amount;
-        //healthBar.UpdateHealth();
+        healthBar.UpdateHealthBar(maxHealth, currentHealth);
         if(currentHealth <= 0)
         {
             if(targetedUnit != null) 
                 targetedUnit.DecreaseEnemiesBlocked();
 
             WaveSpawner.onEnemyDestroy.Invoke(this);
+            Destroy(healthBar.gameObject);
             Destroy(gameObject);
         }
     }
-
-    /*
-    private void InitHealthbar()
-    {
-        HealthBarHandler healthBar =  Instantiate(healthBarPrefab, transform).GetComponent<HealthBarHandler>();
-        healthBar.transform.position = transform.position;
-        healthBar.enemy = this;
-        this.healthBar = healthBar;
-    }
-    */
-
 
     IEnumerator FadeOut()
     {
