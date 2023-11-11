@@ -4,7 +4,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public abstract class PlayableUnit : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+public abstract class PlayableUnit : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IEntity
 {
     [SerializeField] private int currentHealth;
     [SerializeField] private int maxHealth;
@@ -21,7 +21,8 @@ public abstract class PlayableUnit : MonoBehaviour, IPointerEnterHandler, IPoint
     [SerializeField] private SpriteRenderer spriteRenderer;
     [SerializeField] private Material originalMaterial;
 
-
+    Vector3 IEntity.position => transform.position;
+    internal HealthBar healthBar;
     internal Tile tilePlacedOn;
 
     public enum UnitState { NotPlaced, Idle, Acting }
@@ -38,7 +39,6 @@ public abstract class PlayableUnit : MonoBehaviour, IPointerEnterHandler, IPoint
         spriteRenderer.material = originalMaterial;
     }
 
-
     protected virtual void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
@@ -47,6 +47,7 @@ public abstract class PlayableUnit : MonoBehaviour, IPointerEnterHandler, IPoint
         currentHealth = maxHealth;
         actionTimer = actionTime;
         state = UnitState.NotPlaced;
+        healthBar = HealthBarsManager.Instance.InitHealthBar(this);
     }
 
     protected virtual void FixedUpdate()
@@ -67,6 +68,11 @@ public abstract class PlayableUnit : MonoBehaviour, IPointerEnterHandler, IPoint
                 gameObject.transform.Rotate(0, 0, 90);
             }
         }
+    }
+
+    private void OnDestroy()
+    {
+        Destroy(healthBar.gameObject);
     }
 
     public void OnPointerEnter(PointerEventData eventData)
@@ -91,7 +97,6 @@ public abstract class PlayableUnit : MonoBehaviour, IPointerEnterHandler, IPoint
     }
 
     protected abstract void ActionLogic();
-
 
     //moves the gameobject of the unit to where the mouse is
     private void DragUnit()
@@ -119,6 +124,7 @@ public abstract class PlayableUnit : MonoBehaviour, IPointerEnterHandler, IPoint
     public void Damage(int amount)
     {
         currentHealth -= amount - (int)(defense * 0.2); //lowers damage recieved by 20% of the unit's defense
+        healthBar.UpdateHealthBar(maxHealth, currentHealth);
         if (currentHealth <= 0)
         {
             Destroy(gameObject);
@@ -139,6 +145,7 @@ public abstract class PlayableUnit : MonoBehaviour, IPointerEnterHandler, IPoint
     {
         currentHealth += amount;
         currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
+        healthBar.UpdateHealthBar(maxHealth, currentHealth);
     }
 
     //returns true if the number of units attacking this unit is equal to max amount of units this unit can hold aggro
