@@ -7,7 +7,12 @@ public class SerializableDateTime : ISerializationCallbackReceiver
     [SerializeField] private int month;
     [SerializeField] private int day;
     [SerializeField] private int year;
-    public DateTime dateTime = DateTime.Today;
+    public DateTime dateTime;
+
+    public SerializableDateTime()
+    {
+        this.dateTime = DateTime.Today;
+    }
 
     public void OnAfterDeserialize()
     {

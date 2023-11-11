@@ -12,7 +12,7 @@ public class RangeCollider : MonoBehaviour
     {
         if (collision.tag == "enemy")
         {
-            Debug.Log("in " + collision.gameObject);
+            //Debug.Log("in " + collision.gameObject);
             fighter.enemiesInRange.Add(collision.gameObject.GetComponent<EnemyBehavior>());
             if (fighter.GetState() == UnitState.Idle)
                 fighter.SetState(UnitState.Acting);
@@ -23,7 +23,7 @@ public class RangeCollider : MonoBehaviour
     {
         if (collision.tag == "enemy")
         {
-            Debug.Log("out " + collision.gameObject);
+            //Debug.Log("out " + collision.gameObject);
             fighter.enemiesInRange.Remove(collision.gameObject.GetComponent<EnemyBehavior>());
             if (fighter.enemiesInRange.Count == 0 && fighter.GetState() == UnitState.Acting)
                 fighter.SetState(UnitState.Idle);

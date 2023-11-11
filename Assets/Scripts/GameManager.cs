@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -11,10 +12,19 @@ public class GameManager : MonoBehaviour
     [SerializeField] private int playerMaxHealth;
     [SerializeField] private int playerHealth;
     [SerializeField] private GameObject[] unitPrefabs;
+    [SerializeField] private CreditsTextHandler placementPointsText;
 
-    [SerializeField] private TextMeshProUGUI placementPointsText;
-    [SerializeField] public int placementPoints;
-    [SerializeField] private int winPointsRequirement;
+    public Dialogue dialogue;
+    public int PlacementPoints
+    {
+        get => placementPoints;
+        set
+        {
+            placementPoints = value;
+            placementPointsText.UpdateText();
+        }
+    }
+    [SerializeField] private int placementPoints = 0;
 
     private float timePerPoint = 1;
     private float timer;
@@ -24,14 +34,34 @@ public class GameManager : MonoBehaviour
 
     public static int unlockedLevels = 1;
     public static int currentLevel = 1;
+    [SerializeField] private int winPointsRequirement;
     private int winPoints;
+
+    [SerializeField] private WaveInfoHandler waveInfoText;
+    public int totalEnemies = 0;
+
+    [SerializeField] private GameObject PauseScreen;
+    [SerializeField] private Button ChangeSpeedButton;
+    private bool gameIsPaused = false;
+    private bool isDoubleSpeed = false;
+
+    public int EnemiesSpawned
+    {
+        get => enemiesSpawned;
+        set
+        {
+            enemiesSpawned = value;
+            waveInfoText.UpdateText();
+        }
+    }
+    private int enemiesSpawned = 0;
 
     public static GameManager Instance
     {
         get => instance;
     }
 
-      public int WinPoints
+    public int WinPoints
     {
         get => winPoints;
         set => winPoints = value;
@@ -44,30 +74,39 @@ public class GameManager : MonoBehaviour
         playerHealth = playerMaxHealth;
         placedUnits = new PlayableUnit[unitPrefabs.Length];
         timer = timePerPoint;
-        placementPointsText.SetText(placementPoints.ToString());
         playerHealthText.SetText(playerHealth.ToString());
         instance = this;
     }
 
     void Update()
     {
-        if(playerMaxHealth == 0)
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
-            //load failed level scene
+            TogglePauseGame();
+            ChangeSpeedButton.interactable = !ChangeSpeedButton.interactable;
         }
 
-        if(timer < 0 && placementPoints < 99)
+        //if (gameIsPaused) return;
+
+        if (playerHealth == 0)
         {
-            placementPoints++;
-            placementPointsText.SetText(placementPoints.ToString());
+            Debug.Log("Game Over");
+            SceneController.RestartLevel();
+        }
+
+        if (timer < 0 && placementPoints < 99 && !dialogue.gameObject.activeSelf)
+        {
+            PlacementPoints++;
             timer = timePerPoint;
         }
         timer -= Time.deltaTime;
 
-        if(winPoints == winPointsRequirement)
+        if (winPoints == winPointsRequirement && playerHealth > 0)
         {
             Debug.Log("You Win!");
             winPoints++;
+
+            SceneManager.LoadScene("menu"); 
         }
     }
 
@@ -110,7 +149,29 @@ public class GameManager : MonoBehaviour
     public void UsePlacementPoints(PlayableUnit unit)
     {
         placementPoints -= unit.GetUnitCost();
-        placementPointsText.SetText(placementPoints.ToString());
+    }
+
+    public void TogglePauseGame()
+    {
+        if(gameIsPaused)
+            Time.timeScale = isDoubleSpeed ? 2 : 1;
+        else
+            Time.timeScale = 0;
+        
+        gameIsPaused = !gameIsPaused;
+        PauseScreen.SetActive(gameIsPaused);
+    }
+
+    public void ToggleDoubleSpeed()
+    {
+        Time.timeScale = isDoubleSpeed ? 1 : 2;
+        isDoubleSpeed = !isDoubleSpeed;
+    }
+    internal void ResetTimeScale()
+    {
+        Time.timeScale = 1;
+        gameIsPaused = false;
+        isDoubleSpeed = false;
     }
 
     private void removeCurrentlyHeldUnit()

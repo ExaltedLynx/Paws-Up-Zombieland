@@ -7,7 +7,25 @@ public class SceneController: MonoBehaviour
 {
     public static void ChangeLevel(int sceneIndex)
     {
+        if(SceneManager.GetActiveScene().buildIndex != 0)
+            GameManager.Instance.ResetTimeScale();
+
         DataManager.Instance.StartCoroutine(LoadLevelScene(sceneIndex));
+    }
+
+    public static void RestartLevel()
+    {
+        // Get the current scene's name
+        string currentSceneName = SceneManager.GetActiveScene().name;
+        // Reload the current scene
+        DataManager.Instance.StartCoroutine(LoadLevelScene(currentSceneName));
+        GameManager.Instance.ResetTimeScale();
+    }
+
+    public void QuitGame()
+    {
+        Debug.Log("quitting game");
+        Application.Quit();
     }
 
     //Using the async load scene function lets us add loading screens later
@@ -19,4 +37,14 @@ public class SceneController: MonoBehaviour
             yield return null;
         }
     }
+
+    private static IEnumerator LoadLevelScene(string sceneName)
+    {
+        AsyncOperation asyncOp = SceneManager.LoadSceneAsync(sceneName);
+        while (!asyncOp.isDone)
+        {
+            yield return null;
+        }
+    }
+
 }
