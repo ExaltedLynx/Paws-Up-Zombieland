@@ -114,10 +114,12 @@ public class Dialogue : MonoBehaviour
         gameObject.SetActive(false);
         foreach (GameObject obj in activateObjects)
             {
-                if (obj != null)
+                if (obj.TryGetComponent(out WaveSpawner spawner))
                 {
-                    obj.SetActive(true);
+                    spawner.enabled = true;
                 }
+                else
+                    obj.SetActive(true);
             }
     }
 }

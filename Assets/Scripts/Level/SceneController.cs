@@ -8,8 +8,8 @@ public class SceneController: MonoBehaviour
     public static void ChangeLevel(int sceneIndex)
     {
         if(SceneManager.GetActiveScene().buildIndex != 0)
-            GameManager.Instance.ResetTimeScale();
-
+            GameManager.Instance.ResetLevel();
+        
         DataManager.Instance.StartCoroutine(LoadLevelScene(sceneIndex));
     }
 
@@ -19,7 +19,7 @@ public class SceneController: MonoBehaviour
         string currentSceneName = SceneManager.GetActiveScene().name;
         // Reload the current scene
         DataManager.Instance.StartCoroutine(LoadLevelScene(currentSceneName));
-        GameManager.Instance.ResetTimeScale();
+        GameManager.Instance.ResetLevel();
     }
 
     public void QuitGame()

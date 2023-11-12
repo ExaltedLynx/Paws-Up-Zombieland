@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 
 public class WaveSpawner : MonoBehaviour
 {
@@ -28,7 +29,6 @@ public class WaveSpawner : MonoBehaviour
     [SerializeField] private int maxWaves = 10; // Maximum number of waves.
     [SerializeField] private int waveToActivateObject = 3; // Adjust the wave number as needed
 
-
     private int currentWave = 1;
     private float timeSinceLastSpawn;
     private int enemiesLeftToSpawn;
@@ -38,7 +38,7 @@ public class WaveSpawner : MonoBehaviour
     private void Awake()
     {
         // Add to the enemy counter
-        GameManager.Instance.totalEnemies += maxEnemiesCounter();
+        GameManager.Instance.TotalEnemies += maxEnemiesCounter();
         onEnemyDestroy.AddListener(EnemyDestroyed);
     }
 

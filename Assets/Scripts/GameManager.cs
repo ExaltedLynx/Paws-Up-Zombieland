@@ -33,17 +33,25 @@ public class GameManager : MonoBehaviour
     private PlayableUnit[] placedUnits;
 
     public static int unlockedLevels = 1;
-    public static int currentLevel = 1;
+    public static int currentLevel { get => SceneManager.GetActiveScene().buildIndex; }
+    public static int[] starsObtained = new int[5];
+    public static bool unitHasDied = false;
+    public static bool lostHealth = false;
+
     [SerializeField] private int winPointsRequirement;
     private int winPoints;
 
     [SerializeField] private WaveInfoHandler waveInfoText;
-    public int totalEnemies = 0;
-
-    [SerializeField] private GameObject PauseScreen;
-    [SerializeField] private Button ChangeSpeedButton;
-    private bool gameIsPaused = false;
-    private bool isDoubleSpeed = false;
+    public int TotalEnemies
+    {
+        get => totalEnemies;
+        set
+        {
+            totalEnemies = value;
+            waveInfoText.UpdateText();
+        }
+    }
+    private int totalEnemies = 0;
 
     public int EnemiesSpawned
     {
@@ -55,6 +63,13 @@ public class GameManager : MonoBehaviour
         }
     }
     private int enemiesSpawned = 0;
+
+    [SerializeField] private GameObject PauseScreen;
+    [SerializeField] private Button ChangeSpeedButton;
+    [SerializeField] private GameObject victoryScreen;
+    [SerializeField] private GameObject failScreen;
+    private bool gameIsPaused = false;
+    private bool isDoubleSpeed = false;
 
     public static GameManager Instance
     {
@@ -86,14 +101,6 @@ public class GameManager : MonoBehaviour
             ChangeSpeedButton.interactable = !ChangeSpeedButton.interactable;
         }
 
-        //if (gameIsPaused) return;
-
-        if (playerHealth == 0)
-        {
-            Debug.Log("Game Over");
-            SceneController.RestartLevel();
-        }
-
         if (timer < 0 && placementPoints < 99 && !dialogue.gameObject.activeSelf)
         {
             PlacementPoints++;
@@ -101,21 +108,30 @@ public class GameManager : MonoBehaviour
         }
         timer -= Time.deltaTime;
 
-        if (winPoints == winPointsRequirement && playerHealth > 0)
+        if (winPoints == winPointsRequirement && playerHealth > 0 && !victoryScreen.activeSelf)
         {
             Debug.Log("You Win!");
             winPoints++;
 
-            SceneManager.LoadScene("menu"); 
+            if (unlockedLevels < currentLevel + 1 && unlockedLevels < 5)
+                unlockedLevels = currentLevel + 1;
+
+            starsObtained[currentLevel - 1] = GetStarsAchieved();
+            victoryScreen.SetActive(true);
+            Time.timeScale = 0;
         }
     }
 
     public void DamagePlayer()
     {
         playerHealth--;
+        lostHealth = true;
         playerHealthText.SetText(playerHealth.ToString());
-        //if(playerHealth == 0)
-            //game over scene
+        if (playerHealth == 0)
+        {
+            failScreen.SetActive(true);
+            Time.timeScale = 0;
+        }
     }
 
     public void SetHeldUnit(int index)
@@ -167,11 +183,13 @@ public class GameManager : MonoBehaviour
         Time.timeScale = isDoubleSpeed ? 1 : 2;
         isDoubleSpeed = !isDoubleSpeed;
     }
-    internal void ResetTimeScale()
+    internal void ResetLevel()
     {
         Time.timeScale = 1;
         gameIsPaused = false;
         isDoubleSpeed = false;
+        unitHasDied = false;
+        lostHealth = false;
     }
 
     private void removeCurrentlyHeldUnit()
@@ -192,5 +210,18 @@ public class GameManager : MonoBehaviour
             return true;
 
         return false;
+    }
+
+    private int GetStarsAchieved()
+    {
+        int stars;
+        if(unitHasDied && lostHealth)
+            stars = 1;
+        else if(unitHasDied || lostHealth)
+            stars = 2;
+        else
+            stars = 3;
+
+        return stars;
     }
 }

@@ -12,7 +12,7 @@ public class DataManager : MonoBehaviour
     private static GameDataHandler dataHandler;
     private static GameData[] allSaves = new GameData[5];
     private static GameData currentSave;
-    private static int currentSaveSlot;
+    private static int currentSaveSlot = -1;
     private bool isDeleting = false;
 
     public static DataManager Instance { get; private set; }
@@ -25,8 +25,11 @@ public class DataManager : MonoBehaviour
 
     public void SaveGame()
     {
-        HandleSaveData();
-        dataHandler.Save(currentSave, currentSaveSlot + 1);
+        if(currentSaveSlot != -1)
+        {
+            HandleSaveData();
+            dataHandler.Save(currentSave, currentSaveSlot + 1);
+        }
     }
 
     public void LoadGame(int saveSlot)
@@ -85,20 +88,29 @@ public class DataManager : MonoBehaviour
     private void HandleSaveData()
     {
         currentSave.unlockedLevels = GameManager.unlockedLevels;
+        currentSave.starsObtained = GameManager.starsObtained;
+
+        //these don't need to be loaded
         currentSave.currentLevel = GameManager.currentLevel;
+        currentSave.saveDate.dateTime = DateTime.Today;
     }
 
     private void HandleLoadData(GameData data)
     {
         GameManager.unlockedLevels = data.unlockedLevels;
+        GameManager.starsObtained = data.starsObtained;
     }
     
     private bool HandleDelete()
     {
         bool deleted = false;
-        if(isDeleting)
+        if (isDeleting)
+        {
             deleted = dataHandler.Delete(currentSaveSlot + 1);
-
+            allSaves[currentSaveSlot] = null;
+            currentSaveSlot = -1;
+            SaveInfoHandler.Instance.RefreshAllSaveInfo();
+        }
         isDeleting = false;
         return deleted;
     }

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.UI;
-using static UnityEngine.RuleTile.TilingRuleOutput;
 
 public class HealthBar : MonoBehaviour
 {
@@ -18,7 +17,7 @@ public class HealthBar : MonoBehaviour
             FillArea.color = new Color32(255, 87, 40, 255);
             gameObject.SetActive(false);
         }
-        else 
+        else
         {
             FillArea.color = new Color32(20, 170, 255, 255);
         }

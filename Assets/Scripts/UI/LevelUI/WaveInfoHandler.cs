@@ -6,18 +6,14 @@ using UnityEngine;
 public class WaveInfoHandler : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI waveInfoText;
-    private int totalEnemies = 0;
-    void Start()
+
+    public void Start()
     {
-        waveInfoText.SetText("0/" + totalEnemies);
+        UpdateText();
     }
 
-    void Update()
-    {
-        totalEnemies = GameManager.Instance.totalEnemies;
-    }
     public void UpdateText()
     {
-        waveInfoText.SetText(GameManager.Instance.EnemiesSpawned + "/" + totalEnemies);
+        waveInfoText.SetText(GameManager.Instance.EnemiesSpawned + "/" + GameManager.Instance.TotalEnemies);
     }
 }

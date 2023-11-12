@@ -25,4 +25,12 @@ public class ContinueEnabler : MonoBehaviour
         }
         return false;
     }
+
+    private void OnEnable()
+    {
+        if (SavesExists())
+            continueButton.SetActive(true);
+        else
+            continueButton.SetActive(false);
+    }
 }

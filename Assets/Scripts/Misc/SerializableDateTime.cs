@@ -11,7 +11,7 @@ public class SerializableDateTime : ISerializationCallbackReceiver
 
     public SerializableDateTime()
     {
-        this.dateTime = DateTime.Today;
+        dateTime = DateTime.Today;
     }
 
     public void OnAfterDeserialize()

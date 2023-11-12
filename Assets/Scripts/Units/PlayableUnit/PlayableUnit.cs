@@ -72,7 +72,8 @@ public abstract class PlayableUnit : MonoBehaviour, IPointerEnterHandler, IPoint
 
     private void OnDestroy()
     {
-        Destroy(healthBar.gameObject);
+        if(healthBar != null)
+            Destroy(healthBar.gameObject);
     }
 
     public void OnPointerEnter(PointerEventData eventData)
@@ -127,6 +128,7 @@ public abstract class PlayableUnit : MonoBehaviour, IPointerEnterHandler, IPoint
         healthBar.UpdateHealthBar(maxHealth, currentHealth);
         if (currentHealth <= 0)
         {
+            GameManager.unitHasDied = true;
             Destroy(gameObject);
         }
         else
