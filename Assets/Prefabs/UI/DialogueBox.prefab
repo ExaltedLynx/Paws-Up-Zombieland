@@ -187,10 +187,10 @@ MonoBehaviour:
   textComponent: {fileID: 8249037890804100814}
   lines:
   - 
-  dialogueTextAsset: {fileID: 4900000, guid: 74f2a6c3b662a81449555da2d184d3b5, type: 3}
+  dialogueTextAsset: {fileID: 4900000, guid: f47a32ac75622b34885ea61b78eb5826, type: 3}
   textSpeed: 0.3
   maxCharactersPerLine: 50
-  startObject: {fileID: 0}
+  activateObjects: []
   portraitManager: {fileID: 4746772343393602671}
 --- !u!1 &8703521517967806975
 GameObject:
