@@ -30,6 +30,7 @@ public class EnemyBehavior : MonoBehaviour, IEntity
 
     Vector3 IEntity.position => transform.position;
     internal HealthBar healthBar;
+    internal int attackerIndex = 0;
 
     public void SetWaypoints(Transform[] newWaypoints)
     {
@@ -57,6 +58,7 @@ public class EnemyBehavior : MonoBehaviour, IEntity
             if (temp.GetState() != PlayableUnit.UnitState.NotPlaced && !temp.IsAtMaxBlock())
             {
                 targetedUnit = temp;
+                targetedUnit.SetAttackingEnemyOffset(this);
                 targetedUnit.IncreaseEnemiesBlocked();
                 isMoving = false;
                 isColliding = true;
@@ -66,9 +68,11 @@ public class EnemyBehavior : MonoBehaviour, IEntity
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        //this only happens when the unit the enemy is attacking is destroyed
         if (collision.gameObject.CompareTag("Unit"))
         {
+            if (targetedUnit != null)
+                targetedUnit.blockedEnemies[attackerIndex] = null;
+
             targetedUnit = null;
             isColliding = false;
             isMoving = true;
@@ -88,7 +92,7 @@ public class EnemyBehavior : MonoBehaviour, IEntity
         {
             transform.position = Vector2.MoveTowards(transform.position, waypoints[waypointIndex].position, speed * Time.deltaTime);
 
-            if (Vector2.Distance(transform.position, waypoints[waypointIndex].position) < 0.1f)
+            if (transform.position == waypoints[waypointIndex].position)
             {
                 if (waypointIndex == 0)
                 { 
@@ -115,7 +119,7 @@ public class EnemyBehavior : MonoBehaviour, IEntity
         {
             if (damageTimer <= 0f && targetedUnit.GetState() != PlayableUnit.UnitState.NotPlaced)
             {
-                targetedUnit.Damage(15);
+                targetedUnit.Damage(10);
                 damageTimer = damageDelay; // Reset the timer after applying damage.
             }
             else
@@ -123,7 +127,6 @@ public class EnemyBehavior : MonoBehaviour, IEntity
                 damageTimer -= Time.deltaTime; // Decrease the timer.
             }
         }
-
     }
 
     public void Damage(int amount)

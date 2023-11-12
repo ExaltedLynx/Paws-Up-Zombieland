@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -24,6 +25,7 @@ public abstract class PlayableUnit : MonoBehaviour, IPointerEnterHandler, IPoint
     Vector3 IEntity.position => transform.position;
     internal HealthBar healthBar;
     internal Tile tilePlacedOn;
+    internal EnemyBehavior[] blockedEnemies;
 
     public enum UnitState { NotPlaced, Idle, Acting }
 
@@ -47,6 +49,7 @@ public abstract class PlayableUnit : MonoBehaviour, IPointerEnterHandler, IPoint
         currentHealth = maxHealth;
         actionTimer = actionTime;
         state = UnitState.NotPlaced;
+        blockedEnemies = new EnemyBehavior[maxBlock];
         healthBar = HealthBarsManager.Instance.InitHealthBar(this);
     }
 
@@ -150,6 +153,78 @@ public abstract class PlayableUnit : MonoBehaviour, IPointerEnterHandler, IPoint
         healthBar.UpdateHealthBar(maxHealth, currentHealth);
     }
 
+    public void SetAttackingEnemyOffset(EnemyBehavior enemy)
+    {
+        int index = AddToEmptyIndex(enemy);
+        enemy.attackerIndex = index;
+        Vector3 offset = DetermineOffsetDirection(enemy, index);
+        if(maxBlock == 2 && index != -1)
+        {
+            switch (index)
+            {
+                case 0:
+                    enemy.transform.position += offset;
+                    break;
+
+                case 1:
+                    enemy.transform.position -= offset;
+                    break;
+            }
+        }
+        else if(index != -1)
+        {
+            switch (index)
+            {
+                case 0:
+                    if(enemy.transform.position.y > transform.position.y || enemy.transform.position.x > transform.position.x)
+                        enemy.transform.position -= offset;
+                    else
+                        enemy.transform.position += offset;
+                    break;
+                case 1:
+                    enemy.transform.position += offset;
+                    break;
+
+                case 2:
+                    enemy.transform.position -= offset;
+                    break;
+            }
+        }
+    }
+
+    private Vector3 DetermineOffsetDirection(EnemyBehavior enemy, int index)
+    {
+        Vector3 offset;
+        if(maxBlock == 2 || (maxBlock == 3 && index != 0))
+        {
+            if (enemy.transform.position.x == transform.position.x)
+                offset = new Vector3(0.25f, 0, 0);
+            else //y position is equal
+                offset = new Vector3(0, 0.25f, 0);
+        }
+        else
+        {
+            if (enemy.transform.position.x == transform.position.x)
+                offset = new Vector3(0, 0.1f, 0);
+            else //y position is equal
+                offset = new Vector3(0.1f, 0, 0);
+        }
+        return offset;
+    }
+
+    private int AddToEmptyIndex(EnemyBehavior enemy)
+    {
+        for(int i = 0; i < blockedEnemies.Length; i++)
+        {
+            if (blockedEnemies[i] == null)
+            {
+                blockedEnemies[i] = enemy;
+                return i;
+            }
+        }
+        return -1;
+    }
+
     //returns true if the number of units attacking this unit is equal to max amount of units this unit can hold aggro
     public bool IsAtMaxBlock()
     {
@@ -169,6 +244,11 @@ public abstract class PlayableUnit : MonoBehaviour, IPointerEnterHandler, IPoint
     public void ResetEnemiesBlocked()
     {
         enemiesBlocked = 0;
+    }
+
+    public int GetEnemyBlockCount()
+    {
+        return enemiesBlocked;
     }
 
     public Tile.TileType GetValidTile()
