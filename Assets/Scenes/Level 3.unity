@@ -660,6 +660,11 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 5677486854708222690, guid: e6682e13e4a51594293fa3566a9f2d51, type: 3}
   m_PrefabInstance: {fileID: 298044645}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &298044647 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 9051195739553850544, guid: e6682e13e4a51594293fa3566a9f2d51, type: 3}
+  m_PrefabInstance: {fileID: 298044645}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &347711388
 GameObject:
   m_ObjectHideFlags: 0
@@ -736,7 +741,8 @@ MonoBehaviour:
   PauseScreen: {fileID: 2000172854}
   ChangeSpeedButton: {fileID: 253891750}
   victoryScreen: {fileID: 1064837014}
-  failScreen: {fileID: 0}
+  failScreen: {fileID: 298044647}
+  starsObtainedUI: {fileID: 1064837015}
 --- !u!4 &390945307
 Transform:
   m_ObjectHideFlags: 0
@@ -3764,6 +3770,17 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 7593372952196536348, guid: cdb319dcfff475e40bb3856303b4bff4, type: 3}
   m_PrefabInstance: {fileID: 1064837012}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1064837015 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1012904412528747361, guid: cdb319dcfff475e40bb3856303b4bff4, type: 3}
+  m_PrefabInstance: {fileID: 1064837012}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1064837014}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5957cd8756ce9ae4ca08fc77763cd60c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1097664510
 GameObject:
   m_ObjectHideFlags: 0

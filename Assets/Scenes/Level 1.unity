@@ -278,6 +278,17 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 7593372952196536348, guid: cdb319dcfff475e40bb3856303b4bff4, type: 3}
   m_PrefabInstance: {fileID: 83173439}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &83173442 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1012904412528747361, guid: cdb319dcfff475e40bb3856303b4bff4, type: 3}
+  m_PrefabInstance: {fileID: 83173439}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 83173441}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5957cd8756ce9ae4ca08fc77763cd60c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &99995624
 GameObject:
   m_ObjectHideFlags: 0
@@ -583,6 +594,7 @@ MonoBehaviour:
   ChangeSpeedButton: {fileID: 1661078165}
   victoryScreen: {fileID: 83173441}
   failScreen: {fileID: 1526911785}
+  starsObtainedUI: {fileID: 83173442}
 --- !u!4 &386479045
 Transform:
   m_ObjectHideFlags: 0
@@ -953,9 +965,9 @@ MonoBehaviour:
   WaypointToDeactivate: {fileID: 526012265}
   enemyPrefabs:
   - {fileID: 2897549260560756373, guid: 25cc497356f14ac4cac4e67eabaec73c, type: 3}
-  baseEnemies: 5
-  enemiesPerSecond: 0.5
-  timeBetweenWaves: 5
+  baseEnemies: 2
+  enemiesPerSecond: 0.35
+  timeBetweenWaves: 3
   difficultyScalingFactor: 0.75
   waypoints:
   - {fileID: 858635959}

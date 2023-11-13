@@ -68,6 +68,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Button ChangeSpeedButton;
     [SerializeField] private GameObject victoryScreen;
     [SerializeField] private GameObject failScreen;
+    [SerializeField] private StarsObtainedUIHandler starsObtainedUI;
     private bool gameIsPaused = false;
     private bool isDoubleSpeed = false;
 
@@ -118,6 +119,7 @@ public class GameManager : MonoBehaviour
 
             starsObtained[currentLevel - 1] = GetStarsAchieved();
             victoryScreen.SetActive(true);
+            starsObtainedUI.UpdateStarImages(starsObtained[currentLevel - 1]);
             Time.timeScale = 0;
         }
     }

@@ -2355,6 +2355,7 @@ MonoBehaviour:
   ChangeSpeedButton: {fileID: 192281044}
   victoryScreen: {fileID: 1729600267}
   failScreen: {fileID: 12509634}
+  starsObtainedUI: {fileID: 1729600268}
 --- !u!4 &1651017750
 Transform:
   m_ObjectHideFlags: 0
@@ -2529,6 +2530,17 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 7593372952196536348, guid: cdb319dcfff475e40bb3856303b4bff4, type: 3}
   m_PrefabInstance: {fileID: 1729600265}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1729600268 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1012904412528747361, guid: cdb319dcfff475e40bb3856303b4bff4, type: 3}
+  m_PrefabInstance: {fileID: 1729600265}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1729600267}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5957cd8756ce9ae4ca08fc77763cd60c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1760713139
 GameObject:
   m_ObjectHideFlags: 0
