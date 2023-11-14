@@ -3581,6 +3581,10 @@ PrefabInstance:
       propertyPath: portraitInfoList.Array.size
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5262481640527554415, guid: 4afea322968bac348a5630ffd8410320, type: 3}
+      propertyPath: m_Color.a
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5564816864937811688, guid: 4afea322968bac348a5630ffd8410320, type: 3}
       propertyPath: startObject
       value: 
