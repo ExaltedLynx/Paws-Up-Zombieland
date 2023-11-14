@@ -10,7 +10,7 @@ public class Dialogue : MonoBehaviour
     public string[] lines;
     public TextAsset dialogueTextAsset;
     public float textSpeed;
-    public int maxCharactersPerLine = 50;
+    public int maxCharactersPerLine = 85;
     
 
     private int index;

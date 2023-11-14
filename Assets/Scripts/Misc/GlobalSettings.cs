@@ -4,5 +4,5 @@ using UnityEngine;
 
 public class GlobalSettings : MonoBehaviour
 {
-   public static float dialogueFontSize = 25f; // Default font size
+   public static float dialogueFontSize = 60f; // Default font size
 }
