@@ -4044,6 +4044,14 @@ PrefabInstance:
       value: 23
       objectReference: {fileID: 0}
     - target: {fileID: 4746772343393602671, guid: 4afea322968bac348a5630ffd8410320, type: 3}
+      propertyPath: characterPortraits.Array.size
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4746772343393602671, guid: 4afea322968bac348a5630ffd8410320, type: 3}
+      propertyPath: characterPortraits.Array.data[5]
+      value: 
+      objectReference: {fileID: 21300000, guid: 83212ddc2d9ca8c47847f9706ba12c5c, type: 3}
+    - target: {fileID: 4746772343393602671, guid: 4afea322968bac348a5630ffd8410320, type: 3}
       propertyPath: portraitInfoList.Array.data[1].lineIndex
       value: 1
       objectReference: {fileID: 0}
