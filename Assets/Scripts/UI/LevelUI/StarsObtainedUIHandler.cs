@@ -17,13 +17,9 @@ public class StarsObtainedUIHandler : MonoBehaviour
                 break;
 
             case 2:
-                Debug.Log(starImages[0].rectTransform.anchoredPosition.x);
                 starImages[0].rectTransform.anchoredPosition += new Vector2(65f, 0);
-                Debug.Log(starImages[0].rectTransform.anchoredPosition.x);
                 starImages[0].gameObject.SetActive(true);
-                Debug.Log(starImages[2].rectTransform.anchoredPosition.x);
                 starImages[2].rectTransform.anchoredPosition -= new Vector2(65f, 0);
-                Debug.Log(starImages[0].rectTransform.anchoredPosition.x);
                 starImages[2].gameObject.SetActive(true);
                 break;
 

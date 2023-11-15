@@ -110,6 +110,7 @@ MonoBehaviour:
   currentSkillPoints: 0
   abilityCost: 40
   cost: 6
+  placementCooldown: 25
   validTile: 1
   state: 0
   rangeCollider: {fileID: 6761960978643246412}

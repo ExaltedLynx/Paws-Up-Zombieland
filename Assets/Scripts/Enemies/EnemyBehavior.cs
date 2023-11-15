@@ -119,8 +119,8 @@ public class EnemyBehavior : MonoBehaviour, IEntity
         {
             if (damageTimer <= 0f && targetedUnit.GetState() != PlayableUnit.UnitState.NotPlaced)
             {
-                targetedUnit.Damage(10);
                 targetedUnit.AddSkillPoint(1);
+                targetedUnit.Damage(15);
                 damageTimer = damageDelay; // Reset the timer after applying damage.
             }
             else

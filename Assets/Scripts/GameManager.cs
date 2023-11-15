@@ -11,10 +11,12 @@ public class GameManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI playerHealthText;
     [SerializeField] private int playerMaxHealth;
     [SerializeField] private int playerHealth;
+    [SerializeField] private UnitCooldownUI[] spawnButtonCooldownUI;
     [SerializeField] private GameObject[] unitPrefabs;
-    [SerializeField] private CreditsTextHandler placementPointsText;
-
+    public GameObject heldUnit;
+    private PlayableUnit[] placedUnits;
     public Dialogue dialogue;
+
     public int PlacementPoints
     {
         get => placementPoints;
@@ -25,12 +27,9 @@ public class GameManager : MonoBehaviour
         }
     }
     [SerializeField] private int placementPoints = 0;
-
+    [SerializeField] private CreditsTextHandler placementPointsText;
     private float timePerPoint = 1;
     private float timer;
-
-    public GameObject heldUnit;
-    private PlayableUnit[] placedUnits;
 
     public static int unlockedLevels = 1;
     public static int currentLevel { get => SceneManager.GetActiveScene().buildIndex; }
@@ -72,17 +71,17 @@ public class GameManager : MonoBehaviour
     private bool gameIsPaused = false;
     private bool isDoubleSpeed = false;
 
-    public static GameManager Instance
-    {
-        get => instance;
-    }
-
     public int WinPoints
     {
         get => winPoints;
         set => winPoints = value;
     }
-    
+
+    public static GameManager Instance
+    {
+        get => instance;
+    }
+
     private static GameManager instance;
 
     private void Awake()
@@ -147,7 +146,7 @@ public class GameManager : MonoBehaviour
                 removeCurrentlyHeldUnit();
                 heldUnit = Instantiate(unitPrefabs[index], transform);
                 placedUnits[index] = heldUnit.GetComponent<PlayableUnit>();
-
+                placedUnits[index].cooldownUI = spawnButtonCooldownUI[index];
             }
         }
         else if(placedUnits[index].GetState() != PlayableUnit.UnitState.NotPlaced)

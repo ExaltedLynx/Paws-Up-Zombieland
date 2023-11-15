@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.EventSystems;
 
 public abstract class PlayableUnit : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler, IEntity
@@ -17,6 +18,7 @@ public abstract class PlayableUnit : MonoBehaviour, IPointerEnterHandler, IPoint
     [SerializeField] private int currentSkillPoints;
     [SerializeField] protected int abilityCost;
     [SerializeField] private int cost;
+    [SerializeField] private int placementCooldown;
     [SerializeField] protected Tile.TileType validTile;
     [SerializeField] protected UnitState state = UnitState.NotPlaced;
     [SerializeField] protected GameObject rangeCollider;
@@ -29,8 +31,11 @@ public abstract class PlayableUnit : MonoBehaviour, IPointerEnterHandler, IPoint
     internal SkillBar skillBar;
     internal Tile tilePlacedOn;
     internal EnemyBehavior[] blockedEnemies;
+    internal UnitCooldownUI cooldownUI;
 
     public enum UnitState { NotPlaced, Idle, Acting }
+
+    public UnityEvent onUnitDeath = new UnityEvent();
 
     private IEnumerator FlashEffect()
     {
@@ -53,6 +58,7 @@ public abstract class PlayableUnit : MonoBehaviour, IPointerEnterHandler, IPoint
         actionTimer = actionTime;
         state = UnitState.NotPlaced;
         blockedEnemies = new EnemyBehavior[maxBlock];
+        cooldownUI.InitCooldownUI(this);
         healthBar = HealthBarsManager.Instance.InitHealthBar(this);
         skillBar = SkillBarManager.Instance.InitSkillBar(this);
     }
@@ -166,6 +172,7 @@ public abstract class PlayableUnit : MonoBehaviour, IPointerEnterHandler, IPoint
         if (currentHealth <= 0)
         {
             GameManager.unitHasDied = true;
+            onUnitDeath.Invoke();
             Destroy(gameObject);
         }
         else
@@ -177,7 +184,7 @@ public abstract class PlayableUnit : MonoBehaviour, IPointerEnterHandler, IPoint
     [ContextMenu("Force Kill")]
     private void ForceKill()
     {
-        Damage(currentHealth);
+        Damage(9999);
     }
 
     public void Heal(int amount)
@@ -319,6 +326,11 @@ public abstract class PlayableUnit : MonoBehaviour, IPointerEnterHandler, IPoint
     public int GetUnitCost()
     {
         return cost;
+    }
+
+    public int GetPlacementCooldown()
+    {
+        return placementCooldown;
     }
 
     public UnitState GetState()

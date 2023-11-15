@@ -108,14 +108,18 @@ MonoBehaviour:
   actionTimer: 0
   actionTime: 1.2
   currentSkillPoints: 0
-  abilityCost: 45
+  abilityCost: 10
   cost: 5
+  placementCooldown: 30
   validTile: 0
   state: 0
   rangeCollider: {fileID: 6761960978643246412}
   flashMaterial: {fileID: 0}
   spriteRenderer: {fileID: 0}
   originalMaterial: {fileID: 0}
+  onUnitDeath:
+    m_PersistentCalls:
+      m_Calls: []
   attackStat: 30
   enemiesInRange: []
 --- !u!61 &6908851524017177832
