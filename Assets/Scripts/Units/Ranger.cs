@@ -5,6 +5,9 @@ using UnityEngine;
 
 public class Ranger : FighterUnit
 {
+    private int abilityDuration = 20;
+    private bool abilityActive = false;
+
     protected override void Start()
     {
         base.Start();
@@ -22,6 +25,27 @@ public class Ranger : FighterUnit
 
     protected override void ActionLogic()
     {
-        enemiesInRange[0].Damage(attackStat);
+        if(abilityActive)
+        {
+            //each attack will hit one additional target while ability is active
+            enemiesInRange[0].Damage(attackStat);
+            if (enemiesInRange[1] != null)
+            {
+                enemiesInRange[1].Damage(attackStat);
+            }
+        }
+        else
+        {
+            enemiesInRange[0].Damage(attackStat);
+        }
+    }
+
+    protected override IEnumerator AbilityLogic()
+    {
+        int baseAttackStat = attackStat;
+        attackStat += (int)(baseAttackStat * 0.2f);
+        abilityActive = true;
+        yield return new WaitForSecondsRealtime(abilityDuration);
+        attackStat = baseAttackStat;
     }
 }

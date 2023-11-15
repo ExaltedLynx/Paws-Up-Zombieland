@@ -37,13 +37,13 @@ public class WaveSpawner : MonoBehaviour
 
     private void Awake()
     {
-        // Add to the enemy counter
-        GameManager.Instance.TotalEnemies += maxEnemiesCounter();
         onEnemyDestroy.AddListener(EnemyDestroyed);
     }
 
     private void Start()
     {
+        if(GameManager.Instance != null)
+            GameManager.Instance.TotalEnemies += maxEnemiesCounter();
         StartCoroutine(StartWave());
     }
 

@@ -39,4 +39,14 @@ public class TestHealer : HealerUnit
         }
         minHealthUnit.Heal(healPower);
     }
+
+    protected override IEnumerator AbilityLogic()
+    {
+        List<PlayableUnit> units = GetUnitsInRange();
+        foreach (PlayableUnit unit in units)
+        {
+            unit.AddSkillPoint(10);
+        }
+        yield return null;
+    }
 }
