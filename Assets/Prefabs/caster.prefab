@@ -107,7 +107,9 @@ MonoBehaviour:
   maxBlock: 1
   actionTimer: 0
   actionTime: 1.6
-  cost: 8
+  currentSkillPoints: 0
+  abilityCost: 40
+  cost: 10
   validTile: 1
   state: 0
   rangeCollider: {fileID: 6761960978643246412}

@@ -55,8 +55,8 @@ public class Tile : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IP
                 placedUnitObject = GameManager.Instance.heldUnit;
                 GameManager.Instance.heldUnit = null;
                 GameManager.Instance.UsePlacementPoints(placedUnit);
-                placedUnit.transform.position = transform.position;
                 placedUnit.transform.parent = transform;
+                placedUnit.transform.position = transform.position;
                 placedUnit.tilePlacedOn = this;
                 if (placedUnit is HealerUnit) //easy way to avoid rewriting UnitsInRange() to also work when a healer unit is placed
                     placedUnit.SetState(PlayableUnit.UnitState.Acting);

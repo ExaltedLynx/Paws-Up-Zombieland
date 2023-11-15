@@ -25,4 +25,9 @@ public class Fighter : FighterUnit
         enemiesInRange[0].Damage(attackStat);
     }
 
+    protected override IEnumerator AbilityLogic()
+    {
+        GameManager.Instance.PlacementPoints += 6;
+        yield return null;
+    }
 }

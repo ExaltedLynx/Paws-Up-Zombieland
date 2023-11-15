@@ -5,7 +5,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public abstract class PlayableUnit : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IEntity
+public abstract class PlayableUnit : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler, IEntity
 {
     [SerializeField] private int currentHealth;
     [SerializeField] private int maxHealth;
@@ -14,6 +14,8 @@ public abstract class PlayableUnit : MonoBehaviour, IPointerEnterHandler, IPoint
     [SerializeField] private int maxBlock;
     [SerializeField] private float actionTimer;
     [SerializeField] protected float actionTime;
+    [SerializeField] private int currentSkillPoints;
+    [SerializeField] protected int abilityCost;
     [SerializeField] private int cost;
     [SerializeField] protected Tile.TileType validTile;
     [SerializeField] protected UnitState state = UnitState.NotPlaced;
@@ -24,6 +26,7 @@ public abstract class PlayableUnit : MonoBehaviour, IPointerEnterHandler, IPoint
 
     Vector3 IEntity.position => transform.position;
     internal HealthBar healthBar;
+    internal SkillBar skillBar;
     internal Tile tilePlacedOn;
     internal EnemyBehavior[] blockedEnemies;
 
@@ -51,12 +54,14 @@ public abstract class PlayableUnit : MonoBehaviour, IPointerEnterHandler, IPoint
         state = UnitState.NotPlaced;
         blockedEnemies = new EnemyBehavior[maxBlock];
         healthBar = HealthBarsManager.Instance.InitHealthBar(this);
+        skillBar = SkillBarManager.Instance.InitSkillBar(this);
     }
 
     protected virtual void FixedUpdate()
     {
         if (state == UnitState.NotPlaced) { return; }
 
+        ChargeAbility();
         if (state == UnitState.Acting)
             Action();
     }
@@ -77,6 +82,18 @@ public abstract class PlayableUnit : MonoBehaviour, IPointerEnterHandler, IPoint
     {
         if(healthBar != null)
             Destroy(healthBar.gameObject);
+
+        if(skillBar != null) 
+            Destroy(skillBar.gameObject);
+    }
+
+    public void OnPointerDown(PointerEventData eventData)
+    {
+        if (currentSkillPoints == abilityCost && eventData.button == PointerEventData.InputButton.Left)
+        {
+            StartCoroutine(AbilityLogic());
+            currentSkillPoints = 0;
+        }
     }
 
     public void OnPointerEnter(PointerEventData eventData)
@@ -97,10 +114,27 @@ public abstract class PlayableUnit : MonoBehaviour, IPointerEnterHandler, IPoint
             return;
         }
         ActionLogic();
+        AddSkillPoint(1);
         actionTimer = actionTime; //resets the timer
     }
 
     protected abstract void ActionLogic();
+
+    private float second = 1;
+    private void ChargeAbility()
+    {
+        if (currentSkillPoints < abilityCost)
+        {
+            if (second <= 0)
+            {
+                currentSkillPoints++;
+                second = 1;
+            }
+            second -= Time.fixedDeltaTime;
+        }
+    }
+
+    protected abstract IEnumerator AbilityLogic();
 
     //moves the gameobject of the unit to where the mouse is
     private void DragUnit()
@@ -249,6 +283,22 @@ public abstract class PlayableUnit : MonoBehaviour, IPointerEnterHandler, IPoint
     public int GetEnemyBlockCount()
     {
         return enemiesBlocked;
+    }
+
+    public void AddSkillPoint(int skillPoints)
+    {
+        if(currentSkillPoints < abilityCost)
+            currentSkillPoints += skillPoints;
+    }
+
+    public int GetSkillPoints()
+    {
+        return currentSkillPoints;
+    }
+
+    public int GetAbilityCost()
+    {
+        return abilityCost;
     }
 
     public Tile.TileType GetValidTile()

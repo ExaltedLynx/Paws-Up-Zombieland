@@ -239,6 +239,8 @@ MonoBehaviour:
   maxBlock: 3
   actionTimer: 0
   actionTime: 1.5
+  currentSkillPoints: 0
+  abilityCost: 40
   cost: 9
   validTile: 0
   state: 0
