@@ -11,9 +11,7 @@ public class Dialogue : MonoBehaviour
     public TextAsset dialogueTextAsset;
     public float textSpeed;
     public int maxCharactersPerLine = 85;
-    
-
-    private int index;
+    public Button skipButton; // Reference to the skip button
     private int currentLineIndex;
     private List<string> textChunks = new List<string>();
 
@@ -42,6 +40,12 @@ public class Dialogue : MonoBehaviour
         {
             activateObjects = new List<GameObject>();
         }
+
+         if (skipButton != null)
+        {
+            // Attach the method to be called when the skip button is clicked
+            skipButton.onClick.AddListener(SkipToEnd);
+        }
     }
 
     void Update()
@@ -65,6 +69,19 @@ public class Dialogue : MonoBehaviour
                 NextLine();
             }
         }
+        if (skipButton != null && skipButton.interactable && skipButton.onClick != null && skipButton.onClick.GetPersistentEventCount() > 0 && skipButton.onClick.GetPersistentMethodName(0) == "SkipToEnd")
+        {
+            SkipToEnd();
+            return;
+        }
+
+        // Check if the dialogue is finished
+        if (currentLineIndex >= lines.Length)
+        {
+            EndDialogue();
+            return;
+        }
+
     }
 
     void SplitLinesIntoChunks()
@@ -84,7 +101,6 @@ public class Dialogue : MonoBehaviour
 
    void StartDialogue()
 {
-    index = 0;
     currentLineIndex = 0;
     textComponent.text = string.Empty;
     portraitManager.SetCharacterPortrait(currentLineIndex); // Set portrait for the current line
@@ -111,6 +127,12 @@ public class Dialogue : MonoBehaviour
     }
     else
     {
+        EndDialogue();
+    }
+}
+
+    void EndDialogue()
+    {
         gameObject.SetActive(false);
         foreach (GameObject obj in activateObjects)
             {
@@ -119,11 +141,17 @@ public class Dialogue : MonoBehaviour
                     spawner.enabled = true;
                 }
                 else
-                    obj.SetActive(true);
+                {
+                obj.SetActive(true);
+                }
+
+                // Disable the skip button
+        if (skipButton != null)
+        {
+            skipButton.gameObject.SetActive(false);
+        }       
             }
     }
-}
-
     void LoadTextFromAsset()
     {
         if (dialogueTextAsset != null)
@@ -142,4 +170,13 @@ public class Dialogue : MonoBehaviour
         }
     }
 
+    void SkipToEnd()
+    {
+        // Skip to the end of the dialogue
+        currentLineIndex = lines.Length - 1;
+        textComponent.text = textChunks[currentLineIndex];
+
+
+        EndDialogue();
+    }
 }
