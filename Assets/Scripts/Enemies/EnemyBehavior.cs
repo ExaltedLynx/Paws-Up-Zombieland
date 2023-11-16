@@ -8,6 +8,7 @@ public class EnemyBehavior : MonoBehaviour, IEntity
 {
    // How fast enemy moves
     [SerializeField] public float speed;
+    [SerializeField] public int damage;
     [SerializeField] public int currentHealth { get; private set; }
 
     [SerializeField] public int maxHealth;
@@ -31,10 +32,18 @@ public class EnemyBehavior : MonoBehaviour, IEntity
     Vector3 IEntity.position => transform.position;
     internal HealthBar healthBar;
     internal int attackerIndex = 0;
+    internal Direction direction;
+
+    public enum Direction { Up, Down, Left, Right }
 
     public void SetWaypoints(Transform[] newWaypoints)
     {
         waypoints = newWaypoints;
+    }
+
+    public Transform GetNextWaypoint()
+    {
+        return waypoints[waypointIndex];
     }
 
     void Start()
@@ -58,8 +67,8 @@ public class EnemyBehavior : MonoBehaviour, IEntity
             if (temp.GetState() != PlayableUnit.UnitState.NotPlaced && !temp.IsAtMaxBlock())
             {
                 targetedUnit = temp;
-                targetedUnit.SetAttackingEnemyOffset(this);
                 targetedUnit.IncreaseEnemiesBlocked();
+                targetedUnit.SetAttackingEnemyOffset(this);
                 isMoving = false;
                 isColliding = true;
             }
@@ -112,6 +121,22 @@ public class EnemyBehavior : MonoBehaviour, IEntity
                     GameManager.Instance.DamagePlayer(); // Reduce Player Health
                     isMoving = false;
                 }
+
+                if (transform.position.x == waypoints[waypointIndex].position.x)
+                {
+                    if (transform.position.y > waypoints[waypointIndex].position.y)
+                        direction = Direction.Down;
+                    else
+                        direction = Direction.Up;
+                }
+                else
+                {
+                    if (transform.position.x < waypoints[waypointIndex].position.x)
+                        direction = Direction.Left;
+                    else
+                        direction = Direction.Right;
+                }
+
             }
         }
 
@@ -120,7 +145,7 @@ public class EnemyBehavior : MonoBehaviour, IEntity
             if (damageTimer <= 0f && targetedUnit.GetState() != PlayableUnit.UnitState.NotPlaced)
             {
                 targetedUnit.AddSkillPoint(1);
-                targetedUnit.Damage(15);
+                targetedUnit.Damage(damage);
                 damageTimer = damageDelay; // Reset the timer after applying damage.
             }
             else

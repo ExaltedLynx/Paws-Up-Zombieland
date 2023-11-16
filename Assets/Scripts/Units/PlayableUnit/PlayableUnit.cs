@@ -26,6 +26,9 @@ public abstract class PlayableUnit : MonoBehaviour, IPointerEnterHandler, IPoint
     [SerializeField] private SpriteRenderer spriteRenderer;
     [SerializeField] private Material originalMaterial;
 
+    private Vector3 offsetDown;
+    private Vector3 offsetRight;
+    private Vector3 offsetLeft;
     Vector3 IEntity.position => transform.position;
     internal HealthBar healthBar;
     internal SkillBar skillBar;
@@ -199,58 +202,54 @@ public abstract class PlayableUnit : MonoBehaviour, IPointerEnterHandler, IPoint
         int index = AddToEmptyIndex(enemy);
         enemy.attackerIndex = index;
         Vector3 offset = DetermineOffsetDirection(enemy, index);
-        if(maxBlock == 2 && index != -1)
+        if(index != -1)
         {
             switch (index)
             {
                 case 0:
-                    enemy.transform.position += offset;
-                    break;
-
                 case 1:
-                    enemy.transform.position -= offset;
-                    break;
-            }
-        }
-        else if(index != -1)
-        {
-            switch (index)
-            {
-                case 0:
-                    if(enemy.transform.position.y > transform.position.y || enemy.transform.position.x > transform.position.x)
-                        enemy.transform.position -= offset;
-                    else
-                        enemy.transform.position += offset;
-                    break;
-                case 1:
-                    enemy.transform.position += offset;
-                    break;
-
-                case 2:
-                    enemy.transform.position -= offset;
-                    break;
+                    enemy.transform.position = offset;
+                    //Debug.Log(offset);
+                break;
             }
         }
     }
 
     private Vector3 DetermineOffsetDirection(EnemyBehavior enemy, int index)
     {
-        Vector3 offset;
-        if(maxBlock == 2 || (maxBlock == 3 && index != 0))
+        Vector3 offset = Vector3.zero;
+        offsetDown = transform.localPosition + new Vector3(0.15f, 0.65f);
+        offsetLeft = transform.localPosition + new Vector3(-0.65f, 0.15f);
+        offsetRight = transform.localPosition + new Vector3(0.65f, 0.15f);
+
+        switch (enemy.direction)
         {
-            if (enemy.transform.position.x == transform.position.x)
-                offset = new Vector3(0.25f, 0, 0);
-            else //y position is equal
-                offset = new Vector3(0, 0.25f, 0);
+            case EnemyBehavior.Direction.Down:
+                if (index == 1)
+                    offset = Vector3.Reflect(offsetDown, Vector3.left); //mirrors the vector
+                else
+                    offset = offsetDown;
+                break;
+
+            case EnemyBehavior.Direction.Left:
+                if(index == 1)
+                    offset = Vector3.Reflect(offsetLeft, Vector3.down); //mirrors the vector
+                else
+                    offset = offsetLeft;
+                break;
+
+            case EnemyBehavior.Direction.Right:
+                if (index == 1)
+                    offset = Vector3.Reflect(offsetRight, Vector3.down); //mirrors the vector
+                else
+                    offset = offsetRight;
+                break;
         }
-        else
-        {
-            if (enemy.transform.position.x == transform.position.x)
-                offset = new Vector3(0, 0.1f, 0);
-            else //y position is equal
-                offset = new Vector3(0.1f, 0, 0);
-        }
-        return offset;
+
+        //Debug.Log(offset);
+        Vector3 offsetWorldPos = transform.TransformPoint(offset); //changes the offset from local position to world position
+        //Debug.Log(offsetWorldPos);
+        return offsetWorldPos;
     }
 
     private int AddToEmptyIndex(EnemyBehavior enemy)

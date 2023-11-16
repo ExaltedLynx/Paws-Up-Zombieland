@@ -51,4 +51,9 @@ public class UnitCooldownUI : MonoBehaviour
         text.SetText(cooldownTimer.ToString());
         unit.onUnitDeath.AddListener(StartCooldown);
     }
+
+    public void DisableButton()
+    {
+        button.interactable = false;
+    }
 }

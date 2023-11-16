@@ -46,6 +46,7 @@ public class Dialogue : MonoBehaviour
             // Attach the method to be called when the skip button is clicked
             skipButton.onClick.AddListener(SkipToEnd);
         }
+        skipButton.gameObject.SetActive(CanSkipDialogue());
     }
 
     void Update()
@@ -170,6 +171,7 @@ public class Dialogue : MonoBehaviour
         }
     }
 
+    [ContextMenu("Skip Dialogue")]
     void SkipToEnd()
     {
         // Skip to the end of the dialogue
@@ -178,5 +180,16 @@ public class Dialogue : MonoBehaviour
 
 
         EndDialogue();
+    }
+
+    private bool CanSkipDialogue()
+    {
+        if(GameManager.unlockedLevels == 5)
+            return true;
+
+        if (GameManager.unlockedLevels > GameManager.currentLevel)
+            return true;
+
+        return false;
     }
 }

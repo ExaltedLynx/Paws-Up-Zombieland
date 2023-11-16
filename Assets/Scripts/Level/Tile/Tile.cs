@@ -64,6 +64,7 @@ public class Tile : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IP
                     placedUnit.SetState(PlayableUnit.UnitState.Idle);
 
                 placedUnit.ToggleRangeVisibility();
+                placedUnit.cooldownUI.DisableButton();
             }
         }
     }
