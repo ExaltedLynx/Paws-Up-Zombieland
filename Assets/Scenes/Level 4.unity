@@ -501,20 +501,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startPoint: {fileID: 390871494}
-  InactiveWaypoint: {fileID: 1447556395}
   WaypointToDeactivate: {fileID: 407459565}
   enemyPrefabs:
   - {fileID: 2897549260560756373, guid: 25cc497356f14ac4cac4e67eabaec73c, type: 3}
   baseEnemies: 2
   enemiesPerSecond: 0.5
   timeBetweenWaves: 5
+  initialDelayBeforeFirstWave: 7
   difficultyScalingFactor: 0.75
   waypoints:
   - {fileID: 390871494}
   - {fileID: 390663299}
   - {fileID: 1127791524}
   maxWaves: 1
-  waveToActivateObject: 2
 --- !u!114 &407459568
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -848,20 +847,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startPoint: {fileID: 168903309}
-  InactiveWaypoint: {fileID: 456208236}
   WaypointToDeactivate: {fileID: 456208236}
   enemyPrefabs:
   - {fileID: 2897549260560756373, guid: 25cc497356f14ac4cac4e67eabaec73c, type: 3}
   baseEnemies: 2
   enemiesPerSecond: 0.5
   timeBetweenWaves: 5
+  initialDelayBeforeFirstWave: 45
   difficultyScalingFactor: 0.75
   waypoints:
   - {fileID: 168903309}
   - {fileID: 1265887949}
   - {fileID: 692997268}
   maxWaves: 1
-  waveToActivateObject: 4
 --- !u!114 &456208239
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4653,20 +4651,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startPoint: {fileID: 1924559549}
-  InactiveWaypoint: {fileID: 1447556395}
   WaypointToDeactivate: {fileID: 1447556395}
   enemyPrefabs:
   - {fileID: 2897549260560756373, guid: 25cc497356f14ac4cac4e67eabaec73c, type: 3}
   baseEnemies: 2
   enemiesPerSecond: 0.5
   timeBetweenWaves: 5
+  initialDelayBeforeFirstWave: 45
   difficultyScalingFactor: 0.75
   waypoints:
   - {fileID: 1924559549}
   - {fileID: 465513483}
   - {fileID: 371498277}
   maxWaves: 1
-  waveToActivateObject: 4
 --- !u!114 &1447556398
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5098,20 +5095,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startPoint: {fileID: 477207742}
-  InactiveWaypoint: {fileID: 456208236}
   WaypointToDeactivate: {fileID: 1687923184}
   enemyPrefabs:
   - {fileID: 2897549260560756373, guid: 25cc497356f14ac4cac4e67eabaec73c, type: 3}
   baseEnemies: 2
   enemiesPerSecond: 0.5
   timeBetweenWaves: 5
+  initialDelayBeforeFirstWave: 7
   difficultyScalingFactor: 0.75
   waypoints:
   - {fileID: 477207742}
   - {fileID: 1132701012}
   - {fileID: 1163979776}
   maxWaves: 1
-  waveToActivateObject: 2
 --- !u!114 &1687923187
 MonoBehaviour:
   m_ObjectHideFlags: 0

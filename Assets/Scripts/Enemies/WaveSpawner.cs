@@ -7,7 +7,6 @@ using UnityEngine.SceneManagement;
 public class WaveSpawner : MonoBehaviour
 {
     public Transform startPoint;
-    public GameObject InactiveWaypoint;
     public GameObject WaypointToDeactivate;
 
     [Header("References")]
@@ -17,6 +16,7 @@ public class WaveSpawner : MonoBehaviour
     [SerializeField] private int baseEnemies = 5;
     [SerializeField] private float enemiesPerSecond = 0.5f;
     [SerializeField] private float timeBetweenWaves = 5f;
+    [SerializeField] private float initialDelayBeforeFirstWave = 0f;
     [SerializeField] private float difficultyScalingFactor = 0.75f;
 
     [Header("Events")]
@@ -27,13 +27,14 @@ public class WaveSpawner : MonoBehaviour
 
     [Header("Wave Settings")]
     [SerializeField] private int maxWaves = 10; // Maximum number of waves.
-    [SerializeField] private int waveToActivateObject = 3; // Adjust the wave number as needed
-
+    
     private int currentWave = 1;
     private float timeSinceLastSpawn;
     private int enemiesLeftToSpawn;
     private bool isSpawning = false;
     private List<GameObject> spawnedEnemies = new List<GameObject>(); // Not static
+    // Flag to track whether the initial delay has passed
+    private bool initialDelayPassed = false;
 
     private void Awake()
     {
@@ -44,11 +45,14 @@ public class WaveSpawner : MonoBehaviour
     {
         if(GameManager.Instance != null)
             GameManager.Instance.TotalEnemies += maxEnemiesCounter();
-        StartCoroutine(StartWave());
+        StartCoroutine(StartWaveWithDelay());
     }
 
     private void Update()
     {
+        if (!initialDelayPassed)
+            return;
+
         if (!isSpawning) return;
 
         timeSinceLastSpawn += Time.deltaTime;
@@ -61,12 +65,7 @@ public class WaveSpawner : MonoBehaviour
         }
 
 
-        // Check if the current wave matches the wave number to activate the object
-         if (currentWave == waveToActivateObject)
-        {
-        // Activate the object
-        InactiveWaypoint.SetActive(true);
-        }
+        
 
 
          // Remove empty elements from spawnedEnemies
@@ -118,6 +117,15 @@ public class WaveSpawner : MonoBehaviour
         enemiesLeftToSpawn = EnemiesPerWave();
         
     }
+
+    private IEnumerator StartWaveWithDelay()
+    {
+        yield return new WaitForSeconds(initialDelayBeforeFirstWave);
+        initialDelayPassed = true;
+
+        StartCoroutine(StartWave());
+    }
+
 
     private void EndWave()
     {

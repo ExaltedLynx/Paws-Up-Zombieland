@@ -1029,19 +1029,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startPoint: {fileID: 858635959}
-  InactiveWaypoint: {fileID: 526012265}
   WaypointToDeactivate: {fileID: 526012265}
   enemyPrefabs:
   - {fileID: 2897549260560756373, guid: 25cc497356f14ac4cac4e67eabaec73c, type: 3}
   baseEnemies: 3
   enemiesPerSecond: 0.35
   timeBetweenWaves: 3
+  initialDelayBeforeFirstWave: 7
   difficultyScalingFactor: 0.75
   waypoints:
   - {fileID: 858635959}
   - {fileID: 1520960065}
   maxWaves: 3
-  waveToActivateObject: 99
 --- !u!114 &526012268
 MonoBehaviour:
   m_ObjectHideFlags: 0
