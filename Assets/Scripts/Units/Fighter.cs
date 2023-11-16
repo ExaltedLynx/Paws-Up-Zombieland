@@ -5,6 +5,9 @@ using UnityEngine;
 
 public class Fighter : FighterUnit
 {
+    private int enhancedAttacks = 8;
+    private bool abilityActive = false;
+
     protected override void Start()
     {
         base.Start();
@@ -23,11 +26,23 @@ public class Fighter : FighterUnit
     protected override void ActionLogic()
     {
         enemiesInRange[0].Damage(attackStat);
+        if (abilityActive)
+        {
+            GameManager.Instance.PlacementPoints += 1;
+            enhancedAttacks--;
+        }
     }
 
     protected override IEnumerator AbilityLogic()
     {
-        GameManager.Instance.PlacementPoints += 6;
-        yield return null;
+        int baseAttackStat = attackStat;
+        attackStat += (int)(attackStat * 0.30f);
+        abilityActive = true;
+
+        yield return new WaitUntil(() => enhancedAttacks == 0);
+
+        abilityActive = false;
+        enhancedAttacks = 8;
+        attackStat = baseAttackStat;
     }
 }

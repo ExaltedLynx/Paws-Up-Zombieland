@@ -5,7 +5,8 @@ using UnityEngine;
 
 public class DefenderUnit : FighterUnit
 {
-    private int abilityDuration = 5;
+    private int abilityDuration = 4;
+    private bool abilityActive = false;
 
     protected override void Start()
     {
@@ -24,14 +25,32 @@ public class DefenderUnit : FighterUnit
 
     protected override void ActionLogic()
     {
-        enemiesInRange[0].Damage(attackStat);
+        if(abilityActive)
+        {
+            foreach (var enemy in enemiesInRange)
+            {
+                enemy.Damage(attackStat);
+            }
+        }
+        else
+            enemiesInRange[0].Damage(attackStat);
     }
 
     protected override IEnumerator AbilityLogic()
     {
+        foreach(var enemy in enemiesInRange)
+        {
+            enemy.isStunned = true;
+        }
         int baseAttackStat = attackStat;
-        attackStat += (int)(attackStat * 0.5f);
+        attackStat += (int)(attackStat * 0.3f);
+
         yield return new WaitForSecondsRealtime(abilityDuration);
+
         attackStat = baseAttackStat;
+        foreach (var enemy in enemiesInRange)
+        {
+            enemy.isStunned = false;
+        }
     }
 }

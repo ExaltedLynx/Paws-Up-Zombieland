@@ -209,7 +209,7 @@ public abstract class PlayableUnit : MonoBehaviour, IPointerEnterHandler, IPoint
                 case 0:
                 case 1:
                     enemy.transform.position = offset;
-                    //Debug.Log(offset);
+                    Debug.Log(offset);
                 break;
             }
         }
@@ -221,7 +221,7 @@ public abstract class PlayableUnit : MonoBehaviour, IPointerEnterHandler, IPoint
         offsetDown = transform.localPosition + new Vector3(0.15f, 0.65f);
         offsetLeft = transform.localPosition + new Vector3(-0.65f, 0.15f);
         offsetRight = transform.localPosition + new Vector3(0.65f, 0.15f);
-
+        Debug.Log(enemy.direction);
         switch (enemy.direction)
         {
             case EnemyBehavior.Direction.Down:
@@ -246,9 +246,9 @@ public abstract class PlayableUnit : MonoBehaviour, IPointerEnterHandler, IPoint
                 break;
         }
 
-        //Debug.Log(offset);
-        Vector3 offsetWorldPos = transform.TransformPoint(offset); //changes the offset from local position to world position
-        //Debug.Log(offsetWorldPos);
+        Debug.Log(offset);
+        Vector3 offsetWorldPos = TransformPointIgnoreRot(offset); //changes the offset from local position to world position
+        Debug.Log(offsetWorldPos);
         return offsetWorldPos;
     }
 
@@ -263,6 +263,12 @@ public abstract class PlayableUnit : MonoBehaviour, IPointerEnterHandler, IPoint
             }
         }
         return -1;
+    }
+
+    //added this because Transform.TransformPoint uses rotation in its calculation which causes enemy's to be set to the wrong world position.
+    private Vector3 TransformPointIgnoreRot(Vector3 vector)
+    { 
+        return Vector3.Scale(vector, transform.localScale) + transform.position;
     }
 
     //returns true if the number of units attacking this unit is equal to max amount of units this unit can hold aggro

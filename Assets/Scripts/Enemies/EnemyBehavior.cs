@@ -35,6 +35,7 @@ public class EnemyBehavior : MonoBehaviour, IEntity
     internal Direction direction;
 
     public enum Direction { Up, Down, Left, Right }
+    public bool isStunned = false;
 
     public void SetWaypoints(Transform[] newWaypoints)
     {
@@ -140,7 +141,7 @@ public class EnemyBehavior : MonoBehaviour, IEntity
             }
         }
 
-        if (isColliding && targetedUnit != null)
+        if (isColliding && targetedUnit != null && !isStunned)
         {
             if (damageTimer <= 0f && targetedUnit.GetState() != PlayableUnit.UnitState.NotPlaced)
             {

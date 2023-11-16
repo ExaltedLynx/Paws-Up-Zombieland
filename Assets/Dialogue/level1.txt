@@ -46,10 +46,11 @@ Welcome to the first level of our tower defense game set at FIU!
 Your mission is to guide your team through the zombie-infested campus and make it back home safely. Let's get started!
 Objective: Your goal is to safely navigate two of your characters through the campus to reach their dorm and call for help.
 The characters you’ll playing with for this level are: Olga Sokolov and Andrea Menendez
-Placement: Click and drag Olga and Andrea from the character menu to strategic locations on the map.
-Consider their range and abilities. Olga is more agile, while Andrea packs a powerful punch.
-Movement: Characters will not move, but they will automatically attack once a zombie is in their tile proximity.
-Which is the highlighted area. You can also check which way you'd like the characters to face.
+Placement: Click Olga or Andrea from the character menu and place them with left click onto strategic tiles on the map.
+Andrea can only be placed on ground tiles, while Olga can only be placed on elevated tiles. 
+The tile below where you drag them to will be highlighted if it's a valid tile that they can be place on.
+Consider their range and abilities. Olga can hit from farther away, while Andrea packs a powerful punch, but shorter range.
+You can also right click to change which way you'd like the characters to face.
 Zombies will approach from various directions. Olga and Andrea will automatically attack within their designated ranges.
 Each character has a health bar. If a character's health depletes, they are temporarily out of the game.
 Don't worry; they'll respawn in the character menu after a cooldown period. 

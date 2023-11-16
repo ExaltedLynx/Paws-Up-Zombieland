@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 3983457371801290184}
   - component: {fileID: 8306089556058339794}
   m_Layer: 7
-  m_Name: testhealer
+  m_Name: Ruyi
   m_TagString: Unit
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -117,7 +117,10 @@ MonoBehaviour:
   flashMaterial: {fileID: 0}
   spriteRenderer: {fileID: 0}
   originalMaterial: {fileID: 0}
-  healPower: 75
+  onUnitDeath:
+    m_PersistentCalls:
+      m_Calls: []
+  healPower: 50
 --- !u!61 &3983457371801290184
 BoxCollider2D:
   m_ObjectHideFlags: 0
