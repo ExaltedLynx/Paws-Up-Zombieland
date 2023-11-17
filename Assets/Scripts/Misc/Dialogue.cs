@@ -23,6 +23,7 @@ public class Dialogue : MonoBehaviour
 
     void Start()
     {
+        PersistDialogue.Instance.AlreadyReadDialogue = false;
         textComponent.text = string.Empty;
         Debug.Log("Initial Font Size: " + GlobalSettings.dialogueFontSize);
         if (dialogueTextAsset != null)
