@@ -20,7 +20,7 @@ public class GameDataHandler
     public void Save(GameData gameData, int saveSlot)
     {
         currentSaveFileName = dataFileName + saveSlot;
-        //save file is at "Application.persistentDataPath(changes based on OS, for windows its AppData/LocalLow) + dataFileName + saveSlot" 
+        //save file is at "Application.persistentDataPath(changes based on OS, for windows its AppData/LocalLow)/Saves/dataFileName + saveSlot" 
         string fullPath = Path.Combine(dataDirectoryPath, currentSaveFileName);
         try
         {

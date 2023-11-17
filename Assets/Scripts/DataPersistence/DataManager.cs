@@ -9,6 +9,7 @@ using static MainMenuRefs;
 public class DataManager : MonoBehaviour
 {
     private static string fileName = "save";
+    private static string savePath;
     private static GameDataHandler dataHandler;
     private static GameData[] allSaves = new GameData[5];
     private static GameData currentSave;
@@ -19,7 +20,11 @@ public class DataManager : MonoBehaviour
 
     private void Awake()
     {
-        dataHandler = new GameDataHandler(Application.persistentDataPath, fileName);
+        savePath = Application.persistentDataPath + "\\Saves";
+        if(!Directory.Exists(savePath))
+            Directory.CreateDirectory(savePath);
+
+        dataHandler = new GameDataHandler(savePath, fileName);
         Instance = this;
     }
 
@@ -117,7 +122,7 @@ public class DataManager : MonoBehaviour
 
     private int FindEmptySaveSlot()
     {
-        string savesPath = Path.Combine(Application.persistentDataPath, fileName);
+        string savesPath = Path.Combine(savePath, fileName);
         for (int i = 0; i < 5; i++)
         {
             string savePath  = savesPath + (i + 1);
@@ -132,7 +137,7 @@ public class DataManager : MonoBehaviour
 
     private int GetMostRecentSave()
     {
-        DirectoryInfo savesDir = new DirectoryInfo(Application.persistentDataPath);
+        DirectoryInfo savesDir = new DirectoryInfo(savePath);
         FileInfo mostRecent = savesDir.GetFiles().OrderByDescending(f => f.LastWriteTime).First(); //finds the save file that was written to the most recently
         return (int) char.GetNumericValue(mostRecent.Name.Last());
     }

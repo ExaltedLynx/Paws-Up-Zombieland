@@ -7,7 +7,7 @@ public class ContinueEnabler : MonoBehaviour
 {
     [SerializeField] private GameObject continueButton;
 
-    void Awake()
+    void Start()
     {
         if(SavesExists())
             continueButton.SetActive(true);
@@ -17,7 +17,10 @@ public class ContinueEnabler : MonoBehaviour
 
     private bool SavesExists()
     {
-        DirectoryInfo savesDir = new DirectoryInfo(Application.persistentDataPath);
+        if (!Directory.Exists(Application.persistentDataPath + "\\Saves"))
+            Directory.CreateDirectory(Application.persistentDataPath + "\\Saves");
+
+        DirectoryInfo savesDir = new DirectoryInfo(Application.persistentDataPath + "\\Saves");
         int numSaves = savesDir.GetFiles().Length;
         if (numSaves > 0)
         {

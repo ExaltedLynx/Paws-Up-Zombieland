@@ -14,7 +14,6 @@ public class Dialogue : MonoBehaviour
     public Button skipButton; // Reference to the skip button
     private int currentLineIndex;
     private List<string> textChunks = new List<string>();
-    private bool alreadyRead = false;
 
      public List<GameObject> activateObjects; // List of objects to activate
     
