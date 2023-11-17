@@ -327,6 +327,16 @@ public abstract class PlayableUnit : MonoBehaviour, IPointerEnterHandler, IPoint
         return currentHealth;
     }
 
+    public int GetDefense()
+    {
+        return defense;
+    }
+
+    public float GetAttackInterval()
+    {
+        return actionTime;
+    }
+
     public int GetUnitCost()
     {
         return cost;

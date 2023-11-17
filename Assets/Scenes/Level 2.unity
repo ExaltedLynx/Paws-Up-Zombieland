@@ -844,6 +844,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2547640387659756255, guid: b32ff8638ac950d49906acdb47f98f2e, type: 3}
+      propertyPath: m_text
+      value: 'Ability: Heals every unit in range for 400% heal power and boosts each
+        unit''s current skill points by 5.'
+      objectReference: {fileID: 0}
     - target: {fileID: 2900809130728084408, guid: b32ff8638ac950d49906acdb47f98f2e, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
       value: 1
@@ -872,9 +877,17 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 4643991298284673737, guid: b32ff8638ac950d49906acdb47f98f2e, type: 3}
+      propertyPath: m_Type
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4643991298284673737, guid: b32ff8638ac950d49906acdb47f98f2e, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 0d2c1f151cf73d245808889c1bee031c, type: 3}
     - target: {fileID: 5522846085417572843, guid: b32ff8638ac950d49906acdb47f98f2e, type: 3}
       propertyPath: m_text
-      value: Healer Unit
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 5672020253966701123, guid: b32ff8638ac950d49906acdb47f98f2e, type: 3}
       propertyPath: m_Name
@@ -1291,6 +1304,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2547640387659756255, guid: b32ff8638ac950d49906acdb47f98f2e, type: 3}
+      propertyPath: m_text
+      value: 'Ability: Increases attack by 30% and for the next 8 attacks, gain 1
+        credit.'
+      objectReference: {fileID: 0}
     - target: {fileID: 2900809130728084408, guid: b32ff8638ac950d49906acdb47f98f2e, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
       value: 1
@@ -1315,9 +1333,25 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 4643991298284673737, guid: b32ff8638ac950d49906acdb47f98f2e, type: 3}
+      propertyPath: m_Type
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4643991298284673737, guid: b32ff8638ac950d49906acdb47f98f2e, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 9c70b726f034b3a4bb7daeec1bac7684, type: 3}
+    - target: {fileID: 4643991298284673737, guid: b32ff8638ac950d49906acdb47f98f2e, type: 3}
+      propertyPath: m_UseSpriteMesh
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4643991298284673737, guid: b32ff8638ac950d49906acdb47f98f2e, type: 3}
+      propertyPath: m_PreserveAspect
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5522846085417572843, guid: b32ff8638ac950d49906acdb47f98f2e, type: 3}
       propertyPath: m_text
-      value: Fighter Unit
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 5672020253966701123, guid: b32ff8638ac950d49906acdb47f98f2e, type: 3}
       propertyPath: m_Name
@@ -2153,6 +2187,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2547640387659756255, guid: b32ff8638ac950d49906acdb47f98f2e, type: 3}
+      propertyPath: m_text
+      value: 'Ability: For 20 seconds, increases attack by 20% and attacks will hit
+        one additional target for 130% attack'
+      objectReference: {fileID: 0}
     - target: {fileID: 2900809130728084408, guid: b32ff8638ac950d49906acdb47f98f2e, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
       value: 1
@@ -2181,9 +2220,17 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 4643991298284673737, guid: b32ff8638ac950d49906acdb47f98f2e, type: 3}
+      propertyPath: m_Type
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4643991298284673737, guid: b32ff8638ac950d49906acdb47f98f2e, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 304a6c3b6e432eb4a9cdca3c0912f710, type: 3}
     - target: {fileID: 5522846085417572843, guid: b32ff8638ac950d49906acdb47f98f2e, type: 3}
       propertyPath: m_text
-      value: Ranger Unit
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 5672020253966701123, guid: b32ff8638ac950d49906acdb47f98f2e, type: 3}
       propertyPath: m_Name
@@ -2271,7 +2318,7 @@ MonoBehaviour:
   waypoints:
   - {fileID: 656281272}
   - {fileID: 1512175246}
-  maxWaves: 5
+  maxWaves: 4
 --- !u!114 &1240632921
 MonoBehaviour:
   m_ObjectHideFlags: 0

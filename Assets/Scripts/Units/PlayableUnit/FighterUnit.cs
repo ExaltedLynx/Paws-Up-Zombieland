@@ -27,4 +27,8 @@ public abstract class FighterUnit : PlayableUnit
         enemiesInRange.Remove(enemy);
     }
 
+    public int GetAttack()
+    {
+        return attackStat;
+    }
 }

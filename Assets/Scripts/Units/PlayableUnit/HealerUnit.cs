@@ -39,4 +39,9 @@ public abstract class HealerUnit : PlayableUnit
         }
         return unitsInRange;
     }
+
+    public int GetHealPower()
+    {
+        return healPower;
+    }
 }

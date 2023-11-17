@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Caster : FighterUnit
 {
-    private int abilityDuration = 3;
+    private int abilityDuration = 6;
     private int intervalModifier = 20;
 
     protected override void Start()
