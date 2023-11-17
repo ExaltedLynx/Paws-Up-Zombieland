@@ -25,7 +25,7 @@ public class EnemyBehavior : MonoBehaviour, IEntity
     private bool isColliding = false; // A flag to control collision
 
     private float damageTimer = 0f;
-    private float damageDelay = 1.7f; // Adjust this value to set the desired delay between damage. 
+    private float damageDelay = 2f; // Adjust this value to set the desired delay between damage. 
 
     private static int count = 0;
 
@@ -62,7 +62,7 @@ public class EnemyBehavior : MonoBehaviour, IEntity
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Unit"))
+        if (collision.gameObject.CompareTag("Unit") && targetedUnit == null)
         {
             PlayableUnit temp = collision.GetComponent<PlayableUnit>();
             if (temp.GetState() != PlayableUnit.UnitState.NotPlaced && !temp.IsAtMaxBlock())
@@ -78,15 +78,21 @@ public class EnemyBehavior : MonoBehaviour, IEntity
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Unit"))
+        if (collision.gameObject.CompareTag("Unit") && targetedUnit != null)
         {
-            if (targetedUnit != null)
+            if(targetedUnit.GetComponent<PlayableUnit>() == collision.GetComponent<PlayableUnit>())
+            {
                 targetedUnit.blockedEnemies[attackerIndex] = null;
-
-            targetedUnit = null;
-            isColliding = false;
-            isMoving = true;
+                targetedUnit = null;
+                isColliding = false;
+                isMoving = true;
+            }
         }
+    }
+
+    private void OnDestroy()
+    {
+        
     }
 
     void Update()
@@ -166,8 +172,11 @@ public class EnemyBehavior : MonoBehaviour, IEntity
                 targetedUnit.DecreaseEnemiesBlocked();
 
             WaveSpawner.onEnemyDestroy.Invoke(this);
+
             Destroy(healthBar.gameObject);
-            Destroy(gameObject);
+
+            if(gameObject != null)
+                Destroy(gameObject);
         }
     }
 

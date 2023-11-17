@@ -108,9 +108,9 @@ MonoBehaviour:
   actionTimer: 0
   actionTime: 1
   currentSkillPoints: 0
-  abilityCost: 40
-  cost: 6
-  placementCooldown: 30
+  abilityCost: 25
+  cost: 8
+  placementCooldown: 12
   validTile: 1
   state: 0
   rangeCollider: {fileID: 6761960978643246412}

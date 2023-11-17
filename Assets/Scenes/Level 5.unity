@@ -885,10 +885,10 @@ MonoBehaviour:
   WaypointToDeactivate: {fileID: 433514169}
   enemyPrefabs:
   - {fileID: 2897549260560756373, guid: 25cc497356f14ac4cac4e67eabaec73c, type: 3}
-  baseEnemies: 2
-  enemiesPerSecond: 0.5
-  timeBetweenWaves: 5
-  initialDelayBeforeFirstWave: 85
+  baseEnemies: 5
+  enemiesPerSecond: 0.7
+  timeBetweenWaves: 0
+  initialDelayBeforeFirstWave: 80
   difficultyScalingFactor: 0.75
   waypoints:
   - {fileID: 1108758298}
@@ -3499,6 +3499,51 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &765465601
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 765465603}
+  - component: {fileID: 765465602}
+  m_Layer: 0
+  m_Name: PersistDialogue
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &765465602
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 765465601}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1308fc74c9d56104a84da1fe13311712, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AlreadyReadDialogue: 0
+--- !u!4 &765465603
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 765465601}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -1.9604788, y: 1.2117649, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &787682061
 GameObject:
   m_ObjectHideFlags: 0
@@ -4734,8 +4779,8 @@ MonoBehaviour:
   WaypointToDeactivate: {fileID: 1032225305}
   enemyPrefabs:
   - {fileID: 2897549260560756373, guid: 25cc497356f14ac4cac4e67eabaec73c, type: 3}
-  baseEnemies: 2
-  enemiesPerSecond: 0.5
+  baseEnemies: 4
+  enemiesPerSecond: 0.4
   timeBetweenWaves: 5
   initialDelayBeforeFirstWave: 7
   difficultyScalingFactor: 0.75
@@ -4746,7 +4791,7 @@ MonoBehaviour:
   - {fileID: 1138390411}
   - {fileID: 871168983}
   - {fileID: 1154622983}
-  maxWaves: 3
+  maxWaves: 2
 --- !u!4 &1032225308
 Transform:
   m_ObjectHideFlags: 0
@@ -5866,7 +5911,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2900809130728084408, guid: b32ff8638ac950d49906acdb47f98f2e, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2900809130728084408, guid: b32ff8638ac950d49906acdb47f98f2e, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
@@ -6065,8 +6110,8 @@ MonoBehaviour:
   WaypointToDeactivate: {fileID: 1751225221}
   enemyPrefabs:
   - {fileID: 2897549260560756373, guid: 25cc497356f14ac4cac4e67eabaec73c, type: 3}
-  baseEnemies: 2
-  enemiesPerSecond: 0.5
+  baseEnemies: 4
+  enemiesPerSecond: 0.4
   timeBetweenWaves: 5
   initialDelayBeforeFirstWave: 50
   difficultyScalingFactor: 0.75
@@ -6270,8 +6315,8 @@ MonoBehaviour:
   WaypointToDeactivate: {fileID: 1844059605}
   enemyPrefabs:
   - {fileID: 2897549260560756373, guid: 25cc497356f14ac4cac4e67eabaec73c, type: 3}
-  baseEnemies: 2
-  enemiesPerSecond: 0.5
+  baseEnemies: 4
+  enemiesPerSecond: 0.3
   timeBetweenWaves: 50
   initialDelayBeforeFirstWave: 0
   difficultyScalingFactor: 0.75
@@ -6394,8 +6439,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerHealthText: {fileID: 353746282}
-  playerMaxHealth: 100
-  playerHealth: 100
+  playerMaxHealth: 10
+  playerHealth: 10
   spawnButtonCooldownUI:
   - {fileID: 1524648400}
   - {fileID: 1681764939}
@@ -6607,10 +6652,10 @@ MonoBehaviour:
   WaypointToDeactivate: {fileID: 1973704777}
   enemyPrefabs:
   - {fileID: 2897549260560756373, guid: 25cc497356f14ac4cac4e67eabaec73c, type: 3}
-  baseEnemies: 2
-  enemiesPerSecond: 0.5
-  timeBetweenWaves: 5
-  initialDelayBeforeFirstWave: 85
+  baseEnemies: 5
+  enemiesPerSecond: 0.7
+  timeBetweenWaves: 0
+  initialDelayBeforeFirstWave: 80
   difficultyScalingFactor: 0.75
   waypoints:
   - {fileID: 545187683}
@@ -6749,7 +6794,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2900809130728084408, guid: b32ff8638ac950d49906acdb47f98f2e, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2900809130728084408, guid: b32ff8638ac950d49906acdb47f98f2e, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
@@ -6903,8 +6948,8 @@ MonoBehaviour:
   WaypointToDeactivate: {fileID: 2124287614}
   enemyPrefabs:
   - {fileID: 2897549260560756373, guid: 25cc497356f14ac4cac4e67eabaec73c, type: 3}
-  baseEnemies: 2
-  enemiesPerSecond: 0.5
+  baseEnemies: 4
+  enemiesPerSecond: 0.4
   timeBetweenWaves: 5
   initialDelayBeforeFirstWave: 7
   difficultyScalingFactor: 0.75
@@ -6915,7 +6960,7 @@ MonoBehaviour:
   - {fileID: 1716511842}
   - {fileID: 1351810566}
   - {fileID: 1358829619}
-  maxWaves: 1
+  maxWaves: 2
 --- !u!4 &2124287617
 Transform:
   m_ObjectHideFlags: 0
@@ -6954,3 +6999,4 @@ SceneRoots:
   - {fileID: 1973704780}
   - {fileID: 433514172}
   - {fileID: 995137522}
+  - {fileID: 765465603}

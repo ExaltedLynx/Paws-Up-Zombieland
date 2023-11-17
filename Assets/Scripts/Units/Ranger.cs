@@ -29,7 +29,7 @@ public class Ranger : FighterUnit
         {
             //each attack will hit one additional target for 130% attack while ability is active
             enemiesInRange[0].Damage(attackStat);
-            if (enemiesInRange[1] != null)
+            if (enemiesInRange.Count > 1)
             {
                 int buffedAttack = (int)(attackStat * 1.3f);
                 enemiesInRange[1].Damage(buffedAttack);

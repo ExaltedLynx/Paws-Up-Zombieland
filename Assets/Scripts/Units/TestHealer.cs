@@ -45,7 +45,8 @@ public class TestHealer : HealerUnit
         List<PlayableUnit> units = GetUnitsInRange();
         foreach (PlayableUnit unit in units)
         {
-            unit.AddSkillPoint(10);
+            unit.AddSkillPoint(5);
+            unit.Heal(healPower * 4);
         }
         yield return null;
     }

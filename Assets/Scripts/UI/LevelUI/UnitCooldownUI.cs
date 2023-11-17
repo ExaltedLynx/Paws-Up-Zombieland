@@ -38,7 +38,6 @@ public class UnitCooldownUI : MonoBehaviour
 
     private void StartCooldown()
     {
-        Debug.Log("test");
         shouldUpdate = true;
         button.interactable = false;
     }

@@ -240,9 +240,9 @@ MonoBehaviour:
   actionTimer: 0
   actionTime: 1.5
   currentSkillPoints: 0
-  abilityCost: 50
-  cost: 9
-  placementCooldown: 40
+  abilityCost: 40
+  cost: 10
+  placementCooldown: 20
   validTile: 0
   state: 0
   rangeCollider: {fileID: 1771664877497340223}
@@ -252,7 +252,7 @@ MonoBehaviour:
   onUnitDeath:
     m_PersistentCalls:
       m_Calls: []
-  attackStat: 35
+  attackStat: 40
   enemiesInRange: []
 --- !u!61 &5096732678358101801
 BoxCollider2D:

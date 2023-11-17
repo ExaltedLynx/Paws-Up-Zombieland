@@ -14,6 +14,7 @@ public class Dialogue : MonoBehaviour
     public Button skipButton; // Reference to the skip button
     private int currentLineIndex;
     private List<string> textChunks = new List<string>();
+    private bool alreadyRead = false;
 
      public List<GameObject> activateObjects; // List of objects to activate
     
@@ -46,7 +47,7 @@ public class Dialogue : MonoBehaviour
             // Attach the method to be called when the skip button is clicked
             skipButton.onClick.AddListener(SkipToEnd);
         }
-        skipButton.gameObject.SetActive(CanSkipDialogue());
+        skipButton.gameObject.SetActive(CanSkipDialogue() || PersistDialogue.Instance.AlreadyReadDialogue);
     }
 
     void Update()
@@ -136,22 +137,22 @@ public class Dialogue : MonoBehaviour
     {
         gameObject.SetActive(false);
         foreach (GameObject obj in activateObjects)
+        {
+            if (obj.TryGetComponent(out WaveSpawner spawner))
             {
-                if (obj.TryGetComponent(out WaveSpawner spawner))
-                {
-                    spawner.enabled = true;
-                }
-                else
-                {
+                spawner.enabled = true;
+            }
+            else
+            {
                 obj.SetActive(true);
-                }
-
-                // Disable the skip button
+            }
+        }
+        // Disable the skip button
         if (skipButton != null)
         {
             skipButton.gameObject.SetActive(false);
-        }       
-            }
+        }
+        PersistDialogue.Instance.AlreadyReadDialogue = true;
     }
     void LoadTextFromAsset()
     {

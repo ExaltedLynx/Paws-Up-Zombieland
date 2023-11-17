@@ -106,11 +106,11 @@ MonoBehaviour:
   enemiesBlocked: 0
   maxBlock: 1
   actionTimer: 0
-  actionTime: 3
+  actionTime: 2
   currentSkillPoints: 0
-  abilityCost: 60
-  cost: 7
-  placementCooldown: 50
+  abilityCost: 50
+  cost: 10
+  placementCooldown: 20
   validTile: 1
   state: 0
   rangeCollider: {fileID: 7574921670951050647}
@@ -120,7 +120,7 @@ MonoBehaviour:
   onUnitDeath:
     m_PersistentCalls:
       m_Calls: []
-  healPower: 50
+  healPower: 15
 --- !u!61 &3983457371801290184
 BoxCollider2D:
   m_ObjectHideFlags: 0

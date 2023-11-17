@@ -493,6 +493,51 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   skillBarPrefab: {fileID: 3664773187226620052, guid: f4a58aa77b6c87d4ebb1f5ce2849f9fc, type: 3}
+--- !u!1 &181850863
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 181850865}
+  - component: {fileID: 181850864}
+  m_Layer: 0
+  m_Name: PersistDialogue
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &181850864
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 181850863}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1308fc74c9d56104a84da1fe13311712, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AlreadyReadDialogue: 0
+--- !u!4 &181850865
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 181850863}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -1.9604788, y: 1.2117649, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &315173462
 GameObject:
   m_ObjectHideFlags: 0
@@ -901,7 +946,7 @@ Transform:
   m_GameObject: {fileID: 519420028}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -10}
+  m_LocalPosition: {x: -0.5, y: 0.5, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1033,7 +1078,7 @@ MonoBehaviour:
   enemyPrefabs:
   - {fileID: 2897549260560756373, guid: 25cc497356f14ac4cac4e67eabaec73c, type: 3}
   baseEnemies: 3
-  enemiesPerSecond: 0.35
+  enemiesPerSecond: 0.5
   timeBetweenWaves: 3
   initialDelayBeforeFirstWave: 7
   difficultyScalingFactor: 0.75
@@ -1790,9 +1835,9 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1191034006}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.0102, y: 0.00000017881393, z: 0}
-  m_LocalScale: {x: 0.7617391, y: 0.69748044, z: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.51, y: 0.51, z: 0}
+  m_LocalScale: {x: 0.761739, y: 0.6974804, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -4609,3 +4654,4 @@ SceneRoots:
   - {fileID: 1467051435}
   - {fileID: 526012266}
   - {fileID: 1191034008}
+  - {fileID: 181850865}
