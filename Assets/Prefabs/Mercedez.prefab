@@ -145,7 +145,6 @@ GameObject:
   - component: {fileID: -8555991947047684286}
   - component: {fileID: 5096732678358101801}
   - component: {fileID: 3408169728201038612}
-  - component: {fileID: 1224791800197883979}
   m_Layer: 7
   m_Name: Mercedez
   m_TagString: Unit
