@@ -25,6 +25,7 @@ public abstract class PlayableUnit : MonoBehaviour, IPointerEnterHandler, IPoint
     [SerializeField] private Material flashMaterial;
     [SerializeField] private SpriteRenderer spriteRenderer;
     [SerializeField] private Material originalMaterial;
+    [SerializeField] private Sprite[] sprites = new Sprite[3];
 
     private Vector3 offsetDown;
     private Vector3 offsetRight;
@@ -54,8 +55,7 @@ public abstract class PlayableUnit : MonoBehaviour, IPointerEnterHandler, IPoint
 
     protected virtual void Start()
     {
-        spriteRenderer = GetComponent<SpriteRenderer>();
-        originalMaterial = GetComponent<SpriteRenderer>().material;
+        originalMaterial = spriteRenderer.material;
         originalMaterial = spriteRenderer.material;
         currentHealth = maxHealth;
         actionTimer = actionTime;
@@ -83,6 +83,27 @@ public abstract class PlayableUnit : MonoBehaviour, IPointerEnterHandler, IPoint
             if (Input.GetMouseButtonDown(1))
             {
                 gameObject.transform.Rotate(0, 0, 90);
+                if(QuaternionsEqual(transform.rotation, Quaternion.Euler(0, 0, 90)))
+                {
+                    spriteRenderer.sprite = sprites[2];
+                    spriteRenderer.transform.localRotation = Quaternion.Euler(0, 0, -90);
+                }
+                else if (QuaternionsEqual(transform.rotation, Quaternion.Euler(0, 0, 180)))
+                {
+                    spriteRenderer.sprite = sprites[0];
+                    spriteRenderer.transform.localRotation = Quaternion.Euler(0, 0, 180);
+                }
+                else if(QuaternionsEqual(transform.rotation, Quaternion.Euler(0, 0, 270)))
+                {
+                    spriteRenderer.sprite = sprites[1];
+                    spriteRenderer.transform.localRotation = Quaternion.Euler(0, 0, 90);
+
+                }
+                else if(QuaternionsEqual(transform.rotation, Quaternion.Euler(0, 0, 0)))
+                {
+                    spriteRenderer.sprite = sprites[0];
+                    spriteRenderer.transform.localRotation = Quaternion.Euler(0, 0, 0);
+                }
             }
         }
     }
@@ -107,11 +128,13 @@ public abstract class PlayableUnit : MonoBehaviour, IPointerEnterHandler, IPoint
 
     public void OnPointerEnter(PointerEventData eventData)
     {
+        Debug.Log("test");
         ToggleRangeVisibility();
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
+        Debug.Log("test");
         ToggleRangeVisibility();
     }
 
@@ -268,6 +291,11 @@ public abstract class PlayableUnit : MonoBehaviour, IPointerEnterHandler, IPoint
     private Vector3 TransformPointIgnoreRot(Vector3 vector)
     {
         return Vector3.Scale(vector, new Vector3(1, 1, 1)) + transform.position;
+    }
+
+    public bool QuaternionsEqual(Quaternion q1, Quaternion q2)
+    {
+        return (q1.Equals(q2) || (q1 == q2));
     }
 
     //returns true if the number of units attacking this unit is equal to max amount of units this unit can hold aggro

@@ -37,6 +37,8 @@ public class EnemyBehavior : MonoBehaviour, IEntity
     public enum Direction { Up, Down, Left, Right }
     public bool isStunned = false;
 
+    [SerializeField] private Sprite[] sprites = new Sprite[3];
+
     public void SetWaypoints(Transform[] newWaypoints)
     {
         waypoints = newWaypoints;
@@ -132,16 +134,28 @@ public class EnemyBehavior : MonoBehaviour, IEntity
                 if (transform.position.x == waypoints[waypointIndex].position.x)
                 {
                     if (transform.position.y > waypoints[waypointIndex].position.y)
+                    {
                         direction = Direction.Down;
+                        rend.sprite = sprites[0];
+                    }
                     else
+                    {
                         direction = Direction.Up;
+                        rend.sprite = sprites[0];
+                    }
                 }
                 else
                 {
                     if (transform.position.x < waypoints[waypointIndex].position.x)
+                    {
                         direction = Direction.Left;
+                        rend.sprite = sprites[1];
+                    }
                     else
+                    {
                         direction = Direction.Right;
+                        rend.sprite = sprites[2];
+                    }
                 }
 
             }
