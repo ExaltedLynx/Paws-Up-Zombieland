@@ -12,8 +12,8 @@ public class MenuManager : MonoBehaviour
     {
         if (fontSizeSlider != null)
         {
-        fontSizeSlider.minValue = 48f;
-        fontSizeSlider.maxValue = 60f;
+        fontSizeSlider.minValue = 28f;
+        fontSizeSlider.maxValue = 52f;
         fontSizeSlider.onValueChanged.AddListener(OnFontSizeChanged);
         }
     }

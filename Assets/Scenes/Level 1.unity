@@ -1610,8 +1610,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Skip Text
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: b9667d870d3d2bb48a359a5bcf759f96, type: 2}
+  m_sharedMaterial: {fileID: 7405928654160787303, guid: b9667d870d3d2bb48a359a5bcf759f96, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -2394,6 +2394,30 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1021887404}
     m_Modifications:
+    - target: {fileID: 853845853010328239, guid: e83a7628543cc8a4c9a7720e80cfd00b, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: b9667d870d3d2bb48a359a5bcf759f96, type: 2}
+    - target: {fileID: 853845853010328239, guid: e83a7628543cc8a4c9a7720e80cfd00b, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 7405928654160787303, guid: b9667d870d3d2bb48a359a5bcf759f96, type: 2}
+    - target: {fileID: 853845853010328239, guid: e83a7628543cc8a4c9a7720e80cfd00b, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1507487628488109236, guid: e83a7628543cc8a4c9a7720e80cfd00b, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: b9667d870d3d2bb48a359a5bcf759f96, type: 2}
+    - target: {fileID: 1507487628488109236, guid: e83a7628543cc8a4c9a7720e80cfd00b, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 7405928654160787303, guid: b9667d870d3d2bb48a359a5bcf759f96, type: 2}
+    - target: {fileID: 1507487628488109236, guid: e83a7628543cc8a4c9a7720e80cfd00b, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2403009025496974018, guid: e83a7628543cc8a4c9a7720e80cfd00b, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -2537,6 +2561,18 @@ PrefabInstance:
     - target: {fileID: 7674674050105309129, guid: e83a7628543cc8a4c9a7720e80cfd00b, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 9050265213469603256, guid: e83a7628543cc8a4c9a7720e80cfd00b, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: b9667d870d3d2bb48a359a5bcf759f96, type: 2}
+    - target: {fileID: 9050265213469603256, guid: e83a7628543cc8a4c9a7720e80cfd00b, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 7405928654160787303, guid: b9667d870d3d2bb48a359a5bcf759f96, type: 2}
+    - target: {fileID: 9050265213469603256, guid: e83a7628543cc8a4c9a7720e80cfd00b, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -4406,6 +4442,18 @@ PrefabInstance:
     - target: {fileID: 7006764377116485967, guid: 4afea322968bac348a5630ffd8410320, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8249037890804100814, guid: 4afea322968bac348a5630ffd8410320, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: b9667d870d3d2bb48a359a5bcf759f96, type: 2}
+    - target: {fileID: 8249037890804100814, guid: 4afea322968bac348a5630ffd8410320, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 7405928654160787303, guid: b9667d870d3d2bb48a359a5bcf759f96, type: 2}
+    - target: {fileID: 8249037890804100814, guid: 4afea322968bac348a5630ffd8410320, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
