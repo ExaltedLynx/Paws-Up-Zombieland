@@ -1,0 +1,60 @@
+The music department was dimly lit, the soft glow of Christmas lights wrapping around the columns casting a warm and cozy ambiance. 
+The chill of December shrouded around the girls as they huddled together on the entrance steps, focused on their final exams. 
+Wrapped in their jackets, Olga and Jennifer engaged in a lively conversation as Mercedez joined them, her charismatic presence 
+lighting up the dimly lit area as she flipped through her notes.
+Ugh, can you believe we're stuck doing exams on such a beautiful night? I heard there might be a party going on.
+I really wanted to let loose after all this studying.
+Olga Sokolov, the energetic computer science major, let out a sigh, her eyes fixed on the window.
+I know, right?! I’ve missed a couple of good ones already. I need some excitement in my life!
+How about we finish this quickly and check if there's still something happening somewhere?
+There’s got to be someone on this campus hosting something.
+And whose fault is that for leaving it for the last minute?
+Jennifer stated with a laugh, arms crossed over her chest.
+Olga and Mercedez mumbled and grumbled something under their breaths as they kept working away.
+Andrea Menendez, the ambitious history major, looked up from her books, a determined glint in her eyes.
+Parties are for the weak, it’s probably why your grades aren’t the sharpest. I've got my eyes on success.
+Besides, have you even taken a step outside today? The cops have been everywhere, I mean everywhere, 
+and the traffic is a nightmare. Not sure it's worth it.
+Hey come on, don’t tease them like that. As long as they pass their classes, it’s what 
+matters at the end of the day. It’s been a rough semester for everyone.
+Yeah yeah, C’s get degrees, but so what? You’re literally getting a free education, 
+might as well put your time and money worth to use. I’m just trying to look out for you girls.
+Ruyi Wu, the reserved criminal justice major, spoke up this time, her gaze fixed on her textbook.
+I get what you mean, but also no - about the cops I mean.
+The girls paused what they were doing to look at their friend, the conversation shifting back to the occurrences of the day.
+I've been avoiding social media and the news this week since finals have been my top priority,
+but I kinda understand what you mean. From my dorm this morning, the traffic looked horrible, super congested. 
+Police sirens have been going off all day.
+I know the school does police drills for shootings and stuff all the time, I think it’s almost a year thing.
+You know, those random emails we get about them doing practice tests and stuff. Maybe it was one of those.
+Olga and Jennifer shared a tired expression and shrugged it off. Miami having horrible traffic or weird 
+events happening was nothing new. Suddenly, Andrea stood up, a triumphant grin on her face.
+Alright, I passed this wretched exam! Now, let's—
+Her words were cut short as she and the others turned to see a couple sprinting desperately in front of them,
+running from a handful of people behind them. Confusion and concern spread across their faces as
+they realized the group was fleeing from something.
+What's going on out there?
+Suddenly, a deafening boom echoed through the night. The girls rushed to see where the sound originated 
+from, their eyes widening in shock as they witnessed a trail of smoke in the horizon. It seems either a car
+or house had caught on fire as it was on the opposite side of the school, past the fairgrounds and the main street.
+Is that a fire? It’s a fire right? What's happening?
+A guttural groan reached their ears, and their hearts pounded as they turned to see the source
+of the disturbance—a horrifying sight they never expected.
+What- what is that?! That... that's a zombie!
+		How To Play
+Welcome to the first level of our tower defense game set at FIU! 
+Your mission is to guide your team through the zombie-infested campus and make it back home safely. Let's get started!
+Objective: Your goal is to safely navigate two of your characters through the campus to reach their dorm and call for help.
+The characters you’ll playing with for this level are: Olga Sokolov and Andrea Menendez
+Placement: Click Olga or Andrea from the character menu and place them with left click onto strategic tiles on the map.
+Andrea can only be placed on ground tiles, while Olga can only be placed on elevated tiles. 
+The tile below where you drag them to will be highlighted if it's a valid tile that they can be place on.
+Consider their range and abilities. Olga can hit from farther away, while Andrea packs a powerful punch, but shorter range.
+You can also right click to change which way you'd like the characters to face.
+Zombies will approach from various directions. Olga and Andrea will automatically attack within their designated ranges.
+Each character has a health bar. If a character's health depletes, they are temporarily out of the game.
+Don't worry; they'll respawn in the character menu after a cooldown period. 
+Keep an eye on the respawn timer in the character menu as it is different for each character.
+Once both Olga and Andrea have defeated all the waves of zombies, you've successfully completed the Level!
+If zombies breach past them, don't worry! You can try again. Adjust your strategy and placement for a better outcome.
+Good luck! The fate of these girls rests in your hands.

@@ -3,7 +3,14 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - SpawnPoint
+  - Waypoints
+  - Spawnpoints
+  - Spawnpoint
+  - Highlighter
+  - Unit
+  - enemy
   layers:
   - Default
   - TransparentFX
@@ -11,9 +18,9 @@ TagManager:
   - 
   - Water
   - UI
-  - 
-  - 
-  - 
+  - Range Collision
+  - Player Collision
+  - Tile Collision
   - 
   - 
   - 
@@ -40,4 +47,13 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Background
+    uniqueID: 294415581
+    locked: 0
+  - name: Foreground
+    uniqueID: 3026665007
+    locked: 0
+  - name: Canvas UI
+    uniqueID: 270297951
     locked: 0
